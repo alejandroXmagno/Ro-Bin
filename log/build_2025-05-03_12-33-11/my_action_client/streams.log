@@ -1,0 +1,27 @@
+[0.053s] Invoking command in '/workspaces/isaac_ros-dev/build/my_action_client': AMENT_PREFIX_PATH=/workspaces/isaac_ros-dev/install/custom_interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/workspaces/isaac_ros-dev/install/custom_interfaces:/usr/local/libcudss-linux-0.3.0.9_cuda12-archive:/opt/ros/humble LD_LIBRARY_PATH=/workspaces/isaac_ros-dev/install/custom_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/workspaces/isaac_ros-dev/install/custom_interfaces/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake --build /workspaces/isaac_ros-dev/build/my_action_client -- -j6 -l6
+[0.387s] [ 50%] [32mBuilding CXX object CMakeFiles/action_client.dir/src/action_client.cpp.o[0m
+[19.392s] [100%] [32m[1mLinking CXX executable action_client[0m
+[20.409s] [100%] Built target action_client
+[20.442s] Invoked command in '/workspaces/isaac_ros-dev/build/my_action_client' returned '0': AMENT_PREFIX_PATH=/workspaces/isaac_ros-dev/install/custom_interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/workspaces/isaac_ros-dev/install/custom_interfaces:/usr/local/libcudss-linux-0.3.0.9_cuda12-archive:/opt/ros/humble LD_LIBRARY_PATH=/workspaces/isaac_ros-dev/install/custom_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/workspaces/isaac_ros-dev/install/custom_interfaces/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake --build /workspaces/isaac_ros-dev/build/my_action_client -- -j6 -l6
+[20.446s] Invoking command in '/workspaces/isaac_ros-dev/build/my_action_client': AMENT_PREFIX_PATH=/workspaces/isaac_ros-dev/install/custom_interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/workspaces/isaac_ros-dev/install/custom_interfaces:/usr/local/libcudss-linux-0.3.0.9_cuda12-archive:/opt/ros/humble LD_LIBRARY_PATH=/workspaces/isaac_ros-dev/install/custom_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/workspaces/isaac_ros-dev/install/custom_interfaces/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake --install /workspaces/isaac_ros-dev/build/my_action_client
+[20.472s] -- Install configuration: ""
+[20.476s] -- Installing: /workspaces/isaac_ros-dev/install/my_action_client/lib/my_action_client/action_client
+[20.481s] -- Set runtime path of "/workspaces/isaac_ros-dev/install/my_action_client/lib/my_action_client/action_client" to ""
+[20.481s] -- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_client/share/my_action_client//launch
+[20.482s] -- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_client/share/my_action_client//launch/client_launch.py
+[20.482s] -- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_client/share/ament_index/resource_index/package_run_dependencies/my_action_client
+[20.482s] -- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_client/share/ament_index/resource_index/parent_prefix_path/my_action_client
+[20.482s] -- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_client/share/my_action_client/environment/ament_prefix_path.sh
+[20.483s] -- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_client/share/my_action_client/environment/ament_prefix_path.dsv
+[20.483s] -- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_client/share/my_action_client/environment/path.sh
+[20.483s] -- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_client/share/my_action_client/environment/path.dsv
+[20.483s] -- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_client/share/my_action_client/local_setup.bash
+[20.483s] -- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_client/share/my_action_client/local_setup.sh
+[20.484s] -- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_client/share/my_action_client/local_setup.zsh
+[20.484s] -- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_client/share/my_action_client/local_setup.dsv
+[20.484s] -- Installing: /workspaces/isaac_ros-dev/install/my_action_client/share/my_action_client/package.dsv
+[20.484s] -- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_client/share/ament_index/resource_index/packages/my_action_client
+[20.484s] -- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_client/share/my_action_client/cmake/my_action_clientConfig.cmake
+[20.484s] -- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_client/share/my_action_client/cmake/my_action_clientConfig-version.cmake
+[20.485s] -- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_client/share/my_action_client/package.xml
+[20.500s] Invoked command in '/workspaces/isaac_ros-dev/build/my_action_client' returned '0': AMENT_PREFIX_PATH=/workspaces/isaac_ros-dev/install/custom_interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/workspaces/isaac_ros-dev/install/custom_interfaces:/usr/local/libcudss-linux-0.3.0.9_cuda12-archive:/opt/ros/humble LD_LIBRARY_PATH=/workspaces/isaac_ros-dev/install/custom_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/workspaces/isaac_ros-dev/install/custom_interfaces/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake --install /workspaces/isaac_ros-dev/build/my_action_client

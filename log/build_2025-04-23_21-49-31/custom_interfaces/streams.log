@@ -1,0 +1,223 @@
+[0.030s] Invoking command in '/workspaces/isaac_ros-dev/build/custom_interfaces': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /workspaces/isaac_ros-dev/build/custom_interfaces -- -j6 -l6
+[0.089s] -- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)
+[0.429s] -- Found rclcpp: 16.0.12 (/opt/ros/humble/share/rclcpp/cmake)
+[0.505s] -- Found rosidl_generator_c: 3.1.6 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[0.511s] -- Found rosidl_adapter: 3.1.6 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[0.524s] -- Found rosidl_generator_cpp: 3.1.6 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[0.545s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[0.572s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[0.643s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[0.646s] -- Found rmw_fastrtps_cpp: 6.2.7 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)
+[0.954s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[1.062s] -- Found geometry_msgs: 4.8.0 (/opt/ros/humble/share/geometry_msgs/cmake)
+[1.087s] -- Found rosidl_default_generators: 1.2.0 (/opt/ros/humble/share/rosidl_default_generators/cmake)
+[1.890s] -- Found ament_cmake_ros: 0.10.0 (/opt/ros/humble/share/ament_cmake_ros/cmake)
+[3.059s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[3.540s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[3.615s] -- Found python_cmake_module: 0.10.0 (/opt/ros/humble/share/python_cmake_module/cmake)
+[3.691s] -- Using PYTHON_EXECUTABLE: /usr/bin/python3
+[3.691s] -- Using PYTHON_INCLUDE_DIRS: /usr/include/python3.10
+[3.692s] -- Using PYTHON_LIBRARIES: /usr/lib/aarch64-linux-gnu/libpython3.10.so
+[4.127s] -- Using numpy include directory: /usr/local/lib/python3.10/dist-packages/numpy/core/include
+[4.154s] -- Found ament_lint_auto: 0.12.12 (/opt/ros/humble/share/ament_lint_auto/cmake)
+[4.256s] -- Added test 'cppcheck' to perform static code analysis on C / C++ code
+[4.257s] -- Configured cppcheck include dirs: 
+[4.257s] -- Configured cppcheck exclude dirs and/or files: 
+[4.268s] -- Added test 'flake8' to check Python code syntax and style conventions
+[4.288s] -- Added test 'lint_cmake' to check CMake code style
+[4.300s] -- Added test 'pep257' to check Python code against some of the docstring style conventions in PEP 257
+[4.379s] -- Added test 'uncrustify' to check C / C++ code style
+[4.380s] -- Configured uncrustify additional arguments: 
+[4.390s] -- Added test 'xmllint' to check XML markup files
+[4.395s] -- Configuring done
+[4.496s] -- Generating done
+[4.530s] -- Build files have been written to: /workspaces/isaac_ros-dev/build/custom_interfaces
+[4.636s] [  3%] [32mBuilding C object CMakeFiles/custom_interfaces__rosidl_generator_c.dir/rosidl_generator_c/custom_interfaces/action/detail/move__functions.c.o[0m
+[4.639s] [  6%] Built target custom_interfaces__cpp
+[4.663s] [  6%] Built target ament_cmake_python_copy_custom_interfaces
+[4.703s] [  9%] [32mBuilding CXX object CMakeFiles/custom_interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/custom_interfaces/action/detail/dds_fastrtps/move__type_support.cpp.o[0m
+[4.704s] [ 12%] [32mBuilding CXX object CMakeFiles/custom_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/custom_interfaces/action/move__type_support.cpp.o[0m
+[4.746s] [ 16%] [32mBuilding CXX object CMakeFiles/custom_interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/custom_interfaces/action/detail/move__type_support.cpp.o[0m
+[5.140s] [ 19%] [32m[1mLinking C shared library libcustom_interfaces__rosidl_generator_c.so[0m
+[5.281s] [ 22%] Built target custom_interfaces__rosidl_generator_c
+[5.337s] [ 25%] [34m[1mGenerating C type support for eProsima Fast-RTPS[0m
+[5.352s] [ 29%] [34m[1mGenerating C introspection for ROS interfaces[0m
+[6.372s] running egg_info
+[6.440s] [ 32%] [32m[1mLinking CXX shared library libcustom_interfaces__rosidl_typesupport_cpp.so[0m
+[6.458s] writing custom_interfaces.egg-info/PKG-INFO
+[6.458s] writing dependency_links to custom_interfaces.egg-info/dependency_links.txt
+[6.461s] writing top-level names to custom_interfaces.egg-info/top_level.txt
+[6.674s] [ 35%] Built target custom_interfaces__rosidl_typesupport_cpp
+[6.767s] [ 38%] [34m[1mGenerating C type support dispatch for ROS interfaces[0m
+[6.837s] [ 41%] [32mBuilding C object CMakeFiles/custom_interfaces__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/custom_interfaces/action/detail/move__type_support.c.o[0m
+[6.861s] ERROR setuptools_scm._file_finders.git listing git files failed - pretending there aren't any
+[6.875s] [ 45%] [32mBuilding CXX object CMakeFiles/custom_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/custom_interfaces/action/detail/move__type_support_c.cpp.o[0m
+[6.926s] [ 48%] [32m[1mLinking CXX shared library libcustom_interfaces__rosidl_typesupport_introspection_cpp.so[0m
+[7.080s] [ 51%] [32m[1mLinking C shared library libcustom_interfaces__rosidl_typesupport_introspection_c.so[0m
+[7.179s] [ 54%] Built target custom_interfaces__rosidl_typesupport_introspection_cpp
+[7.190s] [ 58%] [32m[1mLinking CXX shared library libcustom_interfaces__rosidl_typesupport_fastrtps_cpp.so[0m
+[7.278s] reading manifest file 'custom_interfaces.egg-info/SOURCES.txt'
+[7.280s] writing manifest file 'custom_interfaces.egg-info/SOURCES.txt'
+[7.288s] [ 58%] Built target custom_interfaces__rosidl_typesupport_introspection_c
+[7.378s] [ 61%] Built target custom_interfaces__rosidl_typesupport_fastrtps_cpp
+[7.481s] [ 61%] Built target ament_cmake_python_build_custom_interfaces_egg
+[7.584s] [ 64%] [32mBuilding CXX object CMakeFiles/custom_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_interfaces/action/move__type_support.cpp.o[0m
+[7.713s] [ 67%] [32m[1mLinking CXX shared library libcustom_interfaces__rosidl_typesupport_c.so[0m
+[7.808s] [ 67%] Built target custom_interfaces__rosidl_typesupport_c
+[8.066s] [ 70%] [32m[1mLinking CXX shared library libcustom_interfaces__rosidl_typesupport_fastrtps_c.so[0m
+[8.228s] [ 70%] Built target custom_interfaces__rosidl_typesupport_fastrtps_c
+[8.280s] [ 70%] Built target custom_interfaces
+[8.329s] [ 74%] [34m[1mGenerating Python code for ROS interfaces[0m
+[9.916s] [ 74%] Built target custom_interfaces__py
+[9.970s] [ 77%] [32mBuilding C object CMakeFiles/custom_interfaces__rosidl_generator_py.dir/rosidl_generator_py/custom_interfaces/action/_move_s.c.o[0m
+[10.327s] [ 80%] [32m[1mLinking C shared library rosidl_generator_py/custom_interfaces/libcustom_interfaces__rosidl_generator_py.so[0m
+[10.425s] [ 80%] Built target custom_interfaces__rosidl_generator_py
+[10.480s] [ 90%] [32mBuilding C object CMakeFiles/custom_interfaces__rosidl_typesupport_c__pyext.dir/rosidl_generator_py/custom_interfaces/_custom_interfaces_s.ep.rosidl_typesupport_c.c.o[0m
+[10.481s] [ 90%] [32mBuilding C object CMakeFiles/custom_interfaces__rosidl_typesupport_fastrtps_c__pyext.dir/rosidl_generator_py/custom_interfaces/_custom_interfaces_s.ep.rosidl_typesupport_fastrtps_c.c.o[0m
+[10.481s] [ 90%] [32mBuilding C object CMakeFiles/custom_interfaces__rosidl_typesupport_introspection_c__pyext.dir/rosidl_generator_py/custom_interfaces/_custom_interfaces_s.ep.rosidl_typesupport_introspection_c.c.o[0m
+[10.822s] [ 93%] [32m[1mLinking C shared library rosidl_generator_py/custom_interfaces/custom_interfaces_s__rosidl_typesupport_fastrtps_c.cpython-310-aarch64-linux-gnu.so[0m
+[10.823s] [ 96%] [32m[1mLinking C shared library rosidl_generator_py/custom_interfaces/custom_interfaces_s__rosidl_typesupport_c.cpython-310-aarch64-linux-gnu.so[0m
+[10.831s] [100%] [32m[1mLinking C shared library rosidl_generator_py/custom_interfaces/custom_interfaces_s__rosidl_typesupport_introspection_c.cpython-310-aarch64-linux-gnu.so[0m
+[10.942s] [100%] Built target custom_interfaces__rosidl_typesupport_fastrtps_c__pyext
+[10.945s] [100%] Built target custom_interfaces__rosidl_typesupport_introspection_c__pyext
+[10.945s] [100%] Built target custom_interfaces__rosidl_typesupport_c__pyext
+[10.980s] Invoked command in '/workspaces/isaac_ros-dev/build/custom_interfaces' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /workspaces/isaac_ros-dev/build/custom_interfaces -- -j6 -l6
+[11.004s] Invoking command in '/workspaces/isaac_ros-dev/build/custom_interfaces': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --install /workspaces/isaac_ros-dev/build/custom_interfaces
+[11.026s] -- Install configuration: ""
+[11.026s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/share/ament_index/resource_index/rosidl_interfaces/custom_interfaces
+[11.026s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces
+[11.027s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/msg
+[11.027s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/msg/rosidl_generator_c__visibility_control.h
+[11.028s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/action
+[11.028s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/action/move.h
+[11.028s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/action/detail
+[11.028s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/action/detail/move__struct.h
+[11.028s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/action/detail/move__functions.c
+[11.028s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/action/detail/move__type_support.h
+[11.029s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/action/detail/move__functions.h
+[11.029s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/environment/library_path.sh
+[11.030s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/environment/library_path.dsv
+[11.030s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/lib/libcustom_interfaces__rosidl_generator_c.so
+[11.031s] -- Set runtime path of "/workspaces/isaac_ros-dev/install/custom_interfaces/lib/libcustom_interfaces__rosidl_generator_c.so" to ""
+[11.031s] -- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces
+[11.032s] -- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/msg
+[11.032s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/msg/rosidl_typesupport_fastrtps_c__visibility_control.h
+[11.032s] -- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/action
+[11.032s] -- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/action/detail
+[11.032s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/action/detail/move__rosidl_typesupport_fastrtps_c.h
+[11.033s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/lib/libcustom_interfaces__rosidl_typesupport_fastrtps_c.so
+[11.033s] -- Set runtime path of "/workspaces/isaac_ros-dev/install/custom_interfaces/lib/libcustom_interfaces__rosidl_typesupport_fastrtps_c.so" to ""
+[11.033s] -- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces
+[11.033s] -- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/msg
+[11.033s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/msg/rosidl_generator_cpp__visibility_control.hpp
+[11.034s] -- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/action
+[11.034s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/action/move.hpp
+[11.034s] -- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/action/detail
+[11.034s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/action/detail/move__struct.hpp
+[11.035s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/action/detail/move__builder.hpp
+[11.035s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/action/detail/move__traits.hpp
+[11.035s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/action/detail/move__type_support.hpp
+[11.035s] -- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces
+[11.035s] -- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/msg
+[11.036s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/msg/rosidl_typesupport_fastrtps_cpp__visibility_control.h
+[11.036s] -- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/action
+[11.036s] -- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/action/detail
+[11.036s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/action/detail/move__rosidl_typesupport_fastrtps_cpp.hpp
+[11.037s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/action/detail/dds_fastrtps
+[11.037s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/lib/libcustom_interfaces__rosidl_typesupport_fastrtps_cpp.so
+[11.038s] -- Set runtime path of "/workspaces/isaac_ros-dev/install/custom_interfaces/lib/libcustom_interfaces__rosidl_typesupport_fastrtps_cpp.so" to ""
+[11.038s] -- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces
+[11.038s] -- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/msg
+[11.038s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/msg/rosidl_typesupport_introspection_c__visibility_control.h
+[11.038s] -- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/action
+[11.039s] -- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/action/detail
+[11.039s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/action/detail/move__rosidl_typesupport_introspection_c.h
+[11.039s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/action/detail/move__type_support.c
+[11.039s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/lib/libcustom_interfaces__rosidl_typesupport_introspection_c.so
+[11.040s] -- Set runtime path of "/workspaces/isaac_ros-dev/install/custom_interfaces/lib/libcustom_interfaces__rosidl_typesupport_introspection_c.so" to ""
+[11.040s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/lib/libcustom_interfaces__rosidl_typesupport_c.so
+[11.041s] -- Set runtime path of "/workspaces/isaac_ros-dev/install/custom_interfaces/lib/libcustom_interfaces__rosidl_typesupport_c.so" to ""
+[11.041s] -- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces
+[11.041s] -- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/action
+[11.041s] -- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/action/detail
+[11.041s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/action/detail/move__type_support.cpp
+[11.042s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/action/detail/move__rosidl_typesupport_introspection_cpp.hpp
+[11.042s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/lib/libcustom_interfaces__rosidl_typesupport_introspection_cpp.so
+[11.043s] -- Set runtime path of "/workspaces/isaac_ros-dev/install/custom_interfaces/lib/libcustom_interfaces__rosidl_typesupport_introspection_cpp.so" to ""
+[11.043s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/lib/libcustom_interfaces__rosidl_typesupport_cpp.so
+[11.044s] -- Set runtime path of "/workspaces/isaac_ros-dev/install/custom_interfaces/lib/libcustom_interfaces__rosidl_typesupport_cpp.so" to ""
+[11.044s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/environment/pythonpath.sh
+[11.044s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/environment/pythonpath.dsv
+[11.044s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/local/lib/python3.10/dist-packages/custom_interfaces-0.0.0-py3.10.egg-info
+[11.045s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/local/lib/python3.10/dist-packages/custom_interfaces-0.0.0-py3.10.egg-info/dependency_links.txt
+[11.045s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/local/lib/python3.10/dist-packages/custom_interfaces-0.0.0-py3.10.egg-info/SOURCES.txt
+[11.045s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/local/lib/python3.10/dist-packages/custom_interfaces-0.0.0-py3.10.egg-info/top_level.txt
+[11.045s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/local/lib/python3.10/dist-packages/custom_interfaces-0.0.0-py3.10.egg-info/PKG-INFO
+[11.046s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/local/lib/python3.10/dist-packages/custom_interfaces
+[11.046s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/local/lib/python3.10/dist-packages/custom_interfaces/_custom_interfaces_s.ep.rosidl_typesupport_introspection_c.c
+[11.046s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/local/lib/python3.10/dist-packages/custom_interfaces/custom_interfaces_s__rosidl_typesupport_c.cpython-310-aarch64-linux-gnu.so
+[11.047s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/local/lib/python3.10/dist-packages/custom_interfaces/action
+[11.047s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/local/lib/python3.10/dist-packages/custom_interfaces/action/_move.py
+[11.047s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/local/lib/python3.10/dist-packages/custom_interfaces/action/_move_s.c
+[11.047s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/local/lib/python3.10/dist-packages/custom_interfaces/action/__init__.py
+[11.048s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/local/lib/python3.10/dist-packages/custom_interfaces/custom_interfaces_s__rosidl_typesupport_introspection_c.cpython-310-aarch64-linux-gnu.so
+[11.048s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/local/lib/python3.10/dist-packages/custom_interfaces/_custom_interfaces_s.ep.rosidl_typesupport_c.c
+[11.049s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/local/lib/python3.10/dist-packages/custom_interfaces/_custom_interfaces_s.ep.rosidl_typesupport_fastrtps_c.c
+[11.049s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/local/lib/python3.10/dist-packages/custom_interfaces/custom_interfaces_s__rosidl_typesupport_fastrtps_c.cpython-310-aarch64-linux-gnu.so
+[11.049s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/local/lib/python3.10/dist-packages/custom_interfaces/libcustom_interfaces__rosidl_generator_py.so
+[11.050s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/local/lib/python3.10/dist-packages/custom_interfaces/__init__.py
+[11.148s] Listing '/workspaces/isaac_ros-dev/install/custom_interfaces/local/lib/python3.10/dist-packages/custom_interfaces'...
+[11.149s] Compiling '/workspaces/isaac_ros-dev/install/custom_interfaces/local/lib/python3.10/dist-packages/custom_interfaces/__init__.py'...
+[11.149s] Listing '/workspaces/isaac_ros-dev/install/custom_interfaces/local/lib/python3.10/dist-packages/custom_interfaces/action'...
+[11.149s] Compiling '/workspaces/isaac_ros-dev/install/custom_interfaces/local/lib/python3.10/dist-packages/custom_interfaces/action/__init__.py'...
+[11.149s] Compiling '/workspaces/isaac_ros-dev/install/custom_interfaces/local/lib/python3.10/dist-packages/custom_interfaces/action/_move.py'...
+[11.165s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/local/lib/python3.10/dist-packages/custom_interfaces/custom_interfaces_s__rosidl_typesupport_fastrtps_c.cpython-310-aarch64-linux-gnu.so
+[11.166s] -- Set runtime path of "/workspaces/isaac_ros-dev/install/custom_interfaces/local/lib/python3.10/dist-packages/custom_interfaces/custom_interfaces_s__rosidl_typesupport_fastrtps_c.cpython-310-aarch64-linux-gnu.so" to ""
+[11.166s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/local/lib/python3.10/dist-packages/custom_interfaces/custom_interfaces_s__rosidl_typesupport_introspection_c.cpython-310-aarch64-linux-gnu.so
+[11.166s] -- Set runtime path of "/workspaces/isaac_ros-dev/install/custom_interfaces/local/lib/python3.10/dist-packages/custom_interfaces/custom_interfaces_s__rosidl_typesupport_introspection_c.cpython-310-aarch64-linux-gnu.so" to ""
+[11.167s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/local/lib/python3.10/dist-packages/custom_interfaces/custom_interfaces_s__rosidl_typesupport_c.cpython-310-aarch64-linux-gnu.so
+[11.168s] -- Set runtime path of "/workspaces/isaac_ros-dev/install/custom_interfaces/local/lib/python3.10/dist-packages/custom_interfaces/custom_interfaces_s__rosidl_typesupport_c.cpython-310-aarch64-linux-gnu.so" to ""
+[11.168s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/lib/libcustom_interfaces__rosidl_generator_py.so
+[11.168s] -- Set runtime path of "/workspaces/isaac_ros-dev/install/custom_interfaces/lib/libcustom_interfaces__rosidl_generator_py.so" to ""
+[11.169s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/action/Move.idl
+[11.169s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/action/Move.action
+[11.169s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/share/ament_index/resource_index/package_run_dependencies/custom_interfaces
+[11.170s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/share/ament_index/resource_index/parent_prefix_path/custom_interfaces
+[11.170s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/environment/ament_prefix_path.sh
+[11.171s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/environment/ament_prefix_path.dsv
+[11.171s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/environment/path.sh
+[11.173s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/environment/path.dsv
+[11.173s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/local_setup.bash
+[11.173s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/local_setup.sh
+[11.174s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/local_setup.zsh
+[11.174s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/local_setup.dsv
+[11.174s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/package.dsv
+[11.175s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/share/ament_index/resource_index/packages/custom_interfaces
+[11.175s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/cmake/export_custom_interfaces__rosidl_generator_cExport.cmake
+[11.175s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/cmake/export_custom_interfaces__rosidl_generator_cExport-noconfig.cmake
+[11.175s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/cmake/export_custom_interfaces__rosidl_typesupport_fastrtps_cExport.cmake
+[11.175s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/cmake/export_custom_interfaces__rosidl_typesupport_fastrtps_cExport-noconfig.cmake
+[11.176s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/cmake/export_custom_interfaces__rosidl_generator_cppExport.cmake
+[11.176s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/cmake/export_custom_interfaces__rosidl_typesupport_fastrtps_cppExport.cmake
+[11.176s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/cmake/export_custom_interfaces__rosidl_typesupport_fastrtps_cppExport-noconfig.cmake
+[11.176s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/cmake/custom_interfaces__rosidl_typesupport_introspection_cExport.cmake
+[11.177s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/cmake/custom_interfaces__rosidl_typesupport_introspection_cExport-noconfig.cmake
+[11.177s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/cmake/custom_interfaces__rosidl_typesupport_cExport.cmake
+[11.178s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/cmake/custom_interfaces__rosidl_typesupport_cExport-noconfig.cmake
+[11.178s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/cmake/custom_interfaces__rosidl_typesupport_introspection_cppExport.cmake
+[11.178s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/cmake/custom_interfaces__rosidl_typesupport_introspection_cppExport-noconfig.cmake
+[11.179s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/cmake/custom_interfaces__rosidl_typesupport_cppExport.cmake
+[11.179s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/cmake/custom_interfaces__rosidl_typesupport_cppExport-noconfig.cmake
+[11.180s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/cmake/export_custom_interfaces__rosidl_generator_pyExport.cmake
+[11.180s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/cmake/export_custom_interfaces__rosidl_generator_pyExport-noconfig.cmake
+[11.180s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/cmake/rosidl_cmake-extras.cmake
+[11.181s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/cmake/ament_cmake_export_dependencies-extras.cmake
+[11.181s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/cmake/ament_cmake_export_include_directories-extras.cmake
+[11.182s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/cmake/ament_cmake_export_libraries-extras.cmake
+[11.182s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/cmake/ament_cmake_export_targets-extras.cmake
+[11.182s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/cmake/rosidl_cmake_export_typesupport_targets-extras.cmake
+[11.182s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/cmake/rosidl_cmake_export_typesupport_libraries-extras.cmake
+[11.183s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/cmake/custom_interfacesConfig.cmake
+[11.183s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/cmake/custom_interfacesConfig-version.cmake
+[11.183s] -- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/package.xml
+[11.190s] Invoked command in '/workspaces/isaac_ros-dev/build/custom_interfaces' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --install /workspaces/isaac_ros-dev/build/custom_interfaces

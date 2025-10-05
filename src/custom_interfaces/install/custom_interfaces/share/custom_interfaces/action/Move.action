@@ -1,0 +1,8 @@
+
+float32 move_goal_lin_x
+float32 move_goal_ang_z
+int32 time_goal
+---
+string result
+---
+string feedback

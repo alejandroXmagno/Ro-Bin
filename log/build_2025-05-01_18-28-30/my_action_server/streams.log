@@ -1,0 +1,15 @@
+[0.087s] Invoking command in '/workspaces/isaac_ros-dev/build/my_action_server': CMAKE_PREFIX_PATH=/workspaces/isaac_ros-dev/install/custom_interfaces:/workspaces/isaac_ros-dev/install/my_action_server:/workspaces/isaac_ros-dev/install/my_action_client:/usr/local/libcudss-linux-0.3.0.9_cuda12-archive:/opt/ros/humble /usr/bin/cmake --build /workspaces/isaac_ros-dev/build/my_action_server -- -j6 -l6
+[0.360s] [ 50%] [32mBuilding CXX object CMakeFiles/action_server.dir/src/action_server.cpp.o[0m
+[10.210s] [01m[K/workspaces/isaac_ros-dev/src/my_action_server/src/action_server.cpp:[m[K In member function ‘[01m[Kbool MyActionServer::is_valid_object(const string&)[m[K’:
+[10.210s] [01m[K/workspaces/isaac_ros-dev/src/my_action_server/src/action_server.cpp:179:44:[m[K [01;35m[Kwarning: [m[Kunused parameter ‘[01m[Kobject_name[m[K’ [[01;35m[K-Wunused-parameter[m[K]
+[10.211s]   179 |   bool is_valid_object([01;35m[Kconst std::string & object_name[m[K)
+[10.211s]       |                        [01;35m[K~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~[m[K
+[10.230s] [01m[K/workspaces/isaac_ros-dev/src/my_action_server/src/action_server.cpp:[m[K In member function ‘[01m[Kbool MyActionServer::is_object_centered()[m[K’:
+[10.230s] [01m[K/workspaces/isaac_ros-dev/src/my_action_server/src/action_server.cpp:200:11:[m[K [01;31m[Kerror: [m[K‘[01m[Kprint[m[K’ was not declared in this scope; did you mean ‘[01m[Krint[m[K’?
+[10.230s]   200 |           [01;31m[Kprint[m[K(image_center_x);
+[10.231s]       |           [01;31m[K^~~~~[m[K
+[10.231s]       |           [32m[Krint[m[K
+[19.667s] gmake[2]: *** [CMakeFiles/action_server.dir/build.make:76: CMakeFiles/action_server.dir/src/action_server.cpp.o] Error 1
+[19.667s] gmake[1]: *** [CMakeFiles/Makefile2:137: CMakeFiles/action_server.dir/all] Error 2
+[19.668s] gmake: *** [Makefile:146: all] Error 2
+[19.673s] Invoked command in '/workspaces/isaac_ros-dev/build/my_action_server' returned '2': CMAKE_PREFIX_PATH=/workspaces/isaac_ros-dev/install/custom_interfaces:/workspaces/isaac_ros-dev/install/my_action_server:/workspaces/isaac_ros-dev/install/my_action_client:/usr/local/libcudss-linux-0.3.0.9_cuda12-archive:/opt/ros/humble /usr/bin/cmake --build /workspaces/isaac_ros-dev/build/my_action_server -- -j6 -l6

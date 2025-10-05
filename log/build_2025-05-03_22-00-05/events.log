@@ -1,0 +1,516 @@
+[0.000000] (-) TimerEvent: {}
+[0.000811] (-) JobUnselected: {'identifier': 'isaac_common'}
+[0.001649] (-) JobUnselected: {'identifier': 'isaac_common_py'}
+[0.001723] (-) JobUnselected: {'identifier': 'isaac_ros_apriltag_interfaces'}
+[0.001773] (-) JobUnselected: {'identifier': 'isaac_ros_bi3d_interfaces'}
+[0.001817] (-) JobUnselected: {'identifier': 'isaac_ros_common'}
+[0.001857] (-) JobUnselected: {'identifier': 'isaac_ros_launch_utils'}
+[0.001895] (-) JobUnselected: {'identifier': 'isaac_ros_nitros_bridge_interfaces'}
+[0.001989] (-) JobUnselected: {'identifier': 'isaac_ros_nova_interfaces'}
+[0.002031] (-) JobUnselected: {'identifier': 'isaac_ros_pointcloud_interfaces'}
+[0.002069] (-) JobUnselected: {'identifier': 'isaac_ros_r2b_galileo'}
+[0.002106] (-) JobUnselected: {'identifier': 'isaac_ros_rosbag_utils'}
+[0.002141] (-) JobUnselected: {'identifier': 'isaac_ros_tensor_list_interfaces'}
+[0.002176] (-) JobUnselected: {'identifier': 'isaac_ros_test'}
+[0.002211] (-) JobUnselected: {'identifier': 'isaac_ros_test_cmake'}
+[0.002257] (custom_interfaces) JobQueued: {'identifier': 'custom_interfaces', 'dependencies': OrderedDict()}
+[0.002309] (my_action_client) JobQueued: {'identifier': 'my_action_client', 'dependencies': OrderedDict([('custom_interfaces', '/workspaces/isaac_ros-dev/install/custom_interfaces')])}
+[0.002361] (my_action_server) JobQueued: {'identifier': 'my_action_server', 'dependencies': OrderedDict([('custom_interfaces', '/workspaces/isaac_ros-dev/install/custom_interfaces')])}
+[0.002407] (custom_interfaces) JobStarted: {'identifier': 'custom_interfaces'}
+[0.027611] (custom_interfaces) JobProgress: {'identifier': 'custom_interfaces', 'progress': 'cmake'}
+[0.029642] (custom_interfaces) JobProgress: {'identifier': 'custom_interfaces', 'progress': 'build'}
+[0.031709] (custom_interfaces) Command: {'cmd': ['/usr/bin/cmake', '--build', '/workspaces/isaac_ros-dev/build/custom_interfaces', '--', '-j6', '-l6'], 'cwd': '/workspaces/isaac_ros-dev/build/custom_interfaces', 'env': OrderedDict([('LIBRARY_PATH', '/usr/local/cuda/lib64/stubs'), ('PYTHONWARNINGS', 'ignore:::setuptools.command.install,ignore:::setuptools.command.easy_install,ignore:::pkg_resources,ignore:::setuptools.command.develop'), ('NV_LIBCUBLAS_VERSION', '12.6.1.4-1'), ('USER', 'stickykeys'), ('NV_CUDA_NSIGHT_COMPUTE_VERSION', '12.6.11-1'), ('HOSTNAME', 'stickykeys-desktop'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/workspaces/isaac_ros-dev/install/custom_interfaces/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/aarch64-linux-gnu:/opt/ros/humble/lib:/usr/lib/aarch64-linux-gnu/tegra/weston:/usr/lib/aarch64-linux-gnu/tegra-egl:/usr/local/cuda-12.6/targets/aarch64-linux/lib:/usr/lib/aarch64-linux-gnu/tegra:/opt/nvidia/vpi3/lib64:/usr/local/libcudss-linux-0.3.0.9_cuda12-archive/lib:/usr/local/nvidia/lib:/usr/local/nvidia/lib64:/usr/lib/aarch64-linux-gnu-host:/opt/tritonserver/lib'), ('HOME', '/home/admin'), ('HOST_USER_GID', '1000'), ('NV_LIBCUBLAS_DEV_VERSION', '12.6.1.4-1'), ('ROS_PYTHON_VERSION', '3'), ('NV_LIBNPP_PACKAGE', 'libnpp-12-6=12.3.1.54-1'), ('CUDA_VERSION', '12.6.11'), ('COLCON_PREFIX_PATH', '/workspaces/isaac_ros-dev/install'), ('ROS_DISTRO', 'humble'), ('NV_LIBCUBLAS_PACKAGE_NAME', 'libcublas-12-6'), ('NVIDIA_REQUIRE_CUDA', 'cuda>=12.6'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('NV_LIBCUSPARSE_VERSION', '12.5.3.3-1'), ('NVIDIA_DRIVER_CAPABILITIES', 'all'), ('NV_CUDA_LIB_VERSION', '12.6.11-1'), ('NV_NVML_DEV_VERSION', '12.6.68-1'), ('USERNAME', 'admin'), ('NV_LIBNPP_DEV_PACKAGE', 'libnpp-dev-12-6=12.3.1.54-1'), ('TERM', 'xterm'), ('ISAAC_ROS_WS', '/workspaces/isaac_ros-dev'), ('NV_CUDA_CUDART_VERSION', '12.6.68-1'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/opt/ros/humble/bin:/opt/ros/humble/vcstool/scripts:/usr/local/nvidia/bin:/usr/local/cuda/bin:/usr/src/tensorrt/bin:/usr/local/nvidia/bin:/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'), ('NV_LIBCUBLAS_DEV_PACKAGE_NAME', 'libcublas-dev-12-6'), ('NV_LIBCUBLAS_PACKAGE', 'libcublas-12-6=12.6.1.4-1'), ('HOST_USER_UID', '1000'), ('NVARCH', 'arm64'), ('CUDSS_DIR', '/usr/local/libcudss-linux-0.3.0.9_cuda12-archive'), ('NV_LIBCUSPARSE_DEV_VERSION', '12.5.3.3-1'), ('DISPLAY', ':1'), ('NVIDIA_PRODUCT_NAME', 'CUDA'), ('LANG', 'en_US.UTF-8'), ('RMW_IMPLEMENTATION', 'rmw_fastrtps_cpp'), ('NV_CUDA_CUDART_DEV_VERSION', '12.6.68-1'), ('ROS_ROOT', '/opt/ros/humble'), ('SSH_AUTH_SOCK', '/ssh-agent'), ('AMENT_PREFIX_PATH', '/workspaces/isaac_ros-dev/install/my_action_server:/workspaces/isaac_ros-dev/install/my_action_client:/workspaces/isaac_ros-dev/install/custom_interfaces:/opt/ros/humble'), ('DEBIAN_FRONTEND', 'noninteractive'), ('SHELL', '/bin/bash'), ('TRT_INCLUDE_PATH', '/usr/include/aarch64-linux-gnu'), ('NV_LIBCUBLAS_DEV_PACKAGE', 'libcublas-dev-12-6=12.6.1.4-1'), ('NV_CUDA_NSIGHT_COMPUTE_DEV_PACKAGE', 'cuda-nsight-compute-12-6=12.6.11-1'), ('NVIDIA_REQUIRE_JETPACK_HOST_MOUNTS', 'base-only'), ('NV_NVTX_VERSION', '12.6.68-1'), ('NV_LIBNPP_VERSION', '12.3.1.54-1'), ('PWD', '/workspaces/isaac_ros-dev/build/custom_interfaces'), ('PYTHONPATH', '/workspaces/isaac_ros-dev/install/custom_interfaces/local/lib/python3.10/dist-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages:/opt/ros/humble/vcstool:'), ('NVIDIA_VISIBLE_DEVICES', 'nvidia.com/gpu=all,nvidia.com/pva=all'), ('COLCON', '1'), ('NV_LIBNPP_DEV_VERSION', '12.3.1.54-1'), ('CMAKE_PREFIX_PATH', '/workspaces/isaac_ros-dev/install/my_action_server:/workspaces/isaac_ros-dev/install/my_action_client:/workspaces/isaac_ros-dev/install/custom_interfaces:/usr/local/libcudss-linux-0.3.0.9_cuda12-archive::/opt/ros/humble'), ('TRT_LIB_PATH', '/usr/lib/aarch64-linux-gnu')]), 'shell': False}
+[0.099266] (-) TimerEvent: {}
+[0.200003] (-) TimerEvent: {}
+[0.214514] (custom_interfaces) StdoutLine: {'line': b'[  2%] Built target custom_interfaces__cpp\n'}
+[0.255052] (custom_interfaces) StdoutLine: {'line': b'[ 12%] Built target custom_interfaces__rosidl_generator_c\n'}
+[0.300239] (-) TimerEvent: {}
+[0.313804] (custom_interfaces) StdoutLine: {'line': b'[ 12%] Built target ament_cmake_python_copy_custom_interfaces\n'}
+[0.329968] (custom_interfaces) StdoutLine: {'line': b'[ 23%] Built target custom_interfaces__rosidl_typesupport_fastrtps_cpp\n'}
+[0.349149] (custom_interfaces) StdoutLine: {'line': b'[ 33%] Built target custom_interfaces__rosidl_typesupport_introspection_cpp\n'}
+[0.356292] (custom_interfaces) StdoutLine: {'line': b'[ 43%] Built target custom_interfaces__rosidl_typesupport_introspection_c\n'}
+[0.361728] (custom_interfaces) StdoutLine: {'line': b'[ 53%] Built target custom_interfaces__rosidl_typesupport_cpp\n'}
+[0.377802] (custom_interfaces) StdoutLine: {'line': b'[ 64%] Built target custom_interfaces__rosidl_typesupport_fastrtps_c\n'}
+[0.400404] (-) TimerEvent: {}
+[0.422142] (custom_interfaces) StdoutLine: {'line': b'[ 74%] Built target custom_interfaces__rosidl_typesupport_c\n'}
+[0.490196] (custom_interfaces) StdoutLine: {'line': b'[ 74%] Built target custom_interfaces\n'}
+[0.500564] (-) TimerEvent: {}
+[0.575472] (custom_interfaces) StdoutLine: {'line': b'[ 76%] Built target custom_interfaces__py\n'}
+[0.600824] (-) TimerEvent: {}
+[0.665588] (custom_interfaces) StdoutLine: {'line': b'[ 84%] Built target custom_interfaces__rosidl_generator_py\n'}
+[0.701596] (-) TimerEvent: {}
+[0.761510] (custom_interfaces) StdoutLine: {'line': b'[ 89%] Built target custom_interfaces__rosidl_typesupport_fastrtps_c__pyext\n'}
+[0.785572] (custom_interfaces) StdoutLine: {'line': b'[ 94%] Built target custom_interfaces__rosidl_typesupport_introspection_c__pyext\n'}
+[0.806045] (custom_interfaces) StdoutLine: {'line': b'[100%] Built target custom_interfaces__rosidl_typesupport_c__pyext\n'}
+[0.806646] (-) TimerEvent: {}
+[0.907149] (-) TimerEvent: {}
+[1.007850] (-) TimerEvent: {}
+[1.108810] (-) TimerEvent: {}
+[1.210313] (-) TimerEvent: {}
+[1.311324] (-) TimerEvent: {}
+[1.412189] (-) TimerEvent: {}
+[1.481140] (custom_interfaces) StdoutLine: {'line': b'running egg_info\n'}
+[1.512394] (-) TimerEvent: {}
+[1.531519] (custom_interfaces) StdoutLine: {'line': b'writing custom_interfaces.egg-info/PKG-INFO\n'}
+[1.532535] (custom_interfaces) StdoutLine: {'line': b'writing dependency_links to custom_interfaces.egg-info/dependency_links.txt\n'}
+[1.533722] (custom_interfaces) StdoutLine: {'line': b'writing top-level names to custom_interfaces.egg-info/top_level.txt\n'}
+[1.612578] (-) TimerEvent: {}
+[1.714104] (-) TimerEvent: {}
+[1.817197] (-) TimerEvent: {}
+[1.827614] (custom_interfaces) StderrLine: {'line': b"ERROR setuptools_scm._file_finders.git listing git files failed - pretending there aren't any\n"}
+[1.917350] (-) TimerEvent: {}
+[2.018116] (-) TimerEvent: {}
+[2.119334] (-) TimerEvent: {}
+[2.157401] (custom_interfaces) StdoutLine: {'line': b"reading manifest file 'custom_interfaces.egg-info/SOURCES.txt'\n"}
+[2.159254] (custom_interfaces) StdoutLine: {'line': b"writing manifest file 'custom_interfaces.egg-info/SOURCES.txt'\n"}
+[2.219956] (-) TimerEvent: {}
+[2.320824] (-) TimerEvent: {}
+[2.329291] (custom_interfaces) StdoutLine: {'line': b'[100%] Built target ament_cmake_python_build_custom_interfaces_egg\n'}
+[2.365460] (custom_interfaces) CommandEnded: {'returncode': 0}
+[2.367969] (custom_interfaces) JobProgress: {'identifier': 'custom_interfaces', 'progress': 'install'}
+[2.392372] (custom_interfaces) Command: {'cmd': ['/usr/bin/cmake', '--install', '/workspaces/isaac_ros-dev/build/custom_interfaces'], 'cwd': '/workspaces/isaac_ros-dev/build/custom_interfaces', 'env': OrderedDict([('LIBRARY_PATH', '/usr/local/cuda/lib64/stubs'), ('PYTHONWARNINGS', 'ignore:::setuptools.command.install,ignore:::setuptools.command.easy_install,ignore:::pkg_resources,ignore:::setuptools.command.develop'), ('NV_LIBCUBLAS_VERSION', '12.6.1.4-1'), ('USER', 'stickykeys'), ('NV_CUDA_NSIGHT_COMPUTE_VERSION', '12.6.11-1'), ('HOSTNAME', 'stickykeys-desktop'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/workspaces/isaac_ros-dev/install/custom_interfaces/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/aarch64-linux-gnu:/opt/ros/humble/lib:/usr/lib/aarch64-linux-gnu/tegra/weston:/usr/lib/aarch64-linux-gnu/tegra-egl:/usr/local/cuda-12.6/targets/aarch64-linux/lib:/usr/lib/aarch64-linux-gnu/tegra:/opt/nvidia/vpi3/lib64:/usr/local/libcudss-linux-0.3.0.9_cuda12-archive/lib:/usr/local/nvidia/lib:/usr/local/nvidia/lib64:/usr/lib/aarch64-linux-gnu-host:/opt/tritonserver/lib'), ('HOME', '/home/admin'), ('HOST_USER_GID', '1000'), ('NV_LIBCUBLAS_DEV_VERSION', '12.6.1.4-1'), ('ROS_PYTHON_VERSION', '3'), ('NV_LIBNPP_PACKAGE', 'libnpp-12-6=12.3.1.54-1'), ('CUDA_VERSION', '12.6.11'), ('COLCON_PREFIX_PATH', '/workspaces/isaac_ros-dev/install'), ('ROS_DISTRO', 'humble'), ('NV_LIBCUBLAS_PACKAGE_NAME', 'libcublas-12-6'), ('NVIDIA_REQUIRE_CUDA', 'cuda>=12.6'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('NV_LIBCUSPARSE_VERSION', '12.5.3.3-1'), ('NVIDIA_DRIVER_CAPABILITIES', 'all'), ('NV_CUDA_LIB_VERSION', '12.6.11-1'), ('NV_NVML_DEV_VERSION', '12.6.68-1'), ('USERNAME', 'admin'), ('NV_LIBNPP_DEV_PACKAGE', 'libnpp-dev-12-6=12.3.1.54-1'), ('TERM', 'xterm'), ('ISAAC_ROS_WS', '/workspaces/isaac_ros-dev'), ('NV_CUDA_CUDART_VERSION', '12.6.68-1'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/opt/ros/humble/bin:/opt/ros/humble/vcstool/scripts:/usr/local/nvidia/bin:/usr/local/cuda/bin:/usr/src/tensorrt/bin:/usr/local/nvidia/bin:/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'), ('NV_LIBCUBLAS_DEV_PACKAGE_NAME', 'libcublas-dev-12-6'), ('NV_LIBCUBLAS_PACKAGE', 'libcublas-12-6=12.6.1.4-1'), ('HOST_USER_UID', '1000'), ('NVARCH', 'arm64'), ('CUDSS_DIR', '/usr/local/libcudss-linux-0.3.0.9_cuda12-archive'), ('NV_LIBCUSPARSE_DEV_VERSION', '12.5.3.3-1'), ('DISPLAY', ':1'), ('NVIDIA_PRODUCT_NAME', 'CUDA'), ('LANG', 'en_US.UTF-8'), ('RMW_IMPLEMENTATION', 'rmw_fastrtps_cpp'), ('NV_CUDA_CUDART_DEV_VERSION', '12.6.68-1'), ('ROS_ROOT', '/opt/ros/humble'), ('SSH_AUTH_SOCK', '/ssh-agent'), ('AMENT_PREFIX_PATH', '/workspaces/isaac_ros-dev/install/my_action_server:/workspaces/isaac_ros-dev/install/my_action_client:/workspaces/isaac_ros-dev/install/custom_interfaces:/opt/ros/humble'), ('DEBIAN_FRONTEND', 'noninteractive'), ('SHELL', '/bin/bash'), ('TRT_INCLUDE_PATH', '/usr/include/aarch64-linux-gnu'), ('NV_LIBCUBLAS_DEV_PACKAGE', 'libcublas-dev-12-6=12.6.1.4-1'), ('NV_CUDA_NSIGHT_COMPUTE_DEV_PACKAGE', 'cuda-nsight-compute-12-6=12.6.11-1'), ('NVIDIA_REQUIRE_JETPACK_HOST_MOUNTS', 'base-only'), ('NV_NVTX_VERSION', '12.6.68-1'), ('NV_LIBNPP_VERSION', '12.3.1.54-1'), ('PWD', '/workspaces/isaac_ros-dev/build/custom_interfaces'), ('PYTHONPATH', '/workspaces/isaac_ros-dev/install/custom_interfaces/local/lib/python3.10/dist-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages:/opt/ros/humble/vcstool:'), ('NVIDIA_VISIBLE_DEVICES', 'nvidia.com/gpu=all,nvidia.com/pva=all'), ('COLCON', '1'), ('NV_LIBNPP_DEV_VERSION', '12.3.1.54-1'), ('CMAKE_PREFIX_PATH', '/workspaces/isaac_ros-dev/install/my_action_server:/workspaces/isaac_ros-dev/install/my_action_client:/workspaces/isaac_ros-dev/install/custom_interfaces:/usr/local/libcudss-linux-0.3.0.9_cuda12-archive::/opt/ros/humble'), ('TRT_LIB_PATH', '/usr/lib/aarch64-linux-gnu')]), 'shell': False}
+[2.416411] (custom_interfaces) StdoutLine: {'line': b'-- Install configuration: ""\n'}
+[2.417282] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/share/ament_index/resource_index/rosidl_interfaces/custom_interfaces\n'}
+[2.417492] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces\n'}
+[2.417657] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/msg\n'}
+[2.418585] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/msg/rosidl_generator_c__visibility_control.h\n'}
+[2.418867] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/action\n'}
+[2.419030] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/action/move.h\n'}
+[2.419186] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/action/detail\n'}
+[2.419337] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/action/detail/move__struct.h\n'}
+[2.419481] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/action/detail/move__functions.c\n'}
+[2.419625] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/action/detail/move__type_support.h\n'}
+[2.419768] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/action/detail/track_object__type_support.h\n'}
+[2.419905] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/action/detail/track_object__struct.h\n'}
+[2.420036] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/action/detail/move__functions.h\n'}
+[2.420218] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/action/detail/track_object__functions.h\n'}
+[2.420365] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/action/detail/track_object__functions.c\n'}
+[2.420843] (-) TimerEvent: {}
+[2.421785] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/action/track_object.h\n'}
+[2.422125] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/environment/library_path.sh\n'}
+[2.422293] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/environment/library_path.dsv\n'}
+[2.422446] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/lib/libcustom_interfaces__rosidl_generator_c.so\n'}
+[2.422591] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces\n'}
+[2.422766] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/msg\n'}
+[2.423077] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/msg/rosidl_typesupport_fastrtps_c__visibility_control.h\n'}
+[2.423343] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/action\n'}
+[2.423587] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/action/detail\n'}
+[2.423828] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/action/detail/move__rosidl_typesupport_fastrtps_c.h\n'}
+[2.423973] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/action/detail/track_object__rosidl_typesupport_fastrtps_c.h\n'}
+[2.424116] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/lib/libcustom_interfaces__rosidl_typesupport_fastrtps_c.so\n'}
+[2.424252] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces\n'}
+[2.424427] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/msg\n'}
+[2.424579] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/msg/rosidl_generator_cpp__visibility_control.hpp\n'}
+[2.424717] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/action\n'}
+[2.424937] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/action/track_object.hpp\n'}
+[2.425206] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/action/move.hpp\n'}
+[2.425768] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/action/detail\n'}
+[2.426025] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/action/detail/track_object__traits.hpp\n'}
+[2.426293] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/action/detail/move__struct.hpp\n'}
+[2.426456] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/action/detail/move__builder.hpp\n'}
+[2.426667] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/action/detail/move__traits.hpp\n'}
+[2.426861] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/action/detail/track_object__type_support.hpp\n'}
+[2.427070] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/action/detail/track_object__struct.hpp\n'}
+[2.427251] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/action/detail/move__type_support.hpp\n'}
+[2.427465] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/action/detail/track_object__builder.hpp\n'}
+[2.427610] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces\n'}
+[2.427805] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/msg\n'}
+[2.427944] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/msg/rosidl_typesupport_fastrtps_cpp__visibility_control.h\n'}
+[2.428079] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/action\n'}
+[2.428221] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/action/detail\n'}
+[2.428360] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/action/detail/track_object__rosidl_typesupport_fastrtps_cpp.hpp\n'}
+[2.429146] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/action/detail/move__rosidl_typesupport_fastrtps_cpp.hpp\n'}
+[2.429362] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/action/detail/dds_fastrtps\n'}
+[2.429689] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/lib/libcustom_interfaces__rosidl_typesupport_fastrtps_cpp.so\n'}
+[2.429846] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces\n'}
+[2.430975] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/msg\n'}
+[2.431429] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/msg/rosidl_typesupport_introspection_c__visibility_control.h\n'}
+[2.431605] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/action\n'}
+[2.431800] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/action/detail\n'}
+[2.431951] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/action/detail/move__rosidl_typesupport_introspection_c.h\n'}
+[2.432095] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/action/detail/track_object__type_support.c\n'}
+[2.432367] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/action/detail/track_object__rosidl_typesupport_introspection_c.h\n'}
+[2.432632] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/action/detail/move__type_support.c\n'}
+[2.432933] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/lib/libcustom_interfaces__rosidl_typesupport_introspection_c.so\n'}
+[2.433085] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/lib/libcustom_interfaces__rosidl_typesupport_c.so\n'}
+[2.433226] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces\n'}
+[2.433364] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/action\n'}
+[2.433500] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/action/detail\n'}
+[2.433638] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/action/detail/move__type_support.cpp\n'}
+[2.433775] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/action/detail/track_object__type_support.cpp\n'}
+[2.433944] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/action/detail/track_object__rosidl_typesupport_introspection_cpp.hpp\n'}
+[2.434098] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/include/custom_interfaces/custom_interfaces/action/detail/move__rosidl_typesupport_introspection_cpp.hpp\n'}
+[2.434260] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/lib/libcustom_interfaces__rosidl_typesupport_introspection_cpp.so\n'}
+[2.434400] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/lib/libcustom_interfaces__rosidl_typesupport_cpp.so\n'}
+[2.434537] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/environment/pythonpath.sh\n'}
+[2.434671] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/environment/pythonpath.dsv\n'}
+[2.434811] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/local/lib/python3.10/dist-packages/custom_interfaces-0.0.0-py3.10.egg-info\n'}
+[2.434949] (custom_interfaces) StdoutLine: {'line': b'-- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/local/lib/python3.10/dist-packages/custom_interfaces-0.0.0-py3.10.egg-info/dependency_links.txt\n'}
+[2.435084] (custom_interfaces) StdoutLine: {'line': b'-- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/local/lib/python3.10/dist-packages/custom_interfaces-0.0.0-py3.10.egg-info/SOURCES.txt\n'}
+[2.436351] (custom_interfaces) StdoutLine: {'line': b'-- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/local/lib/python3.10/dist-packages/custom_interfaces-0.0.0-py3.10.egg-info/top_level.txt\n'}
+[2.436553] (custom_interfaces) StdoutLine: {'line': b'-- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/local/lib/python3.10/dist-packages/custom_interfaces-0.0.0-py3.10.egg-info/PKG-INFO\n'}
+[2.436759] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/local/lib/python3.10/dist-packages/custom_interfaces\n'}
+[2.436931] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/local/lib/python3.10/dist-packages/custom_interfaces/_custom_interfaces_s.ep.rosidl_typesupport_introspection_c.c\n'}
+[2.437096] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/local/lib/python3.10/dist-packages/custom_interfaces/custom_interfaces_s__rosidl_typesupport_c.cpython-310-aarch64-linux-gnu.so\n'}
+[2.437241] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/local/lib/python3.10/dist-packages/custom_interfaces/action\n'}
+[2.437379] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/local/lib/python3.10/dist-packages/custom_interfaces/action/_move.py\n'}
+[2.437516] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/local/lib/python3.10/dist-packages/custom_interfaces/action/_track_object.py\n'}
+[2.437653] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/local/lib/python3.10/dist-packages/custom_interfaces/action/_move_s.c\n'}
+[2.437791] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/local/lib/python3.10/dist-packages/custom_interfaces/action/_track_object_s.c\n'}
+[2.437949] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/local/lib/python3.10/dist-packages/custom_interfaces/action/__init__.py\n'}
+[2.438103] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/local/lib/python3.10/dist-packages/custom_interfaces/custom_interfaces_s__rosidl_typesupport_introspection_c.cpython-310-aarch64-linux-gnu.so\n'}
+[2.438554] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/local/lib/python3.10/dist-packages/custom_interfaces/_custom_interfaces_s.ep.rosidl_typesupport_c.c\n'}
+[2.438769] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/local/lib/python3.10/dist-packages/custom_interfaces/_custom_interfaces_s.ep.rosidl_typesupport_fastrtps_c.c\n'}
+[2.438926] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/local/lib/python3.10/dist-packages/custom_interfaces/custom_interfaces_s__rosidl_typesupport_fastrtps_c.cpython-310-aarch64-linux-gnu.so\n'}
+[2.439073] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/local/lib/python3.10/dist-packages/custom_interfaces/libcustom_interfaces__rosidl_generator_py.so\n'}
+[2.439216] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/local/lib/python3.10/dist-packages/custom_interfaces/__init__.py\n'}
+[2.521035] (-) TimerEvent: {}
+[2.526666] (custom_interfaces) StdoutLine: {'line': b"Listing '/workspaces/isaac_ros-dev/install/custom_interfaces/local/lib/python3.10/dist-packages/custom_interfaces'...\n"}
+[2.527339] (custom_interfaces) StdoutLine: {'line': b"Listing '/workspaces/isaac_ros-dev/install/custom_interfaces/local/lib/python3.10/dist-packages/custom_interfaces/action'...\n"}
+[2.543680] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/local/lib/python3.10/dist-packages/custom_interfaces/custom_interfaces_s__rosidl_typesupport_fastrtps_c.cpython-310-aarch64-linux-gnu.so\n'}
+[2.545254] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/local/lib/python3.10/dist-packages/custom_interfaces/custom_interfaces_s__rosidl_typesupport_introspection_c.cpython-310-aarch64-linux-gnu.so\n'}
+[2.545792] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/local/lib/python3.10/dist-packages/custom_interfaces/custom_interfaces_s__rosidl_typesupport_c.cpython-310-aarch64-linux-gnu.so\n'}
+[2.546658] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/lib/libcustom_interfaces__rosidl_generator_py.so\n'}
+[2.547137] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/action/Move.idl\n'}
+[2.547439] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/action/TrackObject.idl\n'}
+[2.547675] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/action/Move.action\n'}
+[2.547894] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/action/TrackObject.action\n'}
+[2.548118] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/share/ament_index/resource_index/package_run_dependencies/custom_interfaces\n'}
+[2.548280] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/share/ament_index/resource_index/parent_prefix_path/custom_interfaces\n'}
+[2.548521] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/environment/ament_prefix_path.sh\n'}
+[2.548738] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/environment/ament_prefix_path.dsv\n'}
+[2.548951] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/environment/path.sh\n'}
+[2.549101] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/environment/path.dsv\n'}
+[2.549244] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/local_setup.bash\n'}
+[2.549426] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/local_setup.sh\n'}
+[2.549572] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/local_setup.zsh\n'}
+[2.549776] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/local_setup.dsv\n'}
+[2.549947] (custom_interfaces) StdoutLine: {'line': b'-- Installing: /workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/package.dsv\n'}
+[2.550175] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/share/ament_index/resource_index/packages/custom_interfaces\n'}
+[2.550359] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/cmake/export_custom_interfaces__rosidl_generator_cExport.cmake\n'}
+[2.550507] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/cmake/export_custom_interfaces__rosidl_generator_cExport-noconfig.cmake\n'}
+[2.550705] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/cmake/export_custom_interfaces__rosidl_typesupport_fastrtps_cExport.cmake\n'}
+[2.550851] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/cmake/export_custom_interfaces__rosidl_typesupport_fastrtps_cExport-noconfig.cmake\n'}
+[2.551049] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/cmake/export_custom_interfaces__rosidl_generator_cppExport.cmake\n'}
+[2.551195] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/cmake/export_custom_interfaces__rosidl_typesupport_fastrtps_cppExport.cmake\n'}
+[2.551589] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/cmake/export_custom_interfaces__rosidl_typesupport_fastrtps_cppExport-noconfig.cmake\n'}
+[2.551833] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/cmake/custom_interfaces__rosidl_typesupport_introspection_cExport.cmake\n'}
+[2.552024] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/cmake/custom_interfaces__rosidl_typesupport_introspection_cExport-noconfig.cmake\n'}
+[2.554347] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/cmake/custom_interfaces__rosidl_typesupport_cExport.cmake\n'}
+[2.554584] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/cmake/custom_interfaces__rosidl_typesupport_cExport-noconfig.cmake\n'}
+[2.554748] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/cmake/custom_interfaces__rosidl_typesupport_introspection_cppExport.cmake\n'}
+[2.554894] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/cmake/custom_interfaces__rosidl_typesupport_introspection_cppExport-noconfig.cmake\n'}
+[2.555041] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/cmake/custom_interfaces__rosidl_typesupport_cppExport.cmake\n'}
+[2.555181] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/cmake/custom_interfaces__rosidl_typesupport_cppExport-noconfig.cmake\n'}
+[2.555321] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/cmake/export_custom_interfaces__rosidl_generator_pyExport.cmake\n'}
+[2.555458] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/cmake/export_custom_interfaces__rosidl_generator_pyExport-noconfig.cmake\n'}
+[2.555591] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/cmake/rosidl_cmake-extras.cmake\n'}
+[2.555731] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/cmake/ament_cmake_export_dependencies-extras.cmake\n'}
+[2.555866] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/cmake/ament_cmake_export_include_directories-extras.cmake\n'}
+[2.556061] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/cmake/ament_cmake_export_libraries-extras.cmake\n'}
+[2.556206] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/cmake/ament_cmake_export_targets-extras.cmake\n'}
+[2.556344] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/cmake/rosidl_cmake_export_typesupport_targets-extras.cmake\n'}
+[2.556502] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/cmake/rosidl_cmake_export_typesupport_libraries-extras.cmake\n'}
+[2.556638] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/cmake/custom_interfacesConfig.cmake\n'}
+[2.556778] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/cmake/custom_interfacesConfig-version.cmake\n'}
+[2.557186] (custom_interfaces) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/package.xml\n'}
+[2.561669] (custom_interfaces) CommandEnded: {'returncode': 0}
+[2.618140] (custom_interfaces) JobEnded: {'identifier': 'custom_interfaces', 'rc': 0}
+[2.621319] (-) TimerEvent: {}
+[2.621663] (my_action_client) JobStarted: {'identifier': 'my_action_client'}
+[2.631164] (my_action_server) JobStarted: {'identifier': 'my_action_server'}
+[2.652865] (my_action_client) JobProgress: {'identifier': 'my_action_client', 'progress': 'cmake'}
+[2.655537] (my_action_client) JobProgress: {'identifier': 'my_action_client', 'progress': 'build'}
+[2.656591] (my_action_client) Command: {'cmd': ['/usr/bin/cmake', '--build', '/workspaces/isaac_ros-dev/build/my_action_client', '--', '-j6', '-l6'], 'cwd': '/workspaces/isaac_ros-dev/build/my_action_client', 'env': OrderedDict([('LIBRARY_PATH', '/usr/local/cuda/lib64/stubs'), ('PYTHONWARNINGS', 'ignore:::setuptools.command.install,ignore:::setuptools.command.easy_install,ignore:::pkg_resources,ignore:::setuptools.command.develop'), ('NV_LIBCUBLAS_VERSION', '12.6.1.4-1'), ('USER', 'stickykeys'), ('NV_CUDA_NSIGHT_COMPUTE_VERSION', '12.6.11-1'), ('HOSTNAME', 'stickykeys-desktop'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/workspaces/isaac_ros-dev/install/custom_interfaces/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/aarch64-linux-gnu:/opt/ros/humble/lib:/usr/lib/aarch64-linux-gnu/tegra/weston:/usr/lib/aarch64-linux-gnu/tegra-egl:/usr/local/cuda-12.6/targets/aarch64-linux/lib:/usr/lib/aarch64-linux-gnu/tegra:/opt/nvidia/vpi3/lib64:/usr/local/libcudss-linux-0.3.0.9_cuda12-archive/lib:/usr/local/nvidia/lib:/usr/local/nvidia/lib64:/usr/lib/aarch64-linux-gnu-host:/opt/tritonserver/lib'), ('HOME', '/home/admin'), ('HOST_USER_GID', '1000'), ('NV_LIBCUBLAS_DEV_VERSION', '12.6.1.4-1'), ('ROS_PYTHON_VERSION', '3'), ('NV_LIBNPP_PACKAGE', 'libnpp-12-6=12.3.1.54-1'), ('CUDA_VERSION', '12.6.11'), ('COLCON_PREFIX_PATH', '/workspaces/isaac_ros-dev/install'), ('ROS_DISTRO', 'humble'), ('NV_LIBCUBLAS_PACKAGE_NAME', 'libcublas-12-6'), ('NVIDIA_REQUIRE_CUDA', 'cuda>=12.6'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('NV_LIBCUSPARSE_VERSION', '12.5.3.3-1'), ('NVIDIA_DRIVER_CAPABILITIES', 'all'), ('NV_CUDA_LIB_VERSION', '12.6.11-1'), ('NV_NVML_DEV_VERSION', '12.6.68-1'), ('USERNAME', 'admin'), ('NV_LIBNPP_DEV_PACKAGE', 'libnpp-dev-12-6=12.3.1.54-1'), ('TERM', 'xterm'), ('ISAAC_ROS_WS', '/workspaces/isaac_ros-dev'), ('NV_CUDA_CUDART_VERSION', '12.6.68-1'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/opt/ros/humble/bin:/opt/ros/humble/vcstool/scripts:/usr/local/nvidia/bin:/usr/local/cuda/bin:/usr/src/tensorrt/bin:/usr/local/nvidia/bin:/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'), ('NV_LIBCUBLAS_DEV_PACKAGE_NAME', 'libcublas-dev-12-6'), ('NV_LIBCUBLAS_PACKAGE', 'libcublas-12-6=12.6.1.4-1'), ('HOST_USER_UID', '1000'), ('NVARCH', 'arm64'), ('CUDSS_DIR', '/usr/local/libcudss-linux-0.3.0.9_cuda12-archive'), ('NV_LIBCUSPARSE_DEV_VERSION', '12.5.3.3-1'), ('DISPLAY', ':1'), ('NVIDIA_PRODUCT_NAME', 'CUDA'), ('LANG', 'en_US.UTF-8'), ('RMW_IMPLEMENTATION', 'rmw_fastrtps_cpp'), ('NV_CUDA_CUDART_DEV_VERSION', '12.6.68-1'), ('ROS_ROOT', '/opt/ros/humble'), ('SSH_AUTH_SOCK', '/ssh-agent'), ('AMENT_PREFIX_PATH', '/workspaces/isaac_ros-dev/install/my_action_server:/workspaces/isaac_ros-dev/install/my_action_client:/workspaces/isaac_ros-dev/install/custom_interfaces:/opt/ros/humble'), ('DEBIAN_FRONTEND', 'noninteractive'), ('SHELL', '/bin/bash'), ('TRT_INCLUDE_PATH', '/usr/include/aarch64-linux-gnu'), ('NV_LIBCUBLAS_DEV_PACKAGE', 'libcublas-dev-12-6=12.6.1.4-1'), ('NV_CUDA_NSIGHT_COMPUTE_DEV_PACKAGE', 'cuda-nsight-compute-12-6=12.6.11-1'), ('NVIDIA_REQUIRE_JETPACK_HOST_MOUNTS', 'base-only'), ('NV_NVTX_VERSION', '12.6.68-1'), ('NV_LIBNPP_VERSION', '12.3.1.54-1'), ('PWD', '/workspaces/isaac_ros-dev/build/my_action_client'), ('PYTHONPATH', '/workspaces/isaac_ros-dev/install/custom_interfaces/local/lib/python3.10/dist-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages:/opt/ros/humble/vcstool:'), ('NVIDIA_VISIBLE_DEVICES', 'nvidia.com/gpu=all,nvidia.com/pva=all'), ('COLCON', '1'), ('NV_LIBNPP_DEV_VERSION', '12.3.1.54-1'), ('CMAKE_PREFIX_PATH', '/workspaces/isaac_ros-dev/install/custom_interfaces:/workspaces/isaac_ros-dev/install/my_action_server:/workspaces/isaac_ros-dev/install/my_action_client:/usr/local/libcudss-linux-0.3.0.9_cuda12-archive:/opt/ros/humble'), ('TRT_LIB_PATH', '/usr/lib/aarch64-linux-gnu')]), 'shell': False}
+[2.667953] (my_action_server) JobProgress: {'identifier': 'my_action_server', 'progress': 'cmake'}
+[2.671117] (my_action_server) JobProgress: {'identifier': 'my_action_server', 'progress': 'build'}
+[2.672152] (my_action_server) Command: {'cmd': ['/usr/bin/cmake', '--build', '/workspaces/isaac_ros-dev/build/my_action_server', '--', '-j6', '-l6'], 'cwd': '/workspaces/isaac_ros-dev/build/my_action_server', 'env': OrderedDict([('LIBRARY_PATH', '/usr/local/cuda/lib64/stubs'), ('PYTHONWARNINGS', 'ignore:::setuptools.command.install,ignore:::setuptools.command.easy_install,ignore:::pkg_resources,ignore:::setuptools.command.develop'), ('NV_LIBCUBLAS_VERSION', '12.6.1.4-1'), ('USER', 'stickykeys'), ('NV_CUDA_NSIGHT_COMPUTE_VERSION', '12.6.11-1'), ('HOSTNAME', 'stickykeys-desktop'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/workspaces/isaac_ros-dev/install/custom_interfaces/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/aarch64-linux-gnu:/opt/ros/humble/lib:/usr/lib/aarch64-linux-gnu/tegra/weston:/usr/lib/aarch64-linux-gnu/tegra-egl:/usr/local/cuda-12.6/targets/aarch64-linux/lib:/usr/lib/aarch64-linux-gnu/tegra:/opt/nvidia/vpi3/lib64:/usr/local/libcudss-linux-0.3.0.9_cuda12-archive/lib:/usr/local/nvidia/lib:/usr/local/nvidia/lib64:/usr/lib/aarch64-linux-gnu-host:/opt/tritonserver/lib'), ('HOME', '/home/admin'), ('HOST_USER_GID', '1000'), ('NV_LIBCUBLAS_DEV_VERSION', '12.6.1.4-1'), ('ROS_PYTHON_VERSION', '3'), ('NV_LIBNPP_PACKAGE', 'libnpp-12-6=12.3.1.54-1'), ('CUDA_VERSION', '12.6.11'), ('COLCON_PREFIX_PATH', '/workspaces/isaac_ros-dev/install'), ('ROS_DISTRO', 'humble'), ('NV_LIBCUBLAS_PACKAGE_NAME', 'libcublas-12-6'), ('NVIDIA_REQUIRE_CUDA', 'cuda>=12.6'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('NV_LIBCUSPARSE_VERSION', '12.5.3.3-1'), ('NVIDIA_DRIVER_CAPABILITIES', 'all'), ('NV_CUDA_LIB_VERSION', '12.6.11-1'), ('NV_NVML_DEV_VERSION', '12.6.68-1'), ('USERNAME', 'admin'), ('NV_LIBNPP_DEV_PACKAGE', 'libnpp-dev-12-6=12.3.1.54-1'), ('TERM', 'xterm'), ('ISAAC_ROS_WS', '/workspaces/isaac_ros-dev'), ('NV_CUDA_CUDART_VERSION', '12.6.68-1'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/opt/ros/humble/bin:/opt/ros/humble/vcstool/scripts:/usr/local/nvidia/bin:/usr/local/cuda/bin:/usr/src/tensorrt/bin:/usr/local/nvidia/bin:/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'), ('NV_LIBCUBLAS_DEV_PACKAGE_NAME', 'libcublas-dev-12-6'), ('NV_LIBCUBLAS_PACKAGE', 'libcublas-12-6=12.6.1.4-1'), ('HOST_USER_UID', '1000'), ('NVARCH', 'arm64'), ('CUDSS_DIR', '/usr/local/libcudss-linux-0.3.0.9_cuda12-archive'), ('NV_LIBCUSPARSE_DEV_VERSION', '12.5.3.3-1'), ('DISPLAY', ':1'), ('NVIDIA_PRODUCT_NAME', 'CUDA'), ('LANG', 'en_US.UTF-8'), ('RMW_IMPLEMENTATION', 'rmw_fastrtps_cpp'), ('NV_CUDA_CUDART_DEV_VERSION', '12.6.68-1'), ('ROS_ROOT', '/opt/ros/humble'), ('SSH_AUTH_SOCK', '/ssh-agent'), ('AMENT_PREFIX_PATH', '/workspaces/isaac_ros-dev/install/my_action_server:/workspaces/isaac_ros-dev/install/my_action_client:/workspaces/isaac_ros-dev/install/custom_interfaces:/opt/ros/humble'), ('DEBIAN_FRONTEND', 'noninteractive'), ('SHELL', '/bin/bash'), ('TRT_INCLUDE_PATH', '/usr/include/aarch64-linux-gnu'), ('NV_LIBCUBLAS_DEV_PACKAGE', 'libcublas-dev-12-6=12.6.1.4-1'), ('NV_CUDA_NSIGHT_COMPUTE_DEV_PACKAGE', 'cuda-nsight-compute-12-6=12.6.11-1'), ('NVIDIA_REQUIRE_JETPACK_HOST_MOUNTS', 'base-only'), ('NV_NVTX_VERSION', '12.6.68-1'), ('NV_LIBNPP_VERSION', '12.3.1.54-1'), ('PWD', '/workspaces/isaac_ros-dev/build/my_action_server'), ('PYTHONPATH', '/workspaces/isaac_ros-dev/install/custom_interfaces/local/lib/python3.10/dist-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages:/opt/ros/humble/vcstool:'), ('NVIDIA_VISIBLE_DEVICES', 'nvidia.com/gpu=all,nvidia.com/pva=all'), ('COLCON', '1'), ('NV_LIBNPP_DEV_VERSION', '12.3.1.54-1'), ('CMAKE_PREFIX_PATH', '/workspaces/isaac_ros-dev/install/custom_interfaces:/workspaces/isaac_ros-dev/install/my_action_server:/workspaces/isaac_ros-dev/install/my_action_client:/usr/local/libcudss-linux-0.3.0.9_cuda12-archive:/opt/ros/humble'), ('TRT_LIB_PATH', '/usr/lib/aarch64-linux-gnu')]), 'shell': False}
+[2.721618] (-) TimerEvent: {}
+[2.823365] (-) TimerEvent: {}
+[2.851968] (my_action_server) StdoutLine: {'line': b'\x1b[35m\x1b[1mConsolidate compiler generated dependencies of target waveshare_controller\x1b[0m\n'}
+[2.907657] (my_action_client) StdoutLine: {'line': b'[100%] Built target action_client\n'}
+[2.924663] (-) TimerEvent: {}
+[2.939171] (my_action_client) CommandEnded: {'returncode': 0}
+[2.940406] (my_action_client) JobProgress: {'identifier': 'my_action_client', 'progress': 'install'}
+[2.940500] (my_action_client) Command: {'cmd': ['/usr/bin/cmake', '--install', '/workspaces/isaac_ros-dev/build/my_action_client'], 'cwd': '/workspaces/isaac_ros-dev/build/my_action_client', 'env': OrderedDict([('LIBRARY_PATH', '/usr/local/cuda/lib64/stubs'), ('PYTHONWARNINGS', 'ignore:::setuptools.command.install,ignore:::setuptools.command.easy_install,ignore:::pkg_resources,ignore:::setuptools.command.develop'), ('NV_LIBCUBLAS_VERSION', '12.6.1.4-1'), ('USER', 'stickykeys'), ('NV_CUDA_NSIGHT_COMPUTE_VERSION', '12.6.11-1'), ('HOSTNAME', 'stickykeys-desktop'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/workspaces/isaac_ros-dev/install/custom_interfaces/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/aarch64-linux-gnu:/opt/ros/humble/lib:/usr/lib/aarch64-linux-gnu/tegra/weston:/usr/lib/aarch64-linux-gnu/tegra-egl:/usr/local/cuda-12.6/targets/aarch64-linux/lib:/usr/lib/aarch64-linux-gnu/tegra:/opt/nvidia/vpi3/lib64:/usr/local/libcudss-linux-0.3.0.9_cuda12-archive/lib:/usr/local/nvidia/lib:/usr/local/nvidia/lib64:/usr/lib/aarch64-linux-gnu-host:/opt/tritonserver/lib'), ('HOME', '/home/admin'), ('HOST_USER_GID', '1000'), ('NV_LIBCUBLAS_DEV_VERSION', '12.6.1.4-1'), ('ROS_PYTHON_VERSION', '3'), ('NV_LIBNPP_PACKAGE', 'libnpp-12-6=12.3.1.54-1'), ('CUDA_VERSION', '12.6.11'), ('COLCON_PREFIX_PATH', '/workspaces/isaac_ros-dev/install'), ('ROS_DISTRO', 'humble'), ('NV_LIBCUBLAS_PACKAGE_NAME', 'libcublas-12-6'), ('NVIDIA_REQUIRE_CUDA', 'cuda>=12.6'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('NV_LIBCUSPARSE_VERSION', '12.5.3.3-1'), ('NVIDIA_DRIVER_CAPABILITIES', 'all'), ('NV_CUDA_LIB_VERSION', '12.6.11-1'), ('NV_NVML_DEV_VERSION', '12.6.68-1'), ('USERNAME', 'admin'), ('NV_LIBNPP_DEV_PACKAGE', 'libnpp-dev-12-6=12.3.1.54-1'), ('TERM', 'xterm'), ('ISAAC_ROS_WS', '/workspaces/isaac_ros-dev'), ('NV_CUDA_CUDART_VERSION', '12.6.68-1'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/opt/ros/humble/bin:/opt/ros/humble/vcstool/scripts:/usr/local/nvidia/bin:/usr/local/cuda/bin:/usr/src/tensorrt/bin:/usr/local/nvidia/bin:/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'), ('NV_LIBCUBLAS_DEV_PACKAGE_NAME', 'libcublas-dev-12-6'), ('NV_LIBCUBLAS_PACKAGE', 'libcublas-12-6=12.6.1.4-1'), ('HOST_USER_UID', '1000'), ('NVARCH', 'arm64'), ('CUDSS_DIR', '/usr/local/libcudss-linux-0.3.0.9_cuda12-archive'), ('NV_LIBCUSPARSE_DEV_VERSION', '12.5.3.3-1'), ('DISPLAY', ':1'), ('NVIDIA_PRODUCT_NAME', 'CUDA'), ('LANG', 'en_US.UTF-8'), ('RMW_IMPLEMENTATION', 'rmw_fastrtps_cpp'), ('NV_CUDA_CUDART_DEV_VERSION', '12.6.68-1'), ('ROS_ROOT', '/opt/ros/humble'), ('SSH_AUTH_SOCK', '/ssh-agent'), ('AMENT_PREFIX_PATH', '/workspaces/isaac_ros-dev/install/my_action_server:/workspaces/isaac_ros-dev/install/my_action_client:/workspaces/isaac_ros-dev/install/custom_interfaces:/opt/ros/humble'), ('DEBIAN_FRONTEND', 'noninteractive'), ('SHELL', '/bin/bash'), ('TRT_INCLUDE_PATH', '/usr/include/aarch64-linux-gnu'), ('NV_LIBCUBLAS_DEV_PACKAGE', 'libcublas-dev-12-6=12.6.1.4-1'), ('NV_CUDA_NSIGHT_COMPUTE_DEV_PACKAGE', 'cuda-nsight-compute-12-6=12.6.11-1'), ('NVIDIA_REQUIRE_JETPACK_HOST_MOUNTS', 'base-only'), ('NV_NVTX_VERSION', '12.6.68-1'), ('NV_LIBNPP_VERSION', '12.3.1.54-1'), ('PWD', '/workspaces/isaac_ros-dev/build/my_action_client'), ('PYTHONPATH', '/workspaces/isaac_ros-dev/install/custom_interfaces/local/lib/python3.10/dist-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages:/opt/ros/humble/vcstool:'), ('NVIDIA_VISIBLE_DEVICES', 'nvidia.com/gpu=all,nvidia.com/pva=all'), ('COLCON', '1'), ('NV_LIBNPP_DEV_VERSION', '12.3.1.54-1'), ('CMAKE_PREFIX_PATH', '/workspaces/isaac_ros-dev/install/custom_interfaces:/workspaces/isaac_ros-dev/install/my_action_server:/workspaces/isaac_ros-dev/install/my_action_client:/usr/local/libcudss-linux-0.3.0.9_cuda12-archive:/opt/ros/humble'), ('TRT_LIB_PATH', '/usr/lib/aarch64-linux-gnu')]), 'shell': False}
+[2.941253] (my_action_server) StdoutLine: {'line': b'[ 50%] Built target action_server\n'}
+[2.955899] (my_action_server) StdoutLine: {'line': b'[ 75%] \x1b[32mBuilding CXX object CMakeFiles/waveshare_controller.dir/src/waveshare_controller.cpp.o\x1b[0m\n'}
+[2.963529] (my_action_client) StdoutLine: {'line': b'-- Install configuration: ""\n'}
+[2.965948] (my_action_client) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_client/lib/my_action_client/action_client\n'}
+[2.973663] (my_action_client) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_client/share/my_action_client//launch\n'}
+[2.974293] (my_action_client) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_client/share/my_action_client//launch/client_launch.py\n'}
+[2.974512] (my_action_client) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_client/share/ament_index/resource_index/package_run_dependencies/my_action_client\n'}
+[2.974690] (my_action_client) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_client/share/ament_index/resource_index/parent_prefix_path/my_action_client\n'}
+[2.974851] (my_action_client) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_client/share/my_action_client/environment/ament_prefix_path.sh\n'}
+[2.975000] (my_action_client) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_client/share/my_action_client/environment/ament_prefix_path.dsv\n'}
+[2.975144] (my_action_client) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_client/share/my_action_client/environment/path.sh\n'}
+[2.975287] (my_action_client) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_client/share/my_action_client/environment/path.dsv\n'}
+[2.975453] (my_action_client) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_client/share/my_action_client/local_setup.bash\n'}
+[2.975593] (my_action_client) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_client/share/my_action_client/local_setup.sh\n'}
+[2.975733] (my_action_client) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_client/share/my_action_client/local_setup.zsh\n'}
+[2.975872] (my_action_client) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_client/share/my_action_client/local_setup.dsv\n'}
+[2.976070] (my_action_client) StdoutLine: {'line': b'-- Installing: /workspaces/isaac_ros-dev/install/my_action_client/share/my_action_client/package.dsv\n'}
+[2.976213] (my_action_client) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_client/share/ament_index/resource_index/packages/my_action_client\n'}
+[2.976353] (my_action_client) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_client/share/my_action_client/cmake/my_action_clientConfig.cmake\n'}
+[2.976489] (my_action_client) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_client/share/my_action_client/cmake/my_action_clientConfig-version.cmake\n'}
+[2.976624] (my_action_client) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_client/share/my_action_client/package.xml\n'}
+[2.998214] (my_action_client) CommandEnded: {'returncode': 0}
+[3.017540] (my_action_client) JobEnded: {'identifier': 'my_action_client', 'rc': 0}
+[3.026158] (-) TimerEvent: {}
+[3.126906] (-) TimerEvent: {}
+[3.228645] (-) TimerEvent: {}
+[3.329314] (-) TimerEvent: {}
+[3.430582] (-) TimerEvent: {}
+[3.531602] (-) TimerEvent: {}
+[3.633747] (-) TimerEvent: {}
+[3.738109] (-) TimerEvent: {}
+[3.842086] (-) TimerEvent: {}
+[3.944364] (-) TimerEvent: {}
+[4.045110] (-) TimerEvent: {}
+[4.145930] (-) TimerEvent: {}
+[4.246641] (-) TimerEvent: {}
+[4.347369] (-) TimerEvent: {}
+[4.448161] (-) TimerEvent: {}
+[4.548956] (-) TimerEvent: {}
+[4.650049] (-) TimerEvent: {}
+[4.750792] (-) TimerEvent: {}
+[4.852155] (-) TimerEvent: {}
+[4.952979] (-) TimerEvent: {}
+[5.053818] (-) TimerEvent: {}
+[5.154781] (-) TimerEvent: {}
+[5.255515] (-) TimerEvent: {}
+[5.356870] (-) TimerEvent: {}
+[5.457956] (-) TimerEvent: {}
+[5.558757] (-) TimerEvent: {}
+[5.659554] (-) TimerEvent: {}
+[5.760667] (-) TimerEvent: {}
+[5.862653] (-) TimerEvent: {}
+[5.963830] (-) TimerEvent: {}
+[6.064555] (-) TimerEvent: {}
+[6.165398] (-) TimerEvent: {}
+[6.267098] (-) TimerEvent: {}
+[6.370569] (-) TimerEvent: {}
+[6.471378] (-) TimerEvent: {}
+[6.572226] (-) TimerEvent: {}
+[6.673416] (-) TimerEvent: {}
+[6.774169] (-) TimerEvent: {}
+[6.875114] (-) TimerEvent: {}
+[6.976501] (-) TimerEvent: {}
+[7.077403] (-) TimerEvent: {}
+[7.178745] (-) TimerEvent: {}
+[7.279645] (-) TimerEvent: {}
+[7.380869] (-) TimerEvent: {}
+[7.481746] (-) TimerEvent: {}
+[7.583842] (-) TimerEvent: {}
+[7.684793] (-) TimerEvent: {}
+[7.786098] (-) TimerEvent: {}
+[7.886984] (-) TimerEvent: {}
+[7.987855] (-) TimerEvent: {}
+[8.088563] (-) TimerEvent: {}
+[8.189343] (-) TimerEvent: {}
+[8.290266] (-) TimerEvent: {}
+[8.391457] (-) TimerEvent: {}
+[8.492382] (-) TimerEvent: {}
+[8.593249] (-) TimerEvent: {}
+[8.694102] (-) TimerEvent: {}
+[8.794994] (-) TimerEvent: {}
+[8.895845] (-) TimerEvent: {}
+[8.997070] (-) TimerEvent: {}
+[9.098090] (-) TimerEvent: {}
+[9.198825] (-) TimerEvent: {}
+[9.299782] (-) TimerEvent: {}
+[9.400702] (-) TimerEvent: {}
+[9.501607] (-) TimerEvent: {}
+[9.602508] (-) TimerEvent: {}
+[9.703396] (-) TimerEvent: {}
+[9.804321] (-) TimerEvent: {}
+[9.905393] (-) TimerEvent: {}
+[10.006311] (-) TimerEvent: {}
+[10.107221] (-) TimerEvent: {}
+[10.208140] (-) TimerEvent: {}
+[10.309416] (-) TimerEvent: {}
+[10.412174] (-) TimerEvent: {}
+[10.513162] (-) TimerEvent: {}
+[10.614149] (-) TimerEvent: {}
+[10.715054] (-) TimerEvent: {}
+[10.815911] (-) TimerEvent: {}
+[10.916726] (-) TimerEvent: {}
+[11.017646] (-) TimerEvent: {}
+[11.118781] (-) TimerEvent: {}
+[11.219681] (-) TimerEvent: {}
+[11.320517] (-) TimerEvent: {}
+[11.421378] (-) TimerEvent: {}
+[11.522289] (-) TimerEvent: {}
+[11.623166] (-) TimerEvent: {}
+[11.723983] (-) TimerEvent: {}
+[11.824820] (-) TimerEvent: {}
+[11.925720] (-) TimerEvent: {}
+[12.026603] (-) TimerEvent: {}
+[12.127480] (-) TimerEvent: {}
+[12.228345] (-) TimerEvent: {}
+[12.329207] (-) TimerEvent: {}
+[12.430441] (-) TimerEvent: {}
+[12.531357] (-) TimerEvent: {}
+[12.632768] (-) TimerEvent: {}
+[12.733612] (-) TimerEvent: {}
+[12.834744] (-) TimerEvent: {}
+[12.935589] (-) TimerEvent: {}
+[13.036465] (-) TimerEvent: {}
+[13.137553] (-) TimerEvent: {}
+[13.238600] (-) TimerEvent: {}
+[13.339526] (-) TimerEvent: {}
+[13.440474] (-) TimerEvent: {}
+[13.541390] (-) TimerEvent: {}
+[13.642769] (-) TimerEvent: {}
+[13.743856] (-) TimerEvent: {}
+[13.844615] (-) TimerEvent: {}
+[13.945743] (-) TimerEvent: {}
+[14.049184] (-) TimerEvent: {}
+[14.150115] (-) TimerEvent: {}
+[14.250876] (-) TimerEvent: {}
+[14.351650] (-) TimerEvent: {}
+[14.452461] (-) TimerEvent: {}
+[14.553505] (-) TimerEvent: {}
+[14.654256] (-) TimerEvent: {}
+[14.755050] (-) TimerEvent: {}
+[14.856225] (-) TimerEvent: {}
+[14.958005] (-) TimerEvent: {}
+[15.058800] (-) TimerEvent: {}
+[15.159557] (-) TimerEvent: {}
+[15.260343] (-) TimerEvent: {}
+[15.361083] (-) TimerEvent: {}
+[15.461825] (-) TimerEvent: {}
+[15.562763] (-) TimerEvent: {}
+[15.663569] (-) TimerEvent: {}
+[15.764322] (-) TimerEvent: {}
+[15.865062] (-) TimerEvent: {}
+[15.965929] (-) TimerEvent: {}
+[16.066649] (-) TimerEvent: {}
+[16.167373] (-) TimerEvent: {}
+[16.268130] (-) TimerEvent: {}
+[16.368848] (-) TimerEvent: {}
+[16.469568] (-) TimerEvent: {}
+[16.570549] (-) TimerEvent: {}
+[16.671320] (-) TimerEvent: {}
+[16.772118] (-) TimerEvent: {}
+[16.872877] (-) TimerEvent: {}
+[16.973772] (-) TimerEvent: {}
+[17.074812] (-) TimerEvent: {}
+[17.175562] (-) TimerEvent: {}
+[17.276319] (-) TimerEvent: {}
+[17.377163] (-) TimerEvent: {}
+[17.477885] (-) TimerEvent: {}
+[17.578765] (-) TimerEvent: {}
+[17.679494] (-) TimerEvent: {}
+[17.780297] (-) TimerEvent: {}
+[17.881578] (-) TimerEvent: {}
+[17.982411] (-) TimerEvent: {}
+[18.083121] (-) TimerEvent: {}
+[18.183922] (-) TimerEvent: {}
+[18.284959] (-) TimerEvent: {}
+[18.385751] (-) TimerEvent: {}
+[18.486587] (-) TimerEvent: {}
+[18.587375] (-) TimerEvent: {}
+[18.688511] (-) TimerEvent: {}
+[18.789548] (-) TimerEvent: {}
+[18.890391] (-) TimerEvent: {}
+[18.991139] (-) TimerEvent: {}
+[19.092467] (-) TimerEvent: {}
+[19.193967] (-) TimerEvent: {}
+[19.294688] (-) TimerEvent: {}
+[19.395423] (-) TimerEvent: {}
+[19.496135] (-) TimerEvent: {}
+[19.596972] (-) TimerEvent: {}
+[19.697771] (-) TimerEvent: {}
+[19.798585] (-) TimerEvent: {}
+[19.899313] (-) TimerEvent: {}
+[20.000037] (-) TimerEvent: {}
+[20.100790] (-) TimerEvent: {}
+[20.201614] (-) TimerEvent: {}
+[20.302438] (-) TimerEvent: {}
+[20.403316] (-) TimerEvent: {}
+[20.504169] (-) TimerEvent: {}
+[20.605681] (-) TimerEvent: {}
+[20.706533] (-) TimerEvent: {}
+[20.807265] (-) TimerEvent: {}
+[20.907998] (-) TimerEvent: {}
+[21.008723] (-) TimerEvent: {}
+[21.109596] (-) TimerEvent: {}
+[21.210400] (-) TimerEvent: {}
+[21.311284] (-) TimerEvent: {}
+[21.412125] (-) TimerEvent: {}
+[21.512993] (-) TimerEvent: {}
+[21.614167] (-) TimerEvent: {}
+[21.715021] (-) TimerEvent: {}
+[21.815825] (-) TimerEvent: {}
+[21.916658] (-) TimerEvent: {}
+[22.017366] (-) TimerEvent: {}
+[22.118169] (-) TimerEvent: {}
+[22.218968] (-) TimerEvent: {}
+[22.320196] (-) TimerEvent: {}
+[22.421050] (-) TimerEvent: {}
+[22.521948] (-) TimerEvent: {}
+[22.623148] (-) TimerEvent: {}
+[22.723948] (-) TimerEvent: {}
+[22.824780] (-) TimerEvent: {}
+[22.925636] (-) TimerEvent: {}
+[23.026522] (-) TimerEvent: {}
+[23.127356] (-) TimerEvent: {}
+[23.228218] (-) TimerEvent: {}
+[23.329113] (-) TimerEvent: {}
+[23.430436] (-) TimerEvent: {}
+[23.531265] (-) TimerEvent: {}
+[23.632069] (-) TimerEvent: {}
+[23.736122] (-) TimerEvent: {}
+[23.837401] (-) TimerEvent: {}
+[23.938465] (-) TimerEvent: {}
+[24.039273] (-) TimerEvent: {}
+[24.140114] (-) TimerEvent: {}
+[24.240895] (-) TimerEvent: {}
+[24.341688] (-) TimerEvent: {}
+[24.442553] (-) TimerEvent: {}
+[24.543451] (-) TimerEvent: {}
+[24.645546] (-) TimerEvent: {}
+[24.746482] (-) TimerEvent: {}
+[24.847337] (-) TimerEvent: {}
+[24.938116] (my_action_server) StdoutLine: {'line': b'[100%] \x1b[32m\x1b[1mLinking CXX executable waveshare_controller\x1b[0m\n'}
+[24.947482] (-) TimerEvent: {}
+[25.048302] (-) TimerEvent: {}
+[25.149039] (-) TimerEvent: {}
+[25.250187] (-) TimerEvent: {}
+[25.350906] (-) TimerEvent: {}
+[25.451858] (-) TimerEvent: {}
+[25.552855] (-) TimerEvent: {}
+[25.653577] (-) TimerEvent: {}
+[25.754347] (-) TimerEvent: {}
+[25.855087] (-) TimerEvent: {}
+[25.955916] (-) TimerEvent: {}
+[25.965629] (my_action_server) StdoutLine: {'line': b'[100%] Built target waveshare_controller\n'}
+[25.999644] (my_action_server) CommandEnded: {'returncode': 0}
+[26.002970] (my_action_server) JobProgress: {'identifier': 'my_action_server', 'progress': 'install'}
+[26.004396] (my_action_server) Command: {'cmd': ['/usr/bin/cmake', '--install', '/workspaces/isaac_ros-dev/build/my_action_server'], 'cwd': '/workspaces/isaac_ros-dev/build/my_action_server', 'env': OrderedDict([('LIBRARY_PATH', '/usr/local/cuda/lib64/stubs'), ('PYTHONWARNINGS', 'ignore:::setuptools.command.install,ignore:::setuptools.command.easy_install,ignore:::pkg_resources,ignore:::setuptools.command.develop'), ('NV_LIBCUBLAS_VERSION', '12.6.1.4-1'), ('USER', 'stickykeys'), ('NV_CUDA_NSIGHT_COMPUTE_VERSION', '12.6.11-1'), ('HOSTNAME', 'stickykeys-desktop'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/workspaces/isaac_ros-dev/install/custom_interfaces/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/aarch64-linux-gnu:/opt/ros/humble/lib:/usr/lib/aarch64-linux-gnu/tegra/weston:/usr/lib/aarch64-linux-gnu/tegra-egl:/usr/local/cuda-12.6/targets/aarch64-linux/lib:/usr/lib/aarch64-linux-gnu/tegra:/opt/nvidia/vpi3/lib64:/usr/local/libcudss-linux-0.3.0.9_cuda12-archive/lib:/usr/local/nvidia/lib:/usr/local/nvidia/lib64:/usr/lib/aarch64-linux-gnu-host:/opt/tritonserver/lib'), ('HOME', '/home/admin'), ('HOST_USER_GID', '1000'), ('NV_LIBCUBLAS_DEV_VERSION', '12.6.1.4-1'), ('ROS_PYTHON_VERSION', '3'), ('NV_LIBNPP_PACKAGE', 'libnpp-12-6=12.3.1.54-1'), ('CUDA_VERSION', '12.6.11'), ('COLCON_PREFIX_PATH', '/workspaces/isaac_ros-dev/install'), ('ROS_DISTRO', 'humble'), ('NV_LIBCUBLAS_PACKAGE_NAME', 'libcublas-12-6'), ('NVIDIA_REQUIRE_CUDA', 'cuda>=12.6'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('NV_LIBCUSPARSE_VERSION', '12.5.3.3-1'), ('NVIDIA_DRIVER_CAPABILITIES', 'all'), ('NV_CUDA_LIB_VERSION', '12.6.11-1'), ('NV_NVML_DEV_VERSION', '12.6.68-1'), ('USERNAME', 'admin'), ('NV_LIBNPP_DEV_PACKAGE', 'libnpp-dev-12-6=12.3.1.54-1'), ('TERM', 'xterm'), ('ISAAC_ROS_WS', '/workspaces/isaac_ros-dev'), ('NV_CUDA_CUDART_VERSION', '12.6.68-1'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/opt/ros/humble/bin:/opt/ros/humble/vcstool/scripts:/usr/local/nvidia/bin:/usr/local/cuda/bin:/usr/src/tensorrt/bin:/usr/local/nvidia/bin:/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'), ('NV_LIBCUBLAS_DEV_PACKAGE_NAME', 'libcublas-dev-12-6'), ('NV_LIBCUBLAS_PACKAGE', 'libcublas-12-6=12.6.1.4-1'), ('HOST_USER_UID', '1000'), ('NVARCH', 'arm64'), ('CUDSS_DIR', '/usr/local/libcudss-linux-0.3.0.9_cuda12-archive'), ('NV_LIBCUSPARSE_DEV_VERSION', '12.5.3.3-1'), ('DISPLAY', ':1'), ('NVIDIA_PRODUCT_NAME', 'CUDA'), ('LANG', 'en_US.UTF-8'), ('RMW_IMPLEMENTATION', 'rmw_fastrtps_cpp'), ('NV_CUDA_CUDART_DEV_VERSION', '12.6.68-1'), ('ROS_ROOT', '/opt/ros/humble'), ('SSH_AUTH_SOCK', '/ssh-agent'), ('AMENT_PREFIX_PATH', '/workspaces/isaac_ros-dev/install/my_action_server:/workspaces/isaac_ros-dev/install/my_action_client:/workspaces/isaac_ros-dev/install/custom_interfaces:/opt/ros/humble'), ('DEBIAN_FRONTEND', 'noninteractive'), ('SHELL', '/bin/bash'), ('TRT_INCLUDE_PATH', '/usr/include/aarch64-linux-gnu'), ('NV_LIBCUBLAS_DEV_PACKAGE', 'libcublas-dev-12-6=12.6.1.4-1'), ('NV_CUDA_NSIGHT_COMPUTE_DEV_PACKAGE', 'cuda-nsight-compute-12-6=12.6.11-1'), ('NVIDIA_REQUIRE_JETPACK_HOST_MOUNTS', 'base-only'), ('NV_NVTX_VERSION', '12.6.68-1'), ('NV_LIBNPP_VERSION', '12.3.1.54-1'), ('PWD', '/workspaces/isaac_ros-dev/build/my_action_server'), ('PYTHONPATH', '/workspaces/isaac_ros-dev/install/custom_interfaces/local/lib/python3.10/dist-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages:/opt/ros/humble/vcstool:'), ('NVIDIA_VISIBLE_DEVICES', 'nvidia.com/gpu=all,nvidia.com/pva=all'), ('COLCON', '1'), ('NV_LIBNPP_DEV_VERSION', '12.3.1.54-1'), ('CMAKE_PREFIX_PATH', '/workspaces/isaac_ros-dev/install/custom_interfaces:/workspaces/isaac_ros-dev/install/my_action_server:/workspaces/isaac_ros-dev/install/my_action_client:/usr/local/libcudss-linux-0.3.0.9_cuda12-archive:/opt/ros/humble'), ('TRT_LIB_PATH', '/usr/lib/aarch64-linux-gnu')]), 'shell': False}
+[26.024165] (my_action_server) StdoutLine: {'line': b'-- Install configuration: ""\n'}
+[26.025647] (my_action_server) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_server/lib/my_action_server/action_server\n'}
+[26.025879] (my_action_server) StdoutLine: {'line': b'-- Installing: /workspaces/isaac_ros-dev/install/my_action_server/lib/my_action_server/waveshare_controller\n'}
+[26.037033] (my_action_server) StdoutLine: {'line': b'-- Set runtime path of "/workspaces/isaac_ros-dev/install/my_action_server/lib/my_action_server/waveshare_controller" to ""\n'}
+[26.037720] (my_action_server) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_server/share/my_action_server//launch\n'}
+[26.038146] (my_action_server) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_server/share/my_action_server//launch/server_launch.py\n'}
+[26.038944] (my_action_server) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_server/share/ament_index/resource_index/package_run_dependencies/my_action_server\n'}
+[26.039196] (my_action_server) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_server/share/ament_index/resource_index/parent_prefix_path/my_action_server\n'}
+[26.039366] (my_action_server) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_server/share/my_action_server/environment/ament_prefix_path.sh\n'}
+[26.039571] (my_action_server) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_server/share/my_action_server/environment/ament_prefix_path.dsv\n'}
+[26.039723] (my_action_server) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_server/share/my_action_server/environment/path.sh\n'}
+[26.039873] (my_action_server) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_server/share/my_action_server/environment/path.dsv\n'}
+[26.040016] (my_action_server) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_server/share/my_action_server/local_setup.bash\n'}
+[26.041148] (my_action_server) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_server/share/my_action_server/local_setup.sh\n'}
+[26.041360] (my_action_server) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_server/share/my_action_server/local_setup.zsh\n'}
+[26.041591] (my_action_server) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_server/share/my_action_server/local_setup.dsv\n'}
+[26.041739] (my_action_server) StdoutLine: {'line': b'-- Installing: /workspaces/isaac_ros-dev/install/my_action_server/share/my_action_server/package.dsv\n'}
+[26.041882] (my_action_server) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_server/share/ament_index/resource_index/packages/my_action_server\n'}
+[26.042060] (my_action_server) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_server/share/my_action_server/cmake/my_action_serverConfig.cmake\n'}
+[26.042291] (my_action_server) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_server/share/my_action_server/cmake/my_action_serverConfig-version.cmake\n'}
+[26.042734] (my_action_server) StdoutLine: {'line': b'-- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_server/share/my_action_server/package.xml\n'}
+[26.044361] (my_action_server) CommandEnded: {'returncode': 0}
+[26.056036] (-) TimerEvent: {}
+[26.083867] (my_action_server) JobEnded: {'identifier': 'my_action_server', 'rc': 0}
+[26.085752] (-) EventReactorShutdown: {}

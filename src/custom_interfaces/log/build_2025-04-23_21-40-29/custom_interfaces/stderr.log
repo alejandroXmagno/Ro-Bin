@@ -1,0 +1,11 @@
+In file included from [01m[K/workspaces/isaac_ros-dev/src/custom_interfaces/build/custom_interfaces/rosidl_generator_c/custom_interfaces/action/detail/move__functions.h:19[m[K,
+                 from [01m[K/workspaces/isaac_ros-dev/src/custom_interfaces/build/custom_interfaces/rosidl_generator_c/custom_interfaces/action/detail/move__functions.c:4[m[K:
+[01m[K/workspaces/isaac_ros-dev/src/custom_interfaces/build/custom_interfaces/rosidl_generator_c/custom_interfaces/action/detail/move__struct.h:22:10:[m[K [01;31m[Kfatal error: [m[Kgeometry_msgs/msg/detail/twist__struct.h: No such file or directory
+   22 | #include [01;31m[K"geometry_msgs/msg/detail/twist__struct.h"[m[K
+      |          [01;31m[K^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+compilation terminated.
+gmake[2]: *** [CMakeFiles/custom_interfaces__rosidl_generator_c.dir/build.make:112: CMakeFiles/custom_interfaces__rosidl_generator_c.dir/rosidl_generator_c/custom_interfaces/action/detail/move__functions.c.o] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:213: CMakeFiles/custom_interfaces__rosidl_generator_c.dir/all] Error 2
+gmake[1]: *** Waiting for unfinished jobs....
+ERROR setuptools_scm._file_finders.git listing git files failed - pretending there aren't any
+gmake: *** [Makefile:146: all] Error 2

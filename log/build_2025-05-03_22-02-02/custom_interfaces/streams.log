@@ -1,0 +1,26 @@
+[0.035s] Invoking command in '/workspaces/isaac_ros-dev/build/custom_interfaces': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /workspaces/isaac_ros-dev/build/custom_interfaces -- -j6 -l6
+[0.218s] [  2%] Built target custom_interfaces__cpp
+[0.226s] [ 12%] Built target custom_interfaces__rosidl_generator_c
+[0.249s] [ 12%] Built target ament_cmake_python_copy_custom_interfaces
+[0.323s] [ 23%] Built target custom_interfaces__rosidl_typesupport_fastrtps_cpp
+[0.330s] [ 33%] Built target custom_interfaces__rosidl_typesupport_cpp
+[0.351s] [ 43%] Built target custom_interfaces__rosidl_typesupport_fastrtps_c
+[0.366s] [ 53%] Built target custom_interfaces__rosidl_typesupport_introspection_cpp
+[0.382s] [ 64%] Built target custom_interfaces__rosidl_typesupport_c
+[0.388s] [ 74%] Built target custom_interfaces__rosidl_typesupport_introspection_c
+[0.454s] [ 74%] Built target custom_interfaces
+[0.522s] [ 76%] Built target custom_interfaces__py
+[0.586s] [ 84%] Built target custom_interfaces__rosidl_generator_py
+[0.716s] [ 89%] Built target custom_interfaces__rosidl_typesupport_c__pyext
+[0.721s] [ 94%] Built target custom_interfaces__rosidl_typesupport_introspection_c__pyext
+[0.746s] [100%] Built target custom_interfaces__rosidl_typesupport_fastrtps_c__pyext
+[1.503s] running egg_info
+[1.555s] writing custom_interfaces.egg-info/PKG-INFO
+[1.556s] writing dependency_links to custom_interfaces.egg-info/dependency_links.txt
+[1.557s] writing top-level names to custom_interfaces.egg-info/top_level.txt
+[1.915s] ERROR setuptools_scm._file_finders.git listing git files failed - pretending there aren't any
+[2.352s] interrupted
+[2.549s] gmake[2]: *** [CMakeFiles/ament_cmake_python_build_custom_interfaces_egg.dir/build.make:70: CMakeFiles/ament_cmake_python_build_custom_interfaces_egg] Interrupt
+[2.549s] gmake[1]: *** [CMakeFiles/Makefile2:447: CMakeFiles/ament_cmake_python_build_custom_interfaces_egg.dir/all] Interrupt
+[2.555s] gmake: *** [Makefile:146: all] Interrupt
+[2.562s] Invoked command in '/workspaces/isaac_ros-dev/build/custom_interfaces' returned '-2': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /workspaces/isaac_ros-dev/build/custom_interfaces -- -j6 -l6

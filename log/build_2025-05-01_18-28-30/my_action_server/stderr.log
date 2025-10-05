@@ -1,0 +1,12 @@
+[01m[K/workspaces/isaac_ros-dev/src/my_action_server/src/action_server.cpp:[m[K In member function ‘[01m[Kbool MyActionServer::is_valid_object(const string&)[m[K’:
+[01m[K/workspaces/isaac_ros-dev/src/my_action_server/src/action_server.cpp:179:44:[m[K [01;35m[Kwarning: [m[Kunused parameter ‘[01m[Kobject_name[m[K’ [[01;35m[K-Wunused-parameter[m[K]
+  179 |   bool is_valid_object([01;35m[Kconst std::string & object_name[m[K)
+      |                        [01;35m[K~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~[m[K
+[01m[K/workspaces/isaac_ros-dev/src/my_action_server/src/action_server.cpp:[m[K In member function ‘[01m[Kbool MyActionServer::is_object_centered()[m[K’:
+[01m[K/workspaces/isaac_ros-dev/src/my_action_server/src/action_server.cpp:200:11:[m[K [01;31m[Kerror: [m[K‘[01m[Kprint[m[K’ was not declared in this scope; did you mean ‘[01m[Krint[m[K’?
+  200 |           [01;31m[Kprint[m[K(image_center_x);
+      |           [01;31m[K^~~~~[m[K
+      |           [32m[Krint[m[K
+gmake[2]: *** [CMakeFiles/action_server.dir/build.make:76: CMakeFiles/action_server.dir/src/action_server.cpp.o] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:137: CMakeFiles/action_server.dir/all] Error 2
+gmake: *** [Makefile:146: all] Error 2

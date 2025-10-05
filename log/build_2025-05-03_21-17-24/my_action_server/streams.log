@@ -1,0 +1,65 @@
+[0.035s] Invoking command in '/workspaces/isaac_ros-dev/build/my_action_server': CMAKE_PREFIX_PATH=/workspaces/isaac_ros-dev/install/custom_interfaces:/workspaces/isaac_ros-dev/install/my_action_server:/workspaces/isaac_ros-dev/install/my_action_client:/usr/local/libcudss-linux-0.3.0.9_cuda12-archive:/opt/ros/humble /usr/bin/cmake --build /workspaces/isaac_ros-dev/build/my_action_server -- -j6 -l6
+[0.183s] -- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)
+[0.813s] -- Found rclcpp: 16.0.12 (/opt/ros/humble/share/rclcpp/cmake)
+[0.936s] -- Found rosidl_generator_c: 3.1.6 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[0.943s] -- Found rosidl_adapter: 3.1.6 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[0.962s] -- Found rosidl_generator_cpp: 3.1.6 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[0.995s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[1.045s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[1.207s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[1.214s] -- Found rmw_fastrtps_cpp: 6.2.7 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)
+[1.717s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[1.870s] -- Found rclcpp_action: 16.0.12 (/opt/ros/humble/share/rclcpp_action/cmake)
+[1.967s] -- Found custom_interfaces: 0.0.0 (/workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/cmake)
+[2.051s] -- Found vision_msgs: 4.1.1 (/opt/ros/humble/share/vision_msgs/cmake)
+[2.091s] -- Found sensor_msgs: 4.8.0 (/opt/ros/humble/share/sensor_msgs/cmake)
+[2.134s] -- Found ament_lint_auto: 0.12.12 (/opt/ros/humble/share/ament_lint_auto/cmake)
+[2.387s] -- Added test 'cppcheck' to perform static code analysis on C / C++ code
+[2.393s] -- Configured cppcheck include dirs: 
+[2.393s] -- Configured cppcheck exclude dirs and/or files: 
+[2.394s] -- Added test 'flake8' to check Python code syntax and style conventions
+[2.394s] -- Added test 'lint_cmake' to check CMake code style
+[2.395s] -- Added test 'pep257' to check Python code against some of the docstring style conventions in PEP 257
+[2.403s] -- Added test 'uncrustify' to check C / C++ code style
+[2.403s] -- Configured uncrustify additional arguments: 
+[2.404s] -- Added test 'xmllint' to check XML markup files
+[2.404s] -- Configuring done
+[2.462s] -- Generating done
+[2.482s] -- Build files have been written to: /workspaces/isaac_ros-dev/build/my_action_server
+[2.575s] [35m[1mConsolidate compiler generated dependencies of target action_server[0m
+[2.577s] [35m[1mConsolidate compiler generated dependencies of target waveshare_controller[0m
+[2.642s] [ 25%] [32mBuilding CXX object CMakeFiles/waveshare_controller.dir/src/waveshare_controller.cpp.o[0m
+[2.660s] [ 50%] [32mBuilding CXX object CMakeFiles/action_server.dir/src/action_server.cpp.o[0m
+[10.424s] [01m[K/workspaces/isaac_ros-dev/src/my_action_server/src/action_server.cpp:[m[K In member function ‘[01m[Kbool MyActionServer::is_valid_object(const string&)[m[K’:
+[10.424s] [01m[K/workspaces/isaac_ros-dev/src/my_action_server/src/action_server.cpp:356:44:[m[K [01;35m[Kwarning: [m[Kunused parameter ‘[01m[Kobject_name[m[K’ [[01;35m[K-Wunused-parameter[m[K]
+[10.425s]   356 |   bool is_valid_object([01;35m[Kconst std::string & object_name[m[K)
+[10.425s]       |                        [01;35m[K~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~[m[K
+[26.031s] [ 75%] [32m[1mLinking CXX executable waveshare_controller[0m
+[27.406s] [ 75%] Built target waveshare_controller
+[36.599s] [100%] [32m[1mLinking CXX executable action_server[0m
+[38.482s] [100%] Built target action_server
+[38.518s] Invoked command in '/workspaces/isaac_ros-dev/build/my_action_server' returned '0': CMAKE_PREFIX_PATH=/workspaces/isaac_ros-dev/install/custom_interfaces:/workspaces/isaac_ros-dev/install/my_action_server:/workspaces/isaac_ros-dev/install/my_action_client:/usr/local/libcudss-linux-0.3.0.9_cuda12-archive:/opt/ros/humble /usr/bin/cmake --build /workspaces/isaac_ros-dev/build/my_action_server -- -j6 -l6
+[38.523s] Invoking command in '/workspaces/isaac_ros-dev/build/my_action_server': CMAKE_PREFIX_PATH=/workspaces/isaac_ros-dev/install/custom_interfaces:/workspaces/isaac_ros-dev/install/my_action_server:/workspaces/isaac_ros-dev/install/my_action_client:/usr/local/libcudss-linux-0.3.0.9_cuda12-archive:/opt/ros/humble /usr/bin/cmake --install /workspaces/isaac_ros-dev/build/my_action_server
+[38.549s] -- Install configuration: ""
+[38.551s] -- Installing: /workspaces/isaac_ros-dev/install/my_action_server/lib/my_action_server/action_server
+[38.571s] -- Set runtime path of "/workspaces/isaac_ros-dev/install/my_action_server/lib/my_action_server/action_server" to ""
+[38.572s] -- Installing: /workspaces/isaac_ros-dev/install/my_action_server/lib/my_action_server/waveshare_controller
+[38.583s] -- Set runtime path of "/workspaces/isaac_ros-dev/install/my_action_server/lib/my_action_server/waveshare_controller" to ""
+[38.583s] -- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_server/share/my_action_server//launch
+[38.583s] -- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_server/share/my_action_server//launch/server_launch.py
+[38.583s] -- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_server/share/ament_index/resource_index/package_run_dependencies/my_action_server
+[38.583s] -- Installing: /workspaces/isaac_ros-dev/install/my_action_server/share/ament_index/resource_index/parent_prefix_path/my_action_server
+[38.584s] -- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_server/share/my_action_server/environment/ament_prefix_path.sh
+[38.584s] -- Installing: /workspaces/isaac_ros-dev/install/my_action_server/share/my_action_server/environment/ament_prefix_path.dsv
+[38.584s] -- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_server/share/my_action_server/environment/path.sh
+[38.584s] -- Installing: /workspaces/isaac_ros-dev/install/my_action_server/share/my_action_server/environment/path.dsv
+[38.585s] -- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_server/share/my_action_server/local_setup.bash
+[38.585s] -- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_server/share/my_action_server/local_setup.sh
+[38.586s] -- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_server/share/my_action_server/local_setup.zsh
+[38.586s] -- Installing: /workspaces/isaac_ros-dev/install/my_action_server/share/my_action_server/local_setup.dsv
+[38.586s] -- Installing: /workspaces/isaac_ros-dev/install/my_action_server/share/my_action_server/package.dsv
+[38.587s] -- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_server/share/ament_index/resource_index/packages/my_action_server
+[38.587s] -- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_server/share/my_action_server/cmake/my_action_serverConfig.cmake
+[38.587s] -- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_server/share/my_action_server/cmake/my_action_serverConfig-version.cmake
+[38.587s] -- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_server/share/my_action_server/package.xml
+[38.598s] Invoked command in '/workspaces/isaac_ros-dev/build/my_action_server' returned '0': CMAKE_PREFIX_PATH=/workspaces/isaac_ros-dev/install/custom_interfaces:/workspaces/isaac_ros-dev/install/my_action_server:/workspaces/isaac_ros-dev/install/my_action_client:/usr/local/libcudss-linux-0.3.0.9_cuda12-archive:/opt/ros/humble /usr/bin/cmake --install /workspaces/isaac_ros-dev/build/my_action_server

@@ -1,0 +1,65 @@
+[0.052s] Invoking command in '/workspaces/isaac_ros-dev/build/my_action_server': CMAKE_PREFIX_PATH=/workspaces/isaac_ros-dev/install/custom_interfaces:/workspaces/isaac_ros-dev/install/my_action_server:/workspaces/isaac_ros-dev/install/my_action_client:/usr/local/libcudss-linux-0.3.0.9_cuda12-archive:/opt/ros/humble /usr/bin/cmake --build /workspaces/isaac_ros-dev/build/my_action_server -- -j6 -l6
+[0.223s] [35m[1mConsolidate compiler generated dependencies of target action_server[0m
+[0.302s] [ 50%] [32mBuilding CXX object CMakeFiles/action_server.dir/src/action_server.cpp.o[0m
+[7.950s] In file included from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/logging.hpp:24[m[K,
+[7.951s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/client.hpp:40[m[K,
+[7.951s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/callback_group.hpp:24[m[K,
+[7.951s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/any_executable.hpp:20[m[K,
+[7.951s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/memory_strategy.hpp:25[m[K,
+[7.951s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/memory_strategies.hpp:18[m[K,
+[7.952s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executor_options.hpp:20[m[K,
+[7.952s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executor.hpp:37[m[K,
+[7.952s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executors/multi_threaded_executor.hpp:25[m[K,
+[7.952s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executors.hpp:21[m[K,
+[7.952s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/rclcpp.hpp:155[m[K,
+[7.952s]                  from [01m[K/workspaces/isaac_ros-dev/src/my_action_server/src/action_server.cpp:5[m[K:
+[7.952s] [01m[K/workspaces/isaac_ros-dev/src/my_action_server/src/action_server.cpp:[m[K In member function ‘[01m[Kvoid MyActionServer::execute(std::shared_ptr<rclcpp_action::ServerGoalHandle<custom_interfaces::action::TrackObject> >)[m[K’:
+[7.953s] [01m[K/workspaces/isaac_ros-dev/src/my_action_server/src/action_server.cpp:145:51:[m[K [01;35m[Kwarning: [m[Kformat ‘[01m[K%f[m[K’ expects argument of type ‘[01m[Kdouble[m[K’, but argument 5 has type ‘[01m[Kint[m[K’ [[01;35m[K-Wformat=[m[K]
+[7.953s]   145 |                   RCLCPP_INFO(this->get_logger(), [01;35m[K"Depth value: %f"[m[K, [32m[Kdepth_value[m[K);
+[7.953s]       |                                                   [01;35m[K^~~~~~~~~~~~~~~~~[m[K  [32m[K~~~~~~~~~~~[m[K
+[7.953s]       |                                                                      [32m[K|[m[K
+[7.953s]       |                                                                      [32m[Kint[m[K
+[7.954s] [01m[K/workspaces/isaac_ros-dev/src/my_action_server/src/action_server.cpp:145:66:[m[K [01;36m[Knote: [m[Kformat string is defined here
+[7.954s]   145 |                   RCLCPP_INFO(this->get_logger(), "Depth value: [01;36m[K%f[m[K", depth_value);
+[7.954s]       |                                                                 [01;36m[K~^[m[K
+[7.954s]       |                                                                  [01;36m[K|[m[K
+[7.954s]       |                                                                  [01;36m[Kdouble[m[K
+[7.955s]       |                                                                 [32m[K%d[m[K
+[7.955s] [01m[K/workspaces/isaac_ros-dev/src/my_action_server/src/action_server.cpp:188:23:[m[K [01;35m[Kwarning: [m[Kunused variable ‘[01m[Kavg_depth_cm[m[K’ [[01;35m[K-Wunused-variable[m[K]
+[7.955s]   188 |                   int [01;35m[Kavg_depth_cm[m[K = total_depth / valid_pixels;
+[7.955s]       |                       [01;35m[K^~~~~~~~~~~~[m[K
+[7.957s] [01m[K/workspaces/isaac_ros-dev/src/my_action_server/src/action_server.cpp:157:24:[m[K [01;35m[Kwarning: [m[Kunused variable ‘[01m[Kbbox_x[m[K’ [[01;35m[K-Wunused-variable[m[K]
+[7.958s]   157 |                 double [01;35m[Kbbox_x[m[K = center_x - bbox_width/2;
+[7.958s]       |                        [01;35m[K^~~~~~[m[K
+[7.958s] [01m[K/workspaces/isaac_ros-dev/src/my_action_server/src/action_server.cpp:158:24:[m[K [01;35m[Kwarning: [m[Kunused variable ‘[01m[Kbbox_y[m[K’ [[01;35m[K-Wunused-variable[m[K]
+[7.958s]   158 |                 double [01;35m[Kbbox_y[m[K = center_y - bbox_height/2;
+[7.958s]       |                        [01;35m[K^~~~~~[m[K
+[7.969s] [01m[K/workspaces/isaac_ros-dev/src/my_action_server/src/action_server.cpp:[m[K In member function ‘[01m[Kbool MyActionServer::is_valid_object(const string&)[m[K’:
+[7.969s] [01m[K/workspaces/isaac_ros-dev/src/my_action_server/src/action_server.cpp:252:44:[m[K [01;35m[Kwarning: [m[Kunused parameter ‘[01m[Kobject_name[m[K’ [[01;35m[K-Wunused-parameter[m[K]
+[7.970s]   252 |   bool is_valid_object([01;35m[Kconst std::string & object_name[m[K)
+[7.970s]       |                        [01;35m[K~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~[m[K
+[33.440s] [100%] [32m[1mLinking CXX executable action_server[0m
+[35.285s] [100%] Built target action_server
+[35.323s] Invoked command in '/workspaces/isaac_ros-dev/build/my_action_server' returned '0': CMAKE_PREFIX_PATH=/workspaces/isaac_ros-dev/install/custom_interfaces:/workspaces/isaac_ros-dev/install/my_action_server:/workspaces/isaac_ros-dev/install/my_action_client:/usr/local/libcudss-linux-0.3.0.9_cuda12-archive:/opt/ros/humble /usr/bin/cmake --build /workspaces/isaac_ros-dev/build/my_action_server -- -j6 -l6
+[35.328s] Invoking command in '/workspaces/isaac_ros-dev/build/my_action_server': CMAKE_PREFIX_PATH=/workspaces/isaac_ros-dev/install/custom_interfaces:/workspaces/isaac_ros-dev/install/my_action_server:/workspaces/isaac_ros-dev/install/my_action_client:/usr/local/libcudss-linux-0.3.0.9_cuda12-archive:/opt/ros/humble /usr/bin/cmake --install /workspaces/isaac_ros-dev/build/my_action_server
+[35.358s] -- Install configuration: ""
+[35.359s] -- Installing: /workspaces/isaac_ros-dev/install/my_action_server/lib/my_action_server/action_server
+[35.383s] -- Set runtime path of "/workspaces/isaac_ros-dev/install/my_action_server/lib/my_action_server/action_server" to ""
+[35.383s] -- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_server/share/my_action_server//launch
+[35.383s] -- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_server/share/my_action_server//launch/server_launch.py
+[35.383s] -- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_server/share/ament_index/resource_index/package_run_dependencies/my_action_server
+[35.384s] -- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_server/share/ament_index/resource_index/parent_prefix_path/my_action_server
+[35.384s] -- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_server/share/my_action_server/environment/ament_prefix_path.sh
+[35.384s] -- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_server/share/my_action_server/environment/ament_prefix_path.dsv
+[35.384s] -- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_server/share/my_action_server/environment/path.sh
+[35.384s] -- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_server/share/my_action_server/environment/path.dsv
+[35.385s] -- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_server/share/my_action_server/local_setup.bash
+[35.385s] -- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_server/share/my_action_server/local_setup.sh
+[35.385s] -- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_server/share/my_action_server/local_setup.zsh
+[35.385s] -- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_server/share/my_action_server/local_setup.dsv
+[35.385s] -- Installing: /workspaces/isaac_ros-dev/install/my_action_server/share/my_action_server/package.dsv
+[35.385s] -- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_server/share/ament_index/resource_index/packages/my_action_server
+[35.386s] -- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_server/share/my_action_server/cmake/my_action_serverConfig.cmake
+[35.386s] -- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_server/share/my_action_server/cmake/my_action_serverConfig-version.cmake
+[35.386s] -- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_server/share/my_action_server/package.xml
+[35.393s] Invoked command in '/workspaces/isaac_ros-dev/build/my_action_server' returned '0': CMAKE_PREFIX_PATH=/workspaces/isaac_ros-dev/install/custom_interfaces:/workspaces/isaac_ros-dev/install/my_action_server:/workspaces/isaac_ros-dev/install/my_action_client:/usr/local/libcudss-linux-0.3.0.9_cuda12-archive:/opt/ros/humble /usr/bin/cmake --install /workspaces/isaac_ros-dev/build/my_action_server

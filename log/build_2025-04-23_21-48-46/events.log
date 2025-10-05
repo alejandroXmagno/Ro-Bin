@@ -1,0 +1,162 @@
+[0.000000] (-) TimerEvent: {}
+[0.000664] (-) JobUnselected: {'identifier': 'isaac_common'}
+[0.001282] (-) JobUnselected: {'identifier': 'isaac_common_py'}
+[0.001618] (-) JobUnselected: {'identifier': 'isaac_ros_apriltag_interfaces'}
+[0.001932] (-) JobUnselected: {'identifier': 'isaac_ros_bi3d_interfaces'}
+[0.002051] (-) JobUnselected: {'identifier': 'isaac_ros_common'}
+[0.002235] (-) JobUnselected: {'identifier': 'isaac_ros_launch_utils'}
+[0.002323] (-) JobUnselected: {'identifier': 'isaac_ros_nitros_bridge_interfaces'}
+[0.002372] (-) JobUnselected: {'identifier': 'isaac_ros_nova_interfaces'}
+[0.002416] (-) JobUnselected: {'identifier': 'isaac_ros_pointcloud_interfaces'}
+[0.002484] (-) JobUnselected: {'identifier': 'isaac_ros_r2b_galileo'}
+[0.002549] (-) JobUnselected: {'identifier': 'isaac_ros_rosbag_utils'}
+[0.002617] (-) JobUnselected: {'identifier': 'isaac_ros_tensor_list_interfaces'}
+[0.003038] (-) JobUnselected: {'identifier': 'isaac_ros_test'}
+[0.003122] (-) JobUnselected: {'identifier': 'isaac_ros_test_cmake'}
+[0.003250] (-) JobUnselected: {'identifier': 'topic_publisher_pkg'}
+[0.003331] (custom_interfaces) JobQueued: {'identifier': 'custom_interfaces', 'dependencies': OrderedDict()}
+[0.003388] (custom_interfaces) JobStarted: {'identifier': 'custom_interfaces'}
+[0.023208] (custom_interfaces) JobProgress: {'identifier': 'custom_interfaces', 'progress': 'cmake'}
+[0.024692] (custom_interfaces) JobProgress: {'identifier': 'custom_interfaces', 'progress': 'build'}
+[0.026123] (custom_interfaces) Command: {'cmd': ['/usr/bin/cmake', '--build', '/workspaces/isaac_ros-dev/build/custom_interfaces', '--', '-j6', '-l6'], 'cwd': '/workspaces/isaac_ros-dev/build/custom_interfaces', 'env': OrderedDict([('LIBRARY_PATH', '/usr/local/cuda/lib64/stubs'), ('PYTHONWARNINGS', 'ignore:::setuptools.command.install,ignore:::setuptools.command.easy_install,ignore:::pkg_resources,ignore:::setuptools.command.develop'), ('NV_LIBCUBLAS_VERSION', '12.6.1.4-1'), ('USER', 'stickykeys'), ('NV_CUDA_NSIGHT_COMPUTE_VERSION', '12.6.11-1'), ('HOSTNAME', 'stickykeys-desktop'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/aarch64-linux-gnu:/opt/ros/humble/lib:/usr/lib/aarch64-linux-gnu/tegra/weston:/usr/lib/aarch64-linux-gnu/tegra-egl:/usr/local/cuda-12.6/targets/aarch64-linux/lib:/usr/lib/aarch64-linux-gnu/tegra:/opt/nvidia/vpi3/lib64:/usr/local/libcudss-linux-0.3.0.9_cuda12-archive/lib:/usr/local/nvidia/lib:/usr/local/nvidia/lib64:/usr/lib/aarch64-linux-gnu-host:/opt/tritonserver/lib'), ('HOME', '/home/admin'), ('OLDPWD', '/workspaces/isaac_ros-dev/src'), ('HOST_USER_GID', '1000'), ('NV_LIBCUBLAS_DEV_VERSION', '12.6.1.4-1'), ('ROS_PYTHON_VERSION', '3'), ('NVIDIA_PVA_DEVICE', 'all'), ('NV_LIBNPP_PACKAGE', 'libnpp-12-6=12.3.1.54-1'), ('CUDA_VERSION', '12.6.11'), ('COLCON_PREFIX_PATH', '/workspaces/isaac_ros-dev/install'), ('ROS_DISTRO', 'humble'), ('NV_LIBCUBLAS_PACKAGE_NAME', 'libcublas-12-6'), ('NVIDIA_REQUIRE_CUDA', 'cuda>=12.6'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('NV_LIBCUSPARSE_VERSION', '12.5.3.3-1'), ('NVIDIA_DRIVER_CAPABILITIES', 'all'), ('NV_CUDA_LIB_VERSION', '12.6.11-1'), ('NV_NVML_DEV_VERSION', '12.6.68-1'), ('USERNAME', 'admin'), ('NV_LIBNPP_DEV_PACKAGE', 'libnpp-dev-12-6=12.3.1.54-1'), ('TERM', 'xterm'), ('ISAAC_ROS_WS', '/workspaces/isaac_ros-dev'), ('NV_CUDA_CUDART_VERSION', '12.6.68-1'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/opt/ros/humble/bin:/opt/ros/humble/vcstool/scripts:/usr/local/nvidia/bin:/usr/local/cuda/bin:/usr/src/tensorrt/bin:/usr/local/nvidia/bin:/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'), ('NV_LIBCUBLAS_DEV_PACKAGE_NAME', 'libcublas-dev-12-6'), ('NV_LIBCUBLAS_PACKAGE', 'libcublas-12-6=12.6.1.4-1'), ('HOST_USER_UID', '1000'), ('NVARCH', 'arm64'), ('CUDSS_DIR', '/usr/local/libcudss-linux-0.3.0.9_cuda12-archive'), ('NV_LIBCUSPARSE_DEV_VERSION', '12.5.3.3-1'), ('DISPLAY', ':1'), ('NVIDIA_PRODUCT_NAME', 'CUDA'), ('LANG', 'en_US.UTF-8'), ('RMW_IMPLEMENTATION', 'rmw_fastrtps_cpp'), ('NV_CUDA_CUDART_DEV_VERSION', '12.6.68-1'), ('ROS_ROOT', '/opt/ros/humble'), ('SSH_AUTH_SOCK', '/ssh-agent'), ('AMENT_PREFIX_PATH', '/opt/ros/humble'), ('DEBIAN_FRONTEND', 'noninteractive'), ('SHELL', '/bin/bash'), ('TRT_INCLUDE_PATH', '/usr/include/aarch64-linux-gnu'), ('NV_LIBCUBLAS_DEV_PACKAGE', 'libcublas-dev-12-6=12.6.1.4-1'), ('NV_CUDA_NSIGHT_COMPUTE_DEV_PACKAGE', 'cuda-nsight-compute-12-6=12.6.11-1'), ('NVIDIA_REQUIRE_JETPACK_HOST_MOUNTS', 'base-only'), ('NV_NVTX_VERSION', '12.6.68-1'), ('NV_LIBNPP_VERSION', '12.3.1.54-1'), ('PWD', '/workspaces/isaac_ros-dev/build/custom_interfaces'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages:/opt/ros/humble/vcstool:'), ('NVIDIA_VISIBLE_DEVICES', 'void'), ('COLCON', '1'), ('NV_LIBNPP_DEV_VERSION', '12.3.1.54-1'), ('CMAKE_PREFIX_PATH', '/usr/local/libcudss-linux-0.3.0.9_cuda12-archive::/opt/ros/humble'), ('TRT_LIB_PATH', '/usr/lib/aarch64-linux-gnu')]), 'shell': False}
+[0.093456] (custom_interfaces) StdoutLine: {'line': b'-- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)\n'}
+[0.099243] (-) TimerEvent: {}
+[0.199736] (-) TimerEvent: {}
+[0.300379] (-) TimerEvent: {}
+[0.401051] (-) TimerEvent: {}
+[0.423846] (custom_interfaces) StdoutLine: {'line': b'-- Found rclcpp: 16.0.12 (/opt/ros/humble/share/rclcpp/cmake)\n'}
+[0.497025] (custom_interfaces) StdoutLine: {'line': b'-- Found rosidl_generator_c: 3.1.6 (/opt/ros/humble/share/rosidl_generator_c/cmake)\n'}
+[0.501115] (-) TimerEvent: {}
+[0.502246] (custom_interfaces) StdoutLine: {'line': b'-- Found rosidl_adapter: 3.1.6 (/opt/ros/humble/share/rosidl_adapter/cmake)\n'}
+[0.515769] (custom_interfaces) StdoutLine: {'line': b'-- Found rosidl_generator_cpp: 3.1.6 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)\n'}
+[0.536991] (custom_interfaces) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[0.563753] (custom_interfaces) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[0.601318] (-) TimerEvent: {}
+[0.635270] (custom_interfaces) StdoutLine: {'line': b'-- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)\n'}
+[0.638151] (custom_interfaces) StdoutLine: {'line': b'-- Found rmw_fastrtps_cpp: 6.2.7 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)\n'}
+[0.701496] (-) TimerEvent: {}
+[0.802219] (-) TimerEvent: {}
+[0.902952] (-) TimerEvent: {}
+[0.947345] (custom_interfaces) StdoutLine: {'line': b"-- Using RMW implementation 'rmw_fastrtps_cpp' as default\n"}
+[1.003135] (-) TimerEvent: {}
+[1.068940] (custom_interfaces) StdoutLine: {'line': b'-- Found geometry_msgs: 4.8.0 (/opt/ros/humble/share/geometry_msgs/cmake)\n'}
+[1.101658] (custom_interfaces) StdoutLine: {'line': b'-- Found rosidl_default_generators: 1.2.0 (/opt/ros/humble/share/rosidl_default_generators/cmake)\n'}
+[1.103204] (-) TimerEvent: {}
+[1.203693] (-) TimerEvent: {}
+[1.304345] (-) TimerEvent: {}
+[1.405004] (-) TimerEvent: {}
+[1.505655] (-) TimerEvent: {}
+[1.606301] (-) TimerEvent: {}
+[1.706978] (-) TimerEvent: {}
+[1.807625] (-) TimerEvent: {}
+[1.824242] (custom_interfaces) StdoutLine: {'line': b'-- Found ament_cmake_ros: 0.10.0 (/opt/ros/humble/share/ament_cmake_ros/cmake)\n'}
+[1.907820] (-) TimerEvent: {}
+[2.008651] (-) TimerEvent: {}
+[2.109441] (-) TimerEvent: {}
+[2.210288] (-) TimerEvent: {}
+[2.311118] (-) TimerEvent: {}
+[2.411940] (-) TimerEvent: {}
+[2.512742] (-) TimerEvent: {}
+[2.613525] (-) TimerEvent: {}
+[2.697097] (custom_interfaces) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[2.713719] (-) TimerEvent: {}
+[2.814549] (-) TimerEvent: {}
+[2.915381] (-) TimerEvent: {}
+[3.016190] (-) TimerEvent: {}
+[3.047249] (custom_interfaces) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[3.115727] (custom_interfaces) StdoutLine: {'line': b'-- Found python_cmake_module: 0.10.0 (/opt/ros/humble/share/python_cmake_module/cmake)\n'}
+[3.116491] (-) TimerEvent: {}
+[3.188455] (custom_interfaces) StdoutLine: {'line': b'-- Using PYTHON_EXECUTABLE: /usr/bin/python3\n'}
+[3.189198] (custom_interfaces) StdoutLine: {'line': b'-- Using PYTHON_INCLUDE_DIRS: /usr/include/python3.10\n'}
+[3.189531] (custom_interfaces) StdoutLine: {'line': b'-- Using PYTHON_LIBRARIES: /usr/lib/aarch64-linux-gnu/libpython3.10.so\n'}
+[3.216675] (-) TimerEvent: {}
+[3.317377] (-) TimerEvent: {}
+[3.418028] (-) TimerEvent: {}
+[3.512756] (custom_interfaces) StdoutLine: {'line': b'-- Using numpy include directory: /usr/local/lib/python3.10/dist-packages/numpy/core/include\n'}
+[3.518167] (-) TimerEvent: {}
+[3.541521] (custom_interfaces) StdoutLine: {'line': b'-- Found ament_lint_auto: 0.12.12 (/opt/ros/humble/share/ament_lint_auto/cmake)\n'}
+[3.618384] (-) TimerEvent: {}
+[3.646276] (custom_interfaces) StdoutLine: {'line': b"-- Added test 'cppcheck' to perform static code analysis on C / C++ code\n"}
+[3.647483] (custom_interfaces) StdoutLine: {'line': b'-- Configured cppcheck include dirs: \n'}
+[3.647740] (custom_interfaces) StdoutLine: {'line': b'-- Configured cppcheck exclude dirs and/or files: \n'}
+[3.659314] (custom_interfaces) StdoutLine: {'line': b"-- Added test 'flake8' to check Python code syntax and style conventions\n"}
+[3.679715] (custom_interfaces) StdoutLine: {'line': b"-- Added test 'lint_cmake' to check CMake code style\n"}
+[3.690815] (custom_interfaces) StdoutLine: {'line': b"-- Added test 'pep257' to check Python code against some of the docstring style conventions in PEP 257\n"}
+[3.718596] (-) TimerEvent: {}
+[3.773408] (custom_interfaces) StdoutLine: {'line': b"-- Added test 'uncrustify' to check C / C++ code style\n"}
+[3.773959] (custom_interfaces) StdoutLine: {'line': b'-- Configured uncrustify additional arguments: \n'}
+[3.784987] (custom_interfaces) StdoutLine: {'line': b"-- Added test 'xmllint' to check XML markup files\n"}
+[3.791177] (custom_interfaces) StdoutLine: {'line': b'-- Configuring done\n'}
+[3.818726] (-) TimerEvent: {}
+[3.879052] (custom_interfaces) StdoutLine: {'line': b'-- Generating done\n'}
+[3.910609] (custom_interfaces) StdoutLine: {'line': b'-- Build files have been written to: /workspaces/isaac_ros-dev/build/custom_interfaces\n'}
+[3.918817] (-) TimerEvent: {}
+[4.019343] (-) TimerEvent: {}
+[4.044396] (custom_interfaces) StdoutLine: {'line': b'[  3%] Built target custom_interfaces__cpp\n'}
+[4.064517] (custom_interfaces) StdoutLine: {'line': b'[  6%] \x1b[32mBuilding C object CMakeFiles/custom_interfaces__rosidl_generator_c.dir/rosidl_generator_c/custom_interfaces/action/detail/move__functions.c.o\x1b[0m\n'}
+[4.118290] (custom_interfaces) StdoutLine: {'line': b'[  6%] Built target ament_cmake_python_copy_custom_interfaces\n'}
+[4.119453] (-) TimerEvent: {}
+[4.137581] (custom_interfaces) StderrLine: {'line': b'In file included from \x1b[01m\x1b[K/workspaces/isaac_ros-dev/build/custom_interfaces/rosidl_generator_c/custom_interfaces/action/detail/move__functions.h:19\x1b[m\x1b[K,\n'}
+[4.150561] (custom_interfaces) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/workspaces/isaac_ros-dev/build/custom_interfaces/rosidl_generator_c/custom_interfaces/action/detail/move__functions.c:4\x1b[m\x1b[K:\n'}
+[4.151104] (custom_interfaces) StderrLine: {'line': b'\x1b[01m\x1b[K/workspaces/isaac_ros-dev/build/custom_interfaces/rosidl_generator_c/custom_interfaces/action/detail/move__struct.h:22:10:\x1b[m\x1b[K \x1b[01;31m\x1b[Kfatal error: \x1b[m\x1b[Kgeometry_msgs/msg/detail/twist__struct.h: No such file or directory\n'}
+[4.151310] (custom_interfaces) StderrLine: {'line': b'   22 | #include \x1b[01;31m\x1b[K"geometry_msgs/msg/detail/twist__struct.h"\x1b[m\x1b[K\n'}
+[4.151480] (custom_interfaces) StderrLine: {'line': b'      |          \x1b[01;31m\x1b[K^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\x1b[m\x1b[K\n'}
+[4.151637] (custom_interfaces) StderrLine: {'line': b'compilation terminated.\n'}
+[4.151791] (custom_interfaces) StdoutLine: {'line': b'[ 12%] \x1b[32mBuilding CXX object CMakeFiles/custom_interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/custom_interfaces/action/detail/move__type_support.cpp.o\x1b[0m\n'}
+[4.152224] (custom_interfaces) StdoutLine: {'line': b'[ 12%] \x1b[32mBuilding CXX object CMakeFiles/custom_interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/custom_interfaces/action/detail/dds_fastrtps/move__type_support.cpp.o\x1b[0m\n'}
+[4.152454] (custom_interfaces) StderrLine: {'line': b'gmake[2]: *** [CMakeFiles/custom_interfaces__rosidl_generator_c.dir/build.make:112: CMakeFiles/custom_interfaces__rosidl_generator_c.dir/rosidl_generator_c/custom_interfaces/action/detail/move__functions.c.o] Error 1\n'}
+[4.155592] (custom_interfaces) StderrLine: {'line': b'gmake[1]: *** [CMakeFiles/Makefile2:213: CMakeFiles/custom_interfaces__rosidl_generator_c.dir/all] Error 2\n'}
+[4.156246] (custom_interfaces) StderrLine: {'line': b'gmake[1]: *** Waiting for unfinished jobs....\n'}
+[4.180155] (custom_interfaces) StdoutLine: {'line': b'[ 16%] \x1b[32mBuilding CXX object CMakeFiles/custom_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/custom_interfaces/action/move__type_support.cpp.o\x1b[0m\n'}
+[4.219652] (-) TimerEvent: {}
+[4.304943] (custom_interfaces) StderrLine: {'line': b'In file included from \x1b[01m\x1b[K/workspaces/isaac_ros-dev/build/custom_interfaces/rosidl_typesupport_fastrtps_cpp/custom_interfaces/action/detail/move__rosidl_typesupport_fastrtps_cpp.hpp:11\x1b[m\x1b[K,\n'}
+[4.305525] (custom_interfaces) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/workspaces/isaac_ros-dev/build/custom_interfaces/rosidl_typesupport_fastrtps_cpp/custom_interfaces/action/detail/dds_fastrtps/move__type_support.cpp:4\x1b[m\x1b[K:\n'}
+[4.305736] (custom_interfaces) StderrLine: {'line': b'\x1b[01m\x1b[K/workspaces/isaac_ros-dev/build/custom_interfaces/rosidl_generator_cpp/custom_interfaces/action/detail/move__struct.hpp:20:10:\x1b[m\x1b[K \x1b[01;31m\x1b[Kfatal error: \x1b[m\x1b[Kgeometry_msgs/msg/detail/twist__struct.hpp: No such file or directory\n'}
+[4.305913] (custom_interfaces) StderrLine: {'line': b'   20 | #include \x1b[01;31m\x1b[K"geometry_msgs/msg/detail/twist__struct.hpp"\x1b[m\x1b[K\n'}
+[4.306073] (custom_interfaces) StderrLine: {'line': b'      |          \x1b[01;31m\x1b[K^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\x1b[m\x1b[K\n'}
+[4.306224] (custom_interfaces) StderrLine: {'line': b'compilation terminated.\n'}
+[4.309052] (custom_interfaces) StderrLine: {'line': b'gmake[2]: *** [CMakeFiles/custom_interfaces__rosidl_typesupport_fastrtps_cpp.dir/build.make:98: CMakeFiles/custom_interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/custom_interfaces/action/detail/dds_fastrtps/move__type_support.cpp.o] Error 1\n'}
+[4.309843] (custom_interfaces) StderrLine: {'line': b'gmake[1]: *** [CMakeFiles/Makefile2:291: CMakeFiles/custom_interfaces__rosidl_typesupport_fastrtps_cpp.dir/all] Error 2\n'}
+[4.319771] (-) TimerEvent: {}
+[4.328370] (custom_interfaces) StderrLine: {'line': b'In file included from \x1b[01m\x1b[K/workspaces/isaac_ros-dev/build/custom_interfaces/rosidl_typesupport_introspection_cpp/custom_interfaces/action/detail/move__type_support.cpp:12\x1b[m\x1b[K:\n'}
+[4.328802] (custom_interfaces) StderrLine: {'line': b'\x1b[01m\x1b[K/workspaces/isaac_ros-dev/build/custom_interfaces/rosidl_generator_cpp/custom_interfaces/action/detail/move__struct.hpp:20:10:\x1b[m\x1b[K \x1b[01;31m\x1b[Kfatal error: \x1b[m\x1b[Kgeometry_msgs/msg/detail/twist__struct.hpp: No such file or directory\n'}
+[4.328985] (custom_interfaces) StderrLine: {'line': b'   20 | #include \x1b[01;31m\x1b[K"geometry_msgs/msg/detail/twist__struct.hpp"\x1b[m\x1b[K\n'}
+[4.329142] (custom_interfaces) StderrLine: {'line': b'      |          \x1b[01;31m\x1b[K^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\x1b[m\x1b[K\n'}
+[4.329375] (custom_interfaces) StderrLine: {'line': b'compilation terminated.\n'}
+[4.332655] (custom_interfaces) StderrLine: {'line': b'gmake[2]: *** [CMakeFiles/custom_interfaces__rosidl_typesupport_introspection_cpp.dir/build.make:98: CMakeFiles/custom_interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/custom_interfaces/action/detail/move__type_support.cpp.o] Error 1\n'}
+[4.333219] (custom_interfaces) StderrLine: {'line': b'gmake[1]: *** [CMakeFiles/Makefile2:369: CMakeFiles/custom_interfaces__rosidl_typesupport_introspection_cpp.dir/all] Error 2\n'}
+[4.333718] (custom_interfaces) StderrLine: {'line': b'In file included from \x1b[01m\x1b[K/workspaces/isaac_ros-dev/build/custom_interfaces/rosidl_typesupport_cpp/custom_interfaces/action/move__type_support.cpp:7\x1b[m\x1b[K:\n'}
+[4.333946] (custom_interfaces) StderrLine: {'line': b'\x1b[01m\x1b[K/workspaces/isaac_ros-dev/build/custom_interfaces/rosidl_generator_cpp/custom_interfaces/action/detail/move__struct.hpp:20:10:\x1b[m\x1b[K \x1b[01;31m\x1b[Kfatal error: \x1b[m\x1b[Kgeometry_msgs/msg/detail/twist__struct.hpp: No such file or directory\n'}
+[4.334116] (custom_interfaces) StderrLine: {'line': b'   20 | #include \x1b[01;31m\x1b[K"geometry_msgs/msg/detail/twist__struct.hpp"\x1b[m\x1b[K\n'}
+[4.334270] (custom_interfaces) StderrLine: {'line': b'      |          \x1b[01;31m\x1b[K^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\x1b[m\x1b[K\n'}
+[4.334415] (custom_interfaces) StderrLine: {'line': b'compilation terminated.\n'}
+[4.338361] (custom_interfaces) StderrLine: {'line': b'gmake[2]: *** [CMakeFiles/custom_interfaces__rosidl_typesupport_cpp.dir/build.make:93: CMakeFiles/custom_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/custom_interfaces/action/move__type_support.cpp.o] Error 1\n'}
+[4.339227] (custom_interfaces) StderrLine: {'line': b'gmake[1]: *** [CMakeFiles/Makefile2:395: CMakeFiles/custom_interfaces__rosidl_typesupport_cpp.dir/all] Error 2\n'}
+[4.419939] (-) TimerEvent: {}
+[4.520762] (-) TimerEvent: {}
+[4.621562] (-) TimerEvent: {}
+[4.722271] (-) TimerEvent: {}
+[4.822930] (-) TimerEvent: {}
+[4.923579] (-) TimerEvent: {}
+[5.024220] (-) TimerEvent: {}
+[5.125033] (-) TimerEvent: {}
+[5.158708] (custom_interfaces) StdoutLine: {'line': b'running egg_info\n'}
+[5.208771] (custom_interfaces) StdoutLine: {'line': b'writing custom_interfaces.egg-info/PKG-INFO\n'}
+[5.209406] (custom_interfaces) StdoutLine: {'line': b'writing dependency_links to custom_interfaces.egg-info/dependency_links.txt\n'}
+[5.210079] (custom_interfaces) StdoutLine: {'line': b'writing top-level names to custom_interfaces.egg-info/top_level.txt\n'}
+[5.225100] (-) TimerEvent: {}
+[5.325600] (-) TimerEvent: {}
+[5.426259] (-) TimerEvent: {}
+[5.491775] (custom_interfaces) StderrLine: {'line': b"ERROR setuptools_scm._file_finders.git listing git files failed - pretending there aren't any\n"}
+[5.526398] (-) TimerEvent: {}
+[5.627057] (-) TimerEvent: {}
+[5.727700] (-) TimerEvent: {}
+[5.781471] (custom_interfaces) StdoutLine: {'line': b"reading manifest file 'custom_interfaces.egg-info/SOURCES.txt'\n"}
+[5.783152] (custom_interfaces) StdoutLine: {'line': b"writing manifest file 'custom_interfaces.egg-info/SOURCES.txt'\n"}
+[5.827892] (-) TimerEvent: {}
+[5.925329] (custom_interfaces) StdoutLine: {'line': b'[ 16%] Built target ament_cmake_python_build_custom_interfaces_egg\n'}
+[5.927843] (custom_interfaces) StderrLine: {'line': b'gmake: *** [Makefile:146: all] Error 2\n'}
+[5.928235] (-) TimerEvent: {}
+[5.933799] (custom_interfaces) CommandEnded: {'returncode': 2}
+[5.963406] (custom_interfaces) JobEnded: {'identifier': 'custom_interfaces', 'rc': 2}
+[5.974392] (-) EventReactorShutdown: {}

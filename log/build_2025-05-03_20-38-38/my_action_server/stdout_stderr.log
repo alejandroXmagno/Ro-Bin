@@ -1,0 +1,94 @@
+[35m[1mConsolidate compiler generated dependencies of target waveshare_controller[0m
+[35m[1mConsolidate compiler generated dependencies of target action_server[0m
+[ 25%] [32mBuilding CXX object CMakeFiles/waveshare_controller.dir/src/waveshare_controller.cpp.o[0m
+[ 50%] [32mBuilding CXX object CMakeFiles/action_server.dir/src/action_server.cpp.o[0m
+[01m[K/workspaces/isaac_ros-dev/src/my_action_server/src/action_server.cpp:68:3:[m[K [01;31m[Kerror: [m[Kexpected ‘[01m[K;[m[K’ before ‘[01m[Kconst[m[K’
+   68 |   [01;31m[Kconst[m[K double MIN_LINEAR_SPEED = 0.05;  // m/s
+      |   [01;31m[K^~~~~[m[K
+[01m[K/workspaces/isaac_ros-dev/src/my_action_server/src/action_server.cpp:[m[K In member function ‘[01m[Kvoid MyActionServer::control_callback()[m[K’:
+[01m[K/workspaces/isaac_ros-dev/src/my_action_server/src/action_server.cpp:116:69:[m[K [01;31m[Kerror: [m[K‘[01m[KMIN_LINEAR_SPEED[m[K’ was not declared in this scope; did you mean ‘[01m[KMAX_LINEAR_SPEED[m[K’?
+  116 |               twist_msg->linear.x = std::min(std::max(target_speed, [01;31m[KMIN_LINEAR_SPEED[m[K), MAX_LINEAR_SPEED);
+      |                                                                     [01;31m[K^~~~~~~~~~~~~~~~[m[K
+      |                                                                     [32m[KMAX_LINEAR_SPEED[m[K
+[01m[K/workspaces/isaac_ros-dev/src/my_action_server/src/action_server.cpp:[m[K In member function ‘[01m[Kbool MyActionServer::is_valid_object(const string&)[m[K’:
+[01m[K/workspaces/isaac_ros-dev/src/my_action_server/src/action_server.cpp:356:44:[m[K [01;35m[Kwarning: [m[Kunused parameter ‘[01m[Kobject_name[m[K’ [[01;35m[K-Wunused-parameter[m[K]
+  356 |   bool is_valid_object([01;35m[Kconst std::string & object_name[m[K)
+      |                        [01;35m[K~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~[m[K
+[01m[K/workspaces/isaac_ros-dev/src/my_action_server/src/waveshare_controller.cpp:[m[K In constructor ‘[01m[KWaveshareController::WaveshareController()[m[K’:
+[01m[K/workspaces/isaac_ros-dev/src/my_action_server/src/waveshare_controller.cpp:19:24:[m[K [01;31m[Kerror: [m[Kno matching function for call to ‘[01m[Kdrivers::serial_driver::SerialPortConfig::SerialPortConfig()[m[K’
+   19 |       SerialPortConfig [01;31m[Kconfig[m[K;
+      |                        [01;31m[K^~~~~~[m[K
+In file included from [01m[K/opt/ros/humble/include/serial_driver/serial_driver.hpp:22[m[K,
+                 from [01m[K/workspaces/isaac_ros-dev/src/my_action_server/src/waveshare_controller.cpp:3[m[K:
+[01m[K/opt/ros/humble/include/serial_driver/serial_port.hpp:61:3:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Kdrivers::serial_driver::SerialPortConfig::SerialPortConfig(uint32_t, drivers::serial_driver::FlowControl, drivers::serial_driver::Parity, drivers::serial_driver::StopBits)[m[K’
+   61 |   [01;36m[KSerialPortConfig[m[K(
+      |   [01;36m[K^~~~~~~~~~~~~~~~[m[K
+[01m[K/opt/ros/humble/include/serial_driver/serial_port.hpp:61:3:[m[K [01;36m[Knote: [m[K  candidate expects 4 arguments, 0 provided
+[01m[K/opt/ros/humble/include/serial_driver/serial_port.hpp:57:7:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Kconstexpr drivers::serial_driver::SerialPortConfig::SerialPortConfig(const drivers::serial_driver::SerialPortConfig&)[m[K’
+   57 | class [01;36m[KSerialPortConfig[m[K
+      |       [01;36m[K^~~~~~~~~~~~~~~~[m[K
+[01m[K/opt/ros/humble/include/serial_driver/serial_port.hpp:57:7:[m[K [01;36m[Knote: [m[K  candidate expects 1 argument, 0 provided
+[01m[K/opt/ros/humble/include/serial_driver/serial_port.hpp:57:7:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Kconstexpr drivers::serial_driver::SerialPortConfig::SerialPortConfig(drivers::serial_driver::SerialPortConfig&&)[m[K’
+[01m[K/opt/ros/humble/include/serial_driver/serial_port.hpp:57:7:[m[K [01;36m[Knote: [m[K  candidate expects 1 argument, 0 provided
+[01m[K/workspaces/isaac_ros-dev/src/my_action_server/src/waveshare_controller.cpp:20:14:[m[K [01;31m[Kerror: [m[K‘[01m[Kclass drivers::serial_driver::SerialPortConfig[m[K’ has no member named ‘[01m[Kdevice[m[K’
+   20 |       config.[01;31m[Kdevice[m[K = "/dev/ttyUSB0";
+      |              [01;31m[K^~~~~~[m[K
+[01m[K/workspaces/isaac_ros-dev/src/my_action_server/src/waveshare_controller.cpp:21:14:[m[K [01;31m[Kerror: [m[K‘[01m[Kclass drivers::serial_driver::SerialPortConfig[m[K’ has no member named ‘[01m[Kbaud_rate[m[K’; did you mean ‘[01m[Kuint32_t drivers::serial_driver::SerialPortConfig::m_baud_rate[m[K’? (accessible via ‘[01m[Kuint32_t drivers::serial_driver::SerialPortConfig::get_baud_rate() const[m[K’)
+   21 |       config.[01;31m[Kbaud_rate[m[K = 115200;
+      |              [01;31m[K^~~~~~~~~[m[K
+      |              [32m[Kget_baud_rate()[m[K
+[01m[K/workspaces/isaac_ros-dev/src/my_action_server/src/waveshare_controller.cpp:22:14:[m[K [01;31m[Kerror: [m[K‘[01m[Kclass drivers::serial_driver::SerialPortConfig[m[K’ has no member named ‘[01m[Kflow_control[m[K’; did you mean ‘[01m[Kdrivers::serial_driver::FlowControl drivers::serial_driver::SerialPortConfig::m_flow_control[m[K’? (accessible via ‘[01m[Kdrivers::serial_driver::FlowControl drivers::serial_driver::SerialPortConfig::get_flow_control() const[m[K’)
+   22 |       config.[01;31m[Kflow_control[m[K = FlowControl::NONE;
+      |              [01;31m[K^~~~~~~~~~~~[m[K
+      |              [32m[Kget_flow_control()[m[K
+[01m[K/workspaces/isaac_ros-dev/src/my_action_server/src/waveshare_controller.cpp:23:14:[m[K [01;31m[Kerror: [m[K‘[01m[Kclass drivers::serial_driver::SerialPortConfig[m[K’ has no member named ‘[01m[Kparity[m[K’; did you mean ‘[01m[Kdrivers::serial_driver::Parity drivers::serial_driver::SerialPortConfig::m_parity[m[K’? (accessible via ‘[01m[Kdrivers::serial_driver::Parity drivers::serial_driver::SerialPortConfig::get_parity() const[m[K’)
+   23 |       config.[01;31m[Kparity[m[K = Parity::NONE;
+      |              [01;31m[K^~~~~~[m[K
+      |              [32m[Kget_parity()[m[K
+[01m[K/workspaces/isaac_ros-dev/src/my_action_server/src/waveshare_controller.cpp:24:14:[m[K [01;31m[Kerror: [m[K‘[01m[Kclass drivers::serial_driver::SerialPortConfig[m[K’ has no member named ‘[01m[Kstop_bits[m[K’; did you mean ‘[01m[Kdrivers::serial_driver::StopBits drivers::serial_driver::SerialPortConfig::m_stop_bits[m[K’? (accessible via ‘[01m[Kdrivers::serial_driver::StopBits drivers::serial_driver::SerialPortConfig::get_stop_bits() const[m[K’)
+   24 |       config.[01;31m[Kstop_bits[m[K = StopBits::ONE;
+      |              [01;31m[K^~~~~~~~~[m[K
+      |              [32m[Kget_stop_bits()[m[K
+[01m[K/workspaces/isaac_ros-dev/src/my_action_server/src/waveshare_controller.cpp:26:30:[m[K [01;31m[Kerror: [m[Kno matching function for call to ‘[01m[Kdrivers::serial_driver::SerialDriver::init_port(drivers::serial_driver::SerialPortConfig&)[m[K’
+   26 |       [01;31m[Kserial_port_->init_port(config)[m[K;
+      |       [01;31m[K~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~[m[K
+In file included from [01m[K/workspaces/isaac_ros-dev/src/my_action_server/src/waveshare_controller.cpp:3[m[K:
+[01m[K/opt/ros/humble/include/serial_driver/serial_driver.hpp:34:8:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Kvoid drivers::serial_driver::SerialDriver::init_port(const string&, const drivers::serial_driver::SerialPortConfig&)[m[K’
+   34 |   void [01;36m[Kinit_port[m[K(const std::string & device_name, const SerialPortConfig & config);
+      |        [01;36m[K^~~~~~~~~[m[K
+[01m[K/opt/ros/humble/include/serial_driver/serial_driver.hpp:34:8:[m[K [01;36m[Knote: [m[K  candidate expects 2 arguments, 1 provided
+[01m[K/workspaces/isaac_ros-dev/src/my_action_server/src/waveshare_controller.cpp:[m[K In destructor ‘[01m[Kvirtual WaveshareController::~WaveshareController()[m[K’:
+[01m[K/workspaces/isaac_ros-dev/src/my_action_server/src/waveshare_controller.cpp:46:21:[m[K [01;31m[Kerror: [m[K‘[01m[Kclass drivers::serial_driver::SerialDriver[m[K’ has no member named ‘[01m[Kclose[m[K’
+   46 |       serial_port_->[01;31m[Kclose[m[K();
+      |                     [01;31m[K^~~~~[m[K
+[01m[K/workspaces/isaac_ros-dev/src/my_action_server/src/waveshare_controller.cpp:[m[K In member function ‘[01m[Kvoid WaveshareController::send_command(double, double)[m[K’:
+[01m[K/workspaces/isaac_ros-dev/src/my_action_server/src/waveshare_controller.cpp:65:21:[m[K [01;31m[Kerror: [m[K‘[01m[Kclass drivers::serial_driver::SerialDriver[m[K’ has no member named ‘[01m[Ksend[m[K’
+   65 |       serial_port_->[01;31m[Ksend[m[K(cmd_str);
+      |                     [01;31m[K^~~~[m[K
+In file included from [01m[K/usr/include/c++/11/memory:76[m[K,
+                 from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/rclcpp.hpp:153[m[K,
+                 from [01m[K/workspaces/isaac_ros-dev/src/my_action_server/src/waveshare_controller.cpp:1[m[K:
+/usr/include/c++/11/bits/unique_ptr.h: In instantiation of ‘[01m[Ktypename std::_MakeUniq<_Tp>::__single_object std::make_unique(_Args&& ...) [with _Tp = drivers::serial_driver::SerialDriver; _Args = {WaveshareController&}; typename std::_MakeUniq<_Tp>::__single_object = std::unique_ptr<drivers::serial_driver::SerialDriver>][m[K’:
+[01m[K/workspaces/isaac_ros-dev/src/my_action_server/src/waveshare_controller.cpp:18:52:[m[K   required from here
+[01m[K/usr/include/c++/11/bits/unique_ptr.h:962:30:[m[K [01;31m[Kerror: [m[Kno matching function for call to ‘[01m[Kdrivers::serial_driver::SerialDriver::SerialDriver(WaveshareController&)[m[K’
+  962 |     { return unique_ptr<_Tp>([01;31m[Knew _Tp(std::forward<_Args>(__args)...)[m[K); }
+      |                              [01;31m[K^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+In file included from [01m[K/workspaces/isaac_ros-dev/src/my_action_server/src/waveshare_controller.cpp:3[m[K:
+[01m[K/opt/ros/humble/include/serial_driver/serial_driver.hpp:32:12:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Kdrivers::serial_driver::SerialDriver::SerialDriver(const drivers::common::IoContext&)[m[K’
+   32 |   explicit [01;36m[KSerialDriver[m[K(const IoContext & ctx);
+      |            [01;36m[K^~~~~~~~~~~~[m[K
+[01m[K/opt/ros/humble/include/serial_driver/serial_driver.hpp:32:43:[m[K [01;36m[Knote: [m[K  no known conversion for argument 1 from ‘[01m[KWaveshareController[m[K’ to ‘[01m[Kconst drivers::common::IoContext&[m[K’
+   32 |   explicit SerialDriver([01;36m[Kconst IoContext & ctx[m[K);
+      |                         [01;36m[K~~~~~~~~~~~~~~~~~~^~~[m[K
+[01m[K/opt/ros/humble/include/serial_driver/serial_driver.hpp:29:7:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Kdrivers::serial_driver::SerialDriver::SerialDriver(const drivers::serial_driver::SerialDriver&)[m[K’
+   29 | class [01;36m[KSerialDriver[m[K
+      |       [01;36m[K^~~~~~~~~~~~[m[K
+[01m[K/opt/ros/humble/include/serial_driver/serial_driver.hpp:29:7:[m[K [01;36m[Knote: [m[K  no known conversion for argument 1 from ‘[01m[KWaveshareController[m[K’ to ‘[01m[Kconst drivers::serial_driver::SerialDriver&[m[K’
+[01m[K/opt/ros/humble/include/serial_driver/serial_driver.hpp:29:7:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Kdrivers::serial_driver::SerialDriver::SerialDriver(drivers::serial_driver::SerialDriver&&)[m[K’
+[01m[K/opt/ros/humble/include/serial_driver/serial_driver.hpp:29:7:[m[K [01;36m[Knote: [m[K  no known conversion for argument 1 from ‘[01m[KWaveshareController[m[K’ to ‘[01m[Kdrivers::serial_driver::SerialDriver&&[m[K’
+gmake[2]: *** [CMakeFiles/waveshare_controller.dir/build.make:76: CMakeFiles/waveshare_controller.dir/src/waveshare_controller.cpp.o] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:165: CMakeFiles/waveshare_controller.dir/all] Error 2
+gmake[1]: *** Waiting for unfinished jobs....
+gmake[2]: *** [CMakeFiles/action_server.dir/build.make:76: CMakeFiles/action_server.dir/src/action_server.cpp.o] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:139: CMakeFiles/action_server.dir/all] Error 2
+gmake: *** [Makefile:146: all] Error 2

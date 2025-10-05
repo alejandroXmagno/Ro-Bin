@@ -1,0 +1,57 @@
+[0.041s] Invoking command in '/workspaces/isaac_ros-dev/src/build/my_action_server': AMENT_PREFIX_PATH=/workspaces/isaac_ros-dev/src/install/custom_interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/workspaces/isaac_ros-dev/src/install/custom_interfaces:/workspaces/isaac_ros-dev/install/custom_interfaces:/usr/local/libcudss-linux-0.3.0.9_cuda12-archive:/opt/ros/humble LD_LIBRARY_PATH=/workspaces/isaac_ros-dev/src/install/custom_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/workspaces/isaac_ros-dev/src/install/custom_interfaces/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake /workspaces/isaac_ros-dev/src/my_action_server -DCMAKE_INSTALL_PREFIX=/workspaces/isaac_ros-dev/src/install/my_action_server
+[0.192s] -- The C compiler identification is GNU 11.4.0
+[0.349s] -- The CXX compiler identification is GNU 11.4.0
+[0.379s] -- Detecting C compiler ABI info
+[0.578s] -- Detecting C compiler ABI info - done
+[0.613s] -- Check for working C compiler: /usr/bin/cc - skipped
+[0.614s] -- Detecting C compile features
+[0.616s] -- Detecting C compile features - done
+[0.624s] -- Detecting CXX compiler ABI info
+[0.859s] -- Detecting CXX compiler ABI info - done
+[0.881s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.882s] -- Detecting CXX compile features
+[0.883s] -- Detecting CXX compile features - done
+[0.898s] -- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)
+[3.007s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[3.335s] -- Found rclcpp: 16.0.12 (/opt/ros/humble/share/rclcpp/cmake)
+[3.476s] -- Found rosidl_generator_c: 3.1.6 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[3.496s] -- Found rosidl_adapter: 3.1.6 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[3.525s] -- Found rosidl_generator_cpp: 3.1.6 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[3.561s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[3.611s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[3.744s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[3.753s] -- Found rmw_fastrtps_cpp: 6.2.7 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)
+[4.019s] -- Found OpenSSL: /usr/lib/aarch64-linux-gnu/libcrypto.so (found version "3.0.2")  
+[4.106s] -- Found FastRTPS: /opt/ros/humble/include  
+[4.245s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[4.289s] -- Looking for pthread.h
+[4.508s] -- Looking for pthread.h - found
+[4.509s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[4.717s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+[4.723s] -- Found Threads: TRUE  
+[4.909s] -- Found rclcpp_action: 16.0.12 (/opt/ros/humble/share/rclcpp_action/cmake)
+[5.003s] -- Found custom_interfaces: 0.0.0 (/workspaces/isaac_ros-dev/src/install/custom_interfaces/share/custom_interfaces/cmake)
+[5.090s] -- Found ament_lint_auto: 0.12.12 (/opt/ros/humble/share/ament_lint_auto/cmake)
+[5.332s] -- Added test 'cppcheck' to perform static code analysis on C / C++ code
+[5.332s] -- Configured cppcheck include dirs: 
+[5.332s] -- Configured cppcheck exclude dirs and/or files: 
+[5.335s] -- Added test 'flake8' to check Python code syntax and style conventions
+[5.335s] -- Added test 'lint_cmake' to check CMake code style
+[5.336s] -- Added test 'pep257' to check Python code against some of the docstring style conventions in PEP 257
+[5.338s] -- Added test 'uncrustify' to check C / C++ code style
+[5.338s] -- Configured uncrustify additional arguments: 
+[5.339s] -- Added test 'xmllint' to check XML markup files
+[5.342s] -- Configuring done
+[5.374s] -- Generating done
+[5.385s] -- Build files have been written to: /workspaces/isaac_ros-dev/src/build/my_action_server
+[5.422s] Invoked command in '/workspaces/isaac_ros-dev/src/build/my_action_server' returned '0': AMENT_PREFIX_PATH=/workspaces/isaac_ros-dev/src/install/custom_interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/workspaces/isaac_ros-dev/src/install/custom_interfaces:/workspaces/isaac_ros-dev/install/custom_interfaces:/usr/local/libcudss-linux-0.3.0.9_cuda12-archive:/opt/ros/humble LD_LIBRARY_PATH=/workspaces/isaac_ros-dev/src/install/custom_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/workspaces/isaac_ros-dev/src/install/custom_interfaces/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake /workspaces/isaac_ros-dev/src/my_action_server -DCMAKE_INSTALL_PREFIX=/workspaces/isaac_ros-dev/src/install/my_action_server
+[5.424s] Invoking command in '/workspaces/isaac_ros-dev/src/build/my_action_server': AMENT_PREFIX_PATH=/workspaces/isaac_ros-dev/src/install/custom_interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/workspaces/isaac_ros-dev/src/install/custom_interfaces:/workspaces/isaac_ros-dev/install/custom_interfaces:/usr/local/libcudss-linux-0.3.0.9_cuda12-archive:/opt/ros/humble LD_LIBRARY_PATH=/workspaces/isaac_ros-dev/src/install/custom_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/workspaces/isaac_ros-dev/src/install/custom_interfaces/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake --build /workspaces/isaac_ros-dev/src/build/my_action_server -- -j6 -l6
+[5.632s] [ 50%] [32mBuilding CXX object CMakeFiles/action_server_node.dir/src/action_server.cpp.o[0m
+[6.408s] [01m[K/workspaces/isaac_ros-dev/src/my_action_server/src/action_server.cpp:7:10:[m[K [01;31m[Kfatal error: [m[Kvision_msgs/msg/detection2_d_array.hpp: No such file or directory
+[6.409s]     7 | #include [01;31m[K"vision_msgs/msg/detection2_d_array.hpp"[m[K
+[6.409s]       |          [01;31m[K^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[6.409s] compilation terminated.
+[6.421s] gmake[2]: *** [CMakeFiles/action_server_node.dir/build.make:76: CMakeFiles/action_server_node.dir/src/action_server.cpp.o] Error 1
+[6.422s] gmake[1]: *** [CMakeFiles/Makefile2:137: CMakeFiles/action_server_node.dir/all] Error 2
+[6.422s] gmake: *** [Makefile:146: all] Error 2
+[6.428s] Invoked command in '/workspaces/isaac_ros-dev/src/build/my_action_server' returned '2': AMENT_PREFIX_PATH=/workspaces/isaac_ros-dev/src/install/custom_interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/workspaces/isaac_ros-dev/src/install/custom_interfaces:/workspaces/isaac_ros-dev/install/custom_interfaces:/usr/local/libcudss-linux-0.3.0.9_cuda12-archive:/opt/ros/humble LD_LIBRARY_PATH=/workspaces/isaac_ros-dev/src/install/custom_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/workspaces/isaac_ros-dev/src/install/custom_interfaces/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake --build /workspaces/isaac_ros-dev/src/build/my_action_server -- -j6 -l6

@@ -1,0 +1,36 @@
+[0.030s] Invoking command in '/workspaces/isaac_ros-dev/build/my_action_server': AMENT_PREFIX_PATH=/workspaces/isaac_ros-dev/install/custom_interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/workspaces/isaac_ros-dev/install/custom_interfaces:/usr/local/libcudss-linux-0.3.0.9_cuda12-archive:/opt/ros/humble LD_LIBRARY_PATH=/workspaces/isaac_ros-dev/install/custom_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/workspaces/isaac_ros-dev/install/custom_interfaces/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake --build /workspaces/isaac_ros-dev/build/my_action_server -- -j6 -l6
+[0.091s] -- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)
+[0.466s] -- Found rclcpp: 16.0.12 (/opt/ros/humble/share/rclcpp/cmake)
+[0.540s] -- Found rosidl_generator_c: 3.1.6 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[0.546s] -- Found rosidl_adapter: 3.1.6 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[0.560s] -- Found rosidl_generator_cpp: 3.1.6 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[0.581s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[0.609s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[0.683s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[0.687s] -- Found rmw_fastrtps_cpp: 6.2.7 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)
+[1.007s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[1.118s] -- Found rclcpp_action: 16.0.12 (/opt/ros/humble/share/rclcpp_action/cmake)
+[1.185s] -- Found custom_interfaces: 0.0.0 (/workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/cmake)
+[1.257s] -- Found vision_msgs: 4.1.1 (/opt/ros/humble/share/vision_msgs/cmake)
+[1.295s] -- Found ament_lint_auto: 0.12.12 (/opt/ros/humble/share/ament_lint_auto/cmake)
+[1.483s] -- Added test 'cppcheck' to perform static code analysis on C / C++ code
+[1.484s] -- Configured cppcheck include dirs: 
+[1.484s] -- Configured cppcheck exclude dirs and/or files: 
+[1.484s] -- Added test 'flake8' to check Python code syntax and style conventions
+[1.485s] -- Added test 'lint_cmake' to check CMake code style
+[1.487s] -- Added test 'pep257' to check Python code against some of the docstring style conventions in PEP 257
+[1.488s] -- Added test 'uncrustify' to check C / C++ code style
+[1.488s] -- Configured uncrustify additional arguments: 
+[1.490s] -- Added test 'xmllint' to check XML markup files
+[1.491s] -- Configuring done
+[1.525s] -- Generating done
+[1.536s] -- Build files have been written to: /workspaces/isaac_ros-dev/build/my_action_server
+[1.634s] [ 50%] [32mBuilding CXX object CMakeFiles/action_server_node.dir/src/action_server.cpp.o[0m
+[2.367s] [01m[K/workspaces/isaac_ros-dev/src/my_action_server/src/action_server.cpp:7:10:[m[K [01;31m[Kfatal error: [m[Kvision_msgs/vision_msgs/msg/detection2_d_array.hpp: No such file or directory
+[2.373s]     7 | #include [01;31m[K"vision_msgs/vision_msgs/msg/detection2_d_array.hpp"[m[K
+[2.373s]       |          [01;31m[K^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[2.373s] compilation terminated.
+[2.375s] gmake[2]: *** [CMakeFiles/action_server_node.dir/build.make:76: CMakeFiles/action_server_node.dir/src/action_server.cpp.o] Error 1
+[2.376s] gmake[1]: *** [CMakeFiles/Makefile2:137: CMakeFiles/action_server_node.dir/all] Error 2
+[2.376s] gmake: *** [Makefile:146: all] Error 2
+[2.386s] Invoked command in '/workspaces/isaac_ros-dev/build/my_action_server' returned '2': AMENT_PREFIX_PATH=/workspaces/isaac_ros-dev/install/custom_interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/workspaces/isaac_ros-dev/install/custom_interfaces:/usr/local/libcudss-linux-0.3.0.9_cuda12-archive:/opt/ros/humble LD_LIBRARY_PATH=/workspaces/isaac_ros-dev/install/custom_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/workspaces/isaac_ros-dev/install/custom_interfaces/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake --build /workspaces/isaac_ros-dev/build/my_action_server -- -j6 -l6

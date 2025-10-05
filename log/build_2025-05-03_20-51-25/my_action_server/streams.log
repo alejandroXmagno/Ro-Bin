@@ -1,0 +1,32 @@
+[0.056s] Invoking command in '/workspaces/isaac_ros-dev/build/my_action_server': AMENT_PREFIX_PATH=/workspaces/isaac_ros-dev/install/custom_interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/workspaces/isaac_ros-dev/install/custom_interfaces:/usr/local/libcudss-linux-0.3.0.9_cuda12-archive:/opt/ros/humble LD_LIBRARY_PATH=/workspaces/isaac_ros-dev/install/custom_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/workspaces/isaac_ros-dev/install/custom_interfaces/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake --build /workspaces/isaac_ros-dev/build/my_action_server -- -j6 -l6
+[0.228s] [35m[1mConsolidate compiler generated dependencies of target action_server[0m
+[0.236s] [35m[1mConsolidate compiler generated dependencies of target waveshare_controller[0m
+[0.304s] [ 50%] Built target action_server
+[0.327s] [ 75%] [32mBuilding CXX object CMakeFiles/waveshare_controller.dir/src/waveshare_controller.cpp.o[0m
+[28.542s] [100%] [32m[1mLinking CXX executable waveshare_controller[0m
+[29.889s] [100%] Built target waveshare_controller
+[29.920s] Invoked command in '/workspaces/isaac_ros-dev/build/my_action_server' returned '0': AMENT_PREFIX_PATH=/workspaces/isaac_ros-dev/install/custom_interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/workspaces/isaac_ros-dev/install/custom_interfaces:/usr/local/libcudss-linux-0.3.0.9_cuda12-archive:/opt/ros/humble LD_LIBRARY_PATH=/workspaces/isaac_ros-dev/install/custom_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/workspaces/isaac_ros-dev/install/custom_interfaces/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake --build /workspaces/isaac_ros-dev/build/my_action_server -- -j6 -l6
+[29.925s] Invoking command in '/workspaces/isaac_ros-dev/build/my_action_server': AMENT_PREFIX_PATH=/workspaces/isaac_ros-dev/install/custom_interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/workspaces/isaac_ros-dev/install/custom_interfaces:/usr/local/libcudss-linux-0.3.0.9_cuda12-archive:/opt/ros/humble LD_LIBRARY_PATH=/workspaces/isaac_ros-dev/install/custom_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/workspaces/isaac_ros-dev/install/custom_interfaces/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake --install /workspaces/isaac_ros-dev/build/my_action_server
+[29.947s] -- Install configuration: ""
+[29.948s] -- Installing: /workspaces/isaac_ros-dev/install/my_action_server/lib/my_action_server/action_server
+[29.967s] -- Set runtime path of "/workspaces/isaac_ros-dev/install/my_action_server/lib/my_action_server/action_server" to ""
+[29.967s] -- Installing: /workspaces/isaac_ros-dev/install/my_action_server/lib/my_action_server/waveshare_controller
+[29.979s] -- Set runtime path of "/workspaces/isaac_ros-dev/install/my_action_server/lib/my_action_server/waveshare_controller" to ""
+[29.979s] -- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_server/share/my_action_server//launch
+[29.979s] -- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_server/share/my_action_server//launch/server_launch.py
+[29.979s] -- Installing: /workspaces/isaac_ros-dev/install/my_action_server/share/ament_index/resource_index/package_run_dependencies/my_action_server
+[29.981s] -- Installing: /workspaces/isaac_ros-dev/install/my_action_server/share/ament_index/resource_index/parent_prefix_path/my_action_server
+[29.984s] -- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_server/share/my_action_server/environment/ament_prefix_path.sh
+[29.984s] -- Installing: /workspaces/isaac_ros-dev/install/my_action_server/share/my_action_server/environment/ament_prefix_path.dsv
+[29.985s] -- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_server/share/my_action_server/environment/path.sh
+[29.986s] -- Installing: /workspaces/isaac_ros-dev/install/my_action_server/share/my_action_server/environment/path.dsv
+[29.986s] -- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_server/share/my_action_server/local_setup.bash
+[29.986s] -- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_server/share/my_action_server/local_setup.sh
+[29.986s] -- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_server/share/my_action_server/local_setup.zsh
+[29.987s] -- Installing: /workspaces/isaac_ros-dev/install/my_action_server/share/my_action_server/local_setup.dsv
+[29.987s] -- Installing: /workspaces/isaac_ros-dev/install/my_action_server/share/my_action_server/package.dsv
+[29.987s] -- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_server/share/ament_index/resource_index/packages/my_action_server
+[29.987s] -- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_server/share/my_action_server/cmake/my_action_serverConfig.cmake
+[29.987s] -- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_server/share/my_action_server/cmake/my_action_serverConfig-version.cmake
+[29.988s] -- Installing: /workspaces/isaac_ros-dev/install/my_action_server/share/my_action_server/package.xml
+[30.008s] Invoked command in '/workspaces/isaac_ros-dev/build/my_action_server' returned '0': AMENT_PREFIX_PATH=/workspaces/isaac_ros-dev/install/custom_interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/workspaces/isaac_ros-dev/install/custom_interfaces:/usr/local/libcudss-linux-0.3.0.9_cuda12-archive:/opt/ros/humble LD_LIBRARY_PATH=/workspaces/isaac_ros-dev/install/custom_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/workspaces/isaac_ros-dev/install/custom_interfaces/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake --install /workspaces/isaac_ros-dev/build/my_action_server

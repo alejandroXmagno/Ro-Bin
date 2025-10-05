@@ -1,0 +1,27 @@
+[0.035s] Invoking command in '/workspaces/isaac_ros-dev/build/my_action_client': CMAKE_PREFIX_PATH=/workspaces/isaac_ros-dev/install/custom_interfaces:/workspaces/isaac_ros-dev/install/my_action_server:/workspaces/isaac_ros-dev/install/my_action_client:/usr/local/libcudss-linux-0.3.0.9_cuda12-archive:/opt/ros/humble /usr/bin/cmake --build /workspaces/isaac_ros-dev/build/my_action_client -- -j6 -l6
+[0.297s] [ 50%] [32mBuilding CXX object CMakeFiles/action_client.dir/src/action_client.cpp.o[0m
+[10.952s] [100%] [32m[1mLinking CXX executable action_client[0m
+[11.480s] [100%] Built target action_client
+[11.517s] Invoked command in '/workspaces/isaac_ros-dev/build/my_action_client' returned '0': CMAKE_PREFIX_PATH=/workspaces/isaac_ros-dev/install/custom_interfaces:/workspaces/isaac_ros-dev/install/my_action_server:/workspaces/isaac_ros-dev/install/my_action_client:/usr/local/libcudss-linux-0.3.0.9_cuda12-archive:/opt/ros/humble /usr/bin/cmake --build /workspaces/isaac_ros-dev/build/my_action_client -- -j6 -l6
+[11.523s] Invoking command in '/workspaces/isaac_ros-dev/build/my_action_client': CMAKE_PREFIX_PATH=/workspaces/isaac_ros-dev/install/custom_interfaces:/workspaces/isaac_ros-dev/install/my_action_server:/workspaces/isaac_ros-dev/install/my_action_client:/usr/local/libcudss-linux-0.3.0.9_cuda12-archive:/opt/ros/humble /usr/bin/cmake --install /workspaces/isaac_ros-dev/build/my_action_client
+[11.547s] -- Install configuration: ""
+[11.548s] -- Installing: /workspaces/isaac_ros-dev/install/my_action_client/lib/my_action_client/action_client
+[11.551s] -- Set runtime path of "/workspaces/isaac_ros-dev/install/my_action_client/lib/my_action_client/action_client" to ""
+[11.551s] -- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_client/share/my_action_client//launch
+[11.551s] -- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_client/share/my_action_client//launch/client_launch.py
+[11.552s] -- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_client/share/ament_index/resource_index/package_run_dependencies/my_action_client
+[11.552s] -- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_client/share/ament_index/resource_index/parent_prefix_path/my_action_client
+[11.553s] -- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_client/share/my_action_client/environment/ament_prefix_path.sh
+[11.553s] -- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_client/share/my_action_client/environment/ament_prefix_path.dsv
+[11.554s] -- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_client/share/my_action_client/environment/path.sh
+[11.554s] -- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_client/share/my_action_client/environment/path.dsv
+[11.554s] -- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_client/share/my_action_client/local_setup.bash
+[11.554s] -- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_client/share/my_action_client/local_setup.sh
+[11.554s] -- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_client/share/my_action_client/local_setup.zsh
+[11.555s] -- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_client/share/my_action_client/local_setup.dsv
+[11.555s] -- Installing: /workspaces/isaac_ros-dev/install/my_action_client/share/my_action_client/package.dsv
+[11.555s] -- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_client/share/ament_index/resource_index/packages/my_action_client
+[11.555s] -- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_client/share/my_action_client/cmake/my_action_clientConfig.cmake
+[11.555s] -- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_client/share/my_action_client/cmake/my_action_clientConfig-version.cmake
+[11.555s] -- Up-to-date: /workspaces/isaac_ros-dev/install/my_action_client/share/my_action_client/package.xml
+[11.562s] Invoked command in '/workspaces/isaac_ros-dev/build/my_action_client' returned '0': CMAKE_PREFIX_PATH=/workspaces/isaac_ros-dev/install/custom_interfaces:/workspaces/isaac_ros-dev/install/my_action_server:/workspaces/isaac_ros-dev/install/my_action_client:/usr/local/libcudss-linux-0.3.0.9_cuda12-archive:/opt/ros/humble /usr/bin/cmake --install /workspaces/isaac_ros-dev/build/my_action_client

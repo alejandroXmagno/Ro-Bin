@@ -1,0 +1,7 @@
+[01m[K/workspaces/isaac_ros-dev/src/my_action_server/src/action_server.cpp:7:10:[m[K [01;31m[Kfatal error: [m[Kvision_msgs/msg/detection2_d_array.hpp: No such file or directory
+    7 | #include [01;31m[K"vision_msgs/msg/detection2_d_array.hpp"[m[K
+      |          [01;31m[K^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+compilation terminated.
+gmake[2]: *** [CMakeFiles/action_server_node.dir/build.make:76: CMakeFiles/action_server_node.dir/src/action_server.cpp.o] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:137: CMakeFiles/action_server_node.dir/all] Error 2
+gmake: *** [Makefile:146: all] Error 2

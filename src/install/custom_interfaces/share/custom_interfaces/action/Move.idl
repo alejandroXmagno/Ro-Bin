@@ -1,0 +1,25 @@
+// generated from rosidl_adapter/resource/action.idl.em
+// with input from custom_interfaces/action/Move.action
+// generated code does not contain a copyright notice
+
+#include "geometry_msgs/msg/Twist.idl"
+
+module custom_interfaces {
+  module action {
+    struct Move_Goal {
+      geometry_msgs::msg::Twist move_goal;
+
+      float move_goal_lin_x;
+
+      float move_goal_ang_z;
+
+      int32 time_goal;
+    };
+    struct Move_Result {
+      string result;
+    };
+    struct Move_Feedback {
+      string feedback;
+    };
+  };
+};

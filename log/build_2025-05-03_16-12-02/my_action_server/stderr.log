@@ -1,0 +1,14 @@
+[01m[K/workspaces/isaac_ros-dev/src/my_action_server/src/action_server.cpp:[m[K In member function ‘[01m[Kvoid MyActionServer::execute(std::shared_ptr<rclcpp_action::ServerGoalHandle<custom_interfaces::action::TrackObject> >)[m[K’:
+[01m[K/workspaces/isaac_ros-dev/src/my_action_server/src/action_server.cpp:203:23:[m[K [01;35m[Kwarning: [m[Kunused variable ‘[01m[Kavg_depth_cm[m[K’ [[01;35m[K-Wunused-variable[m[K]
+  203 |                   int [01;35m[Kavg_depth_cm[m[K = total_depth / valid_pixels;
+      |                       [01;35m[K^~~~~~~~~~~~[m[K
+[01m[K/workspaces/isaac_ros-dev/src/my_action_server/src/action_server.cpp:172:24:[m[K [01;35m[Kwarning: [m[Kunused variable ‘[01m[Kbbox_x[m[K’ [[01;35m[K-Wunused-variable[m[K]
+  172 |                 double [01;35m[Kbbox_x[m[K = center_x - bbox_width/2;
+      |                        [01;35m[K^~~~~~[m[K
+[01m[K/workspaces/isaac_ros-dev/src/my_action_server/src/action_server.cpp:173:24:[m[K [01;35m[Kwarning: [m[Kunused variable ‘[01m[Kbbox_y[m[K’ [[01;35m[K-Wunused-variable[m[K]
+  173 |                 double [01;35m[Kbbox_y[m[K = center_y - bbox_height/2;
+      |                        [01;35m[K^~~~~~[m[K
+[01m[K/workspaces/isaac_ros-dev/src/my_action_server/src/action_server.cpp:[m[K In member function ‘[01m[Kbool MyActionServer::is_valid_object(const string&)[m[K’:
+[01m[K/workspaces/isaac_ros-dev/src/my_action_server/src/action_server.cpp:267:44:[m[K [01;35m[Kwarning: [m[Kunused parameter ‘[01m[Kobject_name[m[K’ [[01;35m[K-Wunused-parameter[m[K]
+  267 |   bool is_valid_object([01;35m[Kconst std::string & object_name[m[K)
+      |                        [01;35m[K~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~[m[K

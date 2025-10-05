@@ -1,0 +1,28 @@
+[0.033s] Invoking command in '/workspaces/isaac_ros-dev/build/my_action_server': AMENT_PREFIX_PATH=/workspaces/isaac_ros-dev/install/custom_interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/workspaces/isaac_ros-dev/install/custom_interfaces:/usr/local/libcudss-linux-0.3.0.9_cuda12-archive:/opt/ros/humble LD_LIBRARY_PATH=/workspaces/isaac_ros-dev/install/custom_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/workspaces/isaac_ros-dev/install/custom_interfaces/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake --build /workspaces/isaac_ros-dev/build/my_action_server -- -j6 -l6
+[0.190s] [35m[1mConsolidate compiler generated dependencies of target action_server[0m
+[0.203s] [35m[1mConsolidate compiler generated dependencies of target waveshare_controller[0m
+[0.276s] [ 25%] [32mBuilding CXX object CMakeFiles/action_server.dir/src/action_server.cpp.o[0m
+[0.289s] [ 50%] [32mBuilding CXX object CMakeFiles/waveshare_controller.dir/src/waveshare_controller.cpp.o[0m
+[7.808s] [01m[K/workspaces/isaac_ros-dev/src/my_action_server/src/action_server.cpp:68:3:[m[K [01;31m[Kerror: [m[Kexpected ‘[01m[K;[m[K’ before ‘[01m[Kconst[m[K’
+[7.808s]    68 |   [01;31m[Kconst[m[K double MIN_LINEAR_SPEED = 0.05;  // m/s
+[7.808s]       |   [01;31m[K^~~~~[m[K
+[7.977s] [01m[K/workspaces/isaac_ros-dev/src/my_action_server/src/action_server.cpp:[m[K In member function ‘[01m[Kvoid MyActionServer::control_callback()[m[K’:
+[7.977s] [01m[K/workspaces/isaac_ros-dev/src/my_action_server/src/action_server.cpp:116:69:[m[K [01;31m[Kerror: [m[K‘[01m[KMIN_LINEAR_SPEED[m[K’ was not declared in this scope; did you mean ‘[01m[KMAX_LINEAR_SPEED[m[K’?
+[7.977s]   116 |               twist_msg->linear.x = std::min(std::max(target_speed, [01;31m[KMIN_LINEAR_SPEED[m[K), MAX_LINEAR_SPEED);
+[7.978s]       |                                                                     [01;31m[K^~~~~~~~~~~~~~~~[m[K
+[7.978s]       |                                                                     [32m[KMAX_LINEAR_SPEED[m[K
+[8.021s] [01m[K/workspaces/isaac_ros-dev/src/my_action_server/src/action_server.cpp:[m[K In member function ‘[01m[Kbool MyActionServer::is_valid_object(const string&)[m[K’:
+[8.021s] [01m[K/workspaces/isaac_ros-dev/src/my_action_server/src/action_server.cpp:356:44:[m[K [01;35m[Kwarning: [m[Kunused parameter ‘[01m[Kobject_name[m[K’ [[01;35m[K-Wunused-parameter[m[K]
+[8.022s]   356 |   bool is_valid_object([01;35m[Kconst std::string & object_name[m[K)
+[8.022s]       |                        [01;35m[K~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~[m[K
+[10.081s] [01m[K/workspaces/isaac_ros-dev/src/my_action_server/src/waveshare_controller.cpp:[m[K In member function ‘[01m[Kvoid WaveshareController::send_command(double, double)[m[K’:
+[10.081s] [01m[K/workspaces/isaac_ros-dev/src/my_action_server/src/waveshare_controller.cpp:72:21:[m[K [01;31m[Kerror: [m[K‘[01m[Kclass drivers::serial_driver::SerialDriver[m[K’ has no member named ‘[01m[Ksend[m[K’
+[10.081s]    72 |       serial_port_->[01;31m[Ksend[m[K(data);
+[10.081s]       |                     [01;31m[K^~~~[m[K
+[18.254s] gmake[2]: *** [CMakeFiles/action_server.dir/build.make:76: CMakeFiles/action_server.dir/src/action_server.cpp.o] Error 1
+[18.254s] gmake[1]: *** [CMakeFiles/Makefile2:139: CMakeFiles/action_server.dir/all] Error 2
+[18.254s] gmake[1]: *** Waiting for unfinished jobs....
+[18.926s] gmake[2]: *** [CMakeFiles/waveshare_controller.dir/build.make:76: CMakeFiles/waveshare_controller.dir/src/waveshare_controller.cpp.o] Error 1
+[18.926s] gmake[1]: *** [CMakeFiles/Makefile2:165: CMakeFiles/waveshare_controller.dir/all] Error 2
+[18.927s] gmake: *** [Makefile:146: all] Error 2
+[18.933s] Invoked command in '/workspaces/isaac_ros-dev/build/my_action_server' returned '2': AMENT_PREFIX_PATH=/workspaces/isaac_ros-dev/install/custom_interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/workspaces/isaac_ros-dev/install/custom_interfaces:/usr/local/libcudss-linux-0.3.0.9_cuda12-archive:/opt/ros/humble LD_LIBRARY_PATH=/workspaces/isaac_ros-dev/install/custom_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/workspaces/isaac_ros-dev/install/custom_interfaces/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake --build /workspaces/isaac_ros-dev/build/my_action_server -- -j6 -l6

@@ -1,0 +1,37 @@
+In file included from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/logging.hpp:24[m[K,
+                 from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/client.hpp:40[m[K,
+                 from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/callback_group.hpp:24[m[K,
+                 from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/any_executable.hpp:20[m[K,
+                 from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/memory_strategy.hpp:25[m[K,
+                 from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/memory_strategies.hpp:18[m[K,
+                 from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executor_options.hpp:20[m[K,
+                 from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executor.hpp:37[m[K,
+                 from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executors/multi_threaded_executor.hpp:25[m[K,
+                 from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executors.hpp:21[m[K,
+                 from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/rclcpp.hpp:155[m[K,
+                 from [01m[K/workspaces/isaac_ros-dev/src/my_action_server/src/action_server.cpp:5[m[K:
+[01m[K/workspaces/isaac_ros-dev/src/my_action_server/src/action_server.cpp:[m[K In member function ‘[01m[Kvoid MyActionServer::execute(std::shared_ptr<rclcpp_action::ServerGoalHandle<custom_interfaces::action::TrackObject> >)[m[K’:
+[01m[K/workspaces/isaac_ros-dev/src/my_action_server/src/action_server.cpp:145:51:[m[K [01;35m[Kwarning: [m[Kformat ‘[01m[K%f[m[K’ expects argument of type ‘[01m[Kdouble[m[K’, but argument 5 has type ‘[01m[Kint[m[K’ [[01;35m[K-Wformat=[m[K]
+  145 |                   RCLCPP_INFO(this->get_logger(), [01;35m[K"Depth value: %f"[m[K, [32m[Kdepth_value[m[K);
+      |                                                   [01;35m[K^~~~~~~~~~~~~~~~~[m[K  [32m[K~~~~~~~~~~~[m[K
+      |                                                                      [32m[K|[m[K
+      |                                                                      [32m[Kint[m[K
+[01m[K/workspaces/isaac_ros-dev/src/my_action_server/src/action_server.cpp:145:66:[m[K [01;36m[Knote: [m[Kformat string is defined here
+  145 |                   RCLCPP_INFO(this->get_logger(), "Depth value: [01;36m[K%f[m[K", depth_value);
+      |                                                                 [01;36m[K~^[m[K
+      |                                                                  [01;36m[K|[m[K
+      |                                                                  [01;36m[Kdouble[m[K
+      |                                                                 [32m[K%d[m[K
+[01m[K/workspaces/isaac_ros-dev/src/my_action_server/src/action_server.cpp:188:23:[m[K [01;35m[Kwarning: [m[Kunused variable ‘[01m[Kavg_depth_cm[m[K’ [[01;35m[K-Wunused-variable[m[K]
+  188 |                   int [01;35m[Kavg_depth_cm[m[K = total_depth / valid_pixels;
+      |                       [01;35m[K^~~~~~~~~~~~[m[K
+[01m[K/workspaces/isaac_ros-dev/src/my_action_server/src/action_server.cpp:157:24:[m[K [01;35m[Kwarning: [m[Kunused variable ‘[01m[Kbbox_x[m[K’ [[01;35m[K-Wunused-variable[m[K]
+  157 |                 double [01;35m[Kbbox_x[m[K = center_x - bbox_width/2;
+      |                        [01;35m[K^~~~~~[m[K
+[01m[K/workspaces/isaac_ros-dev/src/my_action_server/src/action_server.cpp:158:24:[m[K [01;35m[Kwarning: [m[Kunused variable ‘[01m[Kbbox_y[m[K’ [[01;35m[K-Wunused-variable[m[K]
+  158 |                 double [01;35m[Kbbox_y[m[K = center_y - bbox_height/2;
+      |                        [01;35m[K^~~~~~[m[K
+[01m[K/workspaces/isaac_ros-dev/src/my_action_server/src/action_server.cpp:[m[K In member function ‘[01m[Kbool MyActionServer::is_valid_object(const string&)[m[K’:
+[01m[K/workspaces/isaac_ros-dev/src/my_action_server/src/action_server.cpp:252:44:[m[K [01;35m[Kwarning: [m[Kunused parameter ‘[01m[Kobject_name[m[K’ [[01;35m[K-Wunused-parameter[m[K]
+  252 |   bool is_valid_object([01;35m[Kconst std::string & object_name[m[K)
+      |                        [01;35m[K~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~[m[K

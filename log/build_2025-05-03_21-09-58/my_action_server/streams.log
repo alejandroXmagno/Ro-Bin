@@ -1,0 +1,11 @@
+[0.037s] Invoking command in '/workspaces/isaac_ros-dev/build/my_action_server': CMAKE_PREFIX_PATH=/workspaces/isaac_ros-dev/install/custom_interfaces:/workspaces/isaac_ros-dev/install/my_action_server:/workspaces/isaac_ros-dev/install/my_action_client:/usr/local/libcudss-linux-0.3.0.9_cuda12-archive:/opt/ros/humble /usr/bin/cmake --build /workspaces/isaac_ros-dev/build/my_action_server -- -j6 -l6
+[0.224s] [ 25%] [32mBuilding CXX object CMakeFiles/waveshare_controller.dir/src/waveshare_controller.cpp.o[0m
+[0.233s] [ 75%] Built target action_server
+[0.934s] [01m[K/workspaces/isaac_ros-dev/src/my_action_server/src/waveshare_controller.cpp:3:10:[m[K [01;31m[Kfatal error: [m[Kserial/serial.h: No such file or directory
+[0.934s]     3 | #include [01;31m[K<serial/serial.h>[m[K
+[0.934s]       |          [01;31m[K^~~~~~~~~~~~~~~~~[m[K
+[0.934s] compilation terminated.
+[0.945s] gmake[2]: *** [CMakeFiles/waveshare_controller.dir/build.make:76: CMakeFiles/waveshare_controller.dir/src/waveshare_controller.cpp.o] Error 1
+[0.945s] gmake[1]: *** [CMakeFiles/Makefile2:165: CMakeFiles/waveshare_controller.dir/all] Error 2
+[0.946s] gmake: *** [Makefile:146: all] Error 2
+[0.951s] Invoked command in '/workspaces/isaac_ros-dev/build/my_action_server' returned '2': CMAKE_PREFIX_PATH=/workspaces/isaac_ros-dev/install/custom_interfaces:/workspaces/isaac_ros-dev/install/my_action_server:/workspaces/isaac_ros-dev/install/my_action_client:/usr/local/libcudss-linux-0.3.0.9_cuda12-archive:/opt/ros/humble /usr/bin/cmake --build /workspaces/isaac_ros-dev/build/my_action_server -- -j6 -l6

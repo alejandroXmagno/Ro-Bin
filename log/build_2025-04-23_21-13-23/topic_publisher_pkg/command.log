@@ -1,0 +1,2 @@
+Invoking command in '/workspaces/isaac_ros-dev/build/topic_publisher_pkg': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake /workspaces/isaac_ros-dev/topic_publisher_pkg -DCMAKE_INSTALL_PREFIX=/workspaces/isaac_ros-dev/install/topic_publisher_pkg
+Invoked command in '/workspaces/isaac_ros-dev/build/topic_publisher_pkg' returned '1': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake /workspaces/isaac_ros-dev/topic_publisher_pkg -DCMAKE_INSTALL_PREFIX=/workspaces/isaac_ros-dev/install/topic_publisher_pkg

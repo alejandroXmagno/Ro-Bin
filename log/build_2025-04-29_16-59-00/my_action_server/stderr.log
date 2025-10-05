@@ -1,0 +1,26 @@
+[01m[K/workspaces/isaac_ros-dev/src/my_action_server/src/action_server.cpp:[m[K In member function ‘[01m[Kvoid MyActionServer::execute(std::shared_ptr<rclcpp_action::ServerGoalHandle<custom_interfaces::action::TrackObject> >)[m[K’:
+[01m[K/workspaces/isaac_ros-dev/src/my_action_server/src/action_server.cpp:110:25:[m[K [01;31m[Kerror: [m[Kbase operand of ‘[01m[K->[m[K’ has non-pointer type ‘[01m[Kconst vision_msgs::msg::ObjectHypothesisWithPose_<std::allocator<void> >[m[K’
+  110 |                   result[01;31m[K->[m[Ksuccess = true;
+      |                         [01;31m[K^~[m[K
+[01m[K/workspaces/isaac_ros-dev/src/my_action_server/src/action_server.cpp:111:25:[m[K [01;31m[Kerror: [m[Kbase operand of ‘[01m[K->[m[K’ has non-pointer type ‘[01m[Kconst vision_msgs::msg::ObjectHypothesisWithPose_<std::allocator<void> >[m[K’
+  111 |                   result[01;31m[K->[m[Kmessage = "Tracking Successful!";
+      |                         [01;31m[K^~[m[K
+[01m[K/workspaces/isaac_ros-dev/src/my_action_server/src/action_server.cpp:112:40:[m[K [01;31m[Kerror: [m[Kcannot convert ‘[01m[Kconst vision_msgs::msg::ObjectHypothesisWithPose_<std::allocator<void> >[m[K’ to ‘[01m[Kcustom_interfaces::action::TrackObject_Result_<std::allocator<void> >::SharedPtr[m[K’ {aka ‘[01m[Kstd::shared_ptr<custom_interfaces::action::TrackObject_Result_<std::allocator<void> > >[m[K’}
+  112 |                   goal_handle->succeed([01;31m[Kresult[m[K);
+      |                                        [01;31m[K^~~~~~[m[K
+      |                                        [01;31m[K|[m[K
+      |                                        [01;31m[Kconst vision_msgs::msg::ObjectHypothesisWithPose_<std::allocator<void> >[m[K
+In file included from [01m[K/opt/ros/humble/include/rclcpp_action/rclcpp_action/server.hpp:35[m[K,
+                 from [01m[K/opt/ros/humble/include/rclcpp_action/rclcpp_action/create_server.hpp:29[m[K,
+                 from [01m[K/opt/ros/humble/include/rclcpp_action/rclcpp_action/rclcpp_action.hpp:39[m[K,
+                 from [01m[K/workspaces/isaac_ros-dev/src/my_action_server/src/action_server.cpp:5[m[K:
+[01m[K/opt/ros/humble/include/rclcpp_action/rclcpp_action/server_goal_handle.hpp:188:47:[m[K [01;36m[Knote: [m[K  initializing argument 1 of ‘[01m[Kvoid rclcpp_action::ServerGoalHandle<ActionT>::succeed(typename ActionT::Result::SharedPtr) [with ActionT = custom_interfaces::action::TrackObject; typename ActionT::Result::SharedPtr = std::shared_ptr<custom_interfaces::action::TrackObject_Result_<std::allocator<void> > >; typename ActionT::Result = custom_interfaces::action::TrackObject_Result_<std::allocator<void> >][m[K’
+  188 |   succeed([01;36m[Ktypename ActionT::Result::SharedPtr result_msg[m[K)
+      |           [01;36m[K~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~[m[K
+[01m[K/workspaces/isaac_ros-dev/src/my_action_server/src/action_server.cpp:[m[K In member function ‘[01m[Kbool MyActionServer::is_valid_object(const string&)[m[K’:
+[01m[K/workspaces/isaac_ros-dev/src/my_action_server/src/action_server.cpp:145:44:[m[K [01;35m[Kwarning: [m[Kunused parameter ‘[01m[Kobject_name[m[K’ [[01;35m[K-Wunused-parameter[m[K]
+  145 |   bool is_valid_object([01;35m[Kconst std::string & object_name[m[K)
+      |                        [01;35m[K~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~[m[K
+gmake[2]: *** [CMakeFiles/action_server.dir/build.make:76: CMakeFiles/action_server.dir/src/action_server.cpp.o] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:137: CMakeFiles/action_server.dir/all] Error 2
+gmake: *** [Makefile:146: all] Error 2

@@ -1,0 +1,3 @@
+Invoking command in '/workspaces/isaac_ros-dev/build/my_action_client': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}/opt/ros/humble /usr/bin/cmake /workspaces/isaac_ros-dev/src/my_action_client -DCMAKE_INSTALL_PREFIX=/workspaces/isaac_ros-dev/install/my_action_client
+Invoked command in '/workspaces/isaac_ros-dev/build/my_action_client' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}/opt/ros/humble /usr/bin/cmake /workspaces/isaac_ros-dev/src/my_action_client -DCMAKE_INSTALL_PREFIX=/workspaces/isaac_ros-dev/install/my_action_client
+Invoking command in '/workspaces/isaac_ros-dev/build/my_action_client': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}/opt/ros/humble /usr/bin/cmake --build /workspaces/isaac_ros-dev/build/my_action_client -- -j6 -l6

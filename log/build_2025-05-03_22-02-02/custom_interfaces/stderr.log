@@ -1,0 +1,5 @@
+ERROR setuptools_scm._file_finders.git listing git files failed - pretending there aren't any
+interrupted
+gmake[2]: *** [CMakeFiles/ament_cmake_python_build_custom_interfaces_egg.dir/build.make:70: CMakeFiles/ament_cmake_python_build_custom_interfaces_egg] Interrupt
+gmake[1]: *** [CMakeFiles/Makefile2:447: CMakeFiles/ament_cmake_python_build_custom_interfaces_egg.dir/all] Interrupt
+gmake: *** [Makefile:146: all] Interrupt

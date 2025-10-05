@@ -1,0 +1,13 @@
+[0.045s] Invoking command in '/workspaces/isaac_ros-dev/build/my_action_server': AMENT_PREFIX_PATH=/workspaces/isaac_ros-dev/install/custom_interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/workspaces/isaac_ros-dev/install/custom_interfaces:/usr/local/libcudss-linux-0.3.0.9_cuda12-archive:/opt/ros/humble LD_LIBRARY_PATH=/workspaces/isaac_ros-dev/install/custom_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/workspaces/isaac_ros-dev/install/custom_interfaces/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake --build /workspaces/isaac_ros-dev/build/my_action_server -- -j6 -l6
+[0.202s] [35m[1mConsolidate compiler generated dependencies of target action_server[0m
+[0.208s] [35m[1mConsolidate compiler generated dependencies of target waveshare_controller[0m
+[0.299s] [ 50%] Built target action_server
+[0.324s] [ 75%] [32mBuilding CXX object CMakeFiles/waveshare_controller.dir/src/waveshare_controller.cpp.o[0m
+[9.685s] [01m[K/workspaces/isaac_ros-dev/src/my_action_server/src/waveshare_controller.cpp:[m[K In member function ‘[01m[Kvoid WaveshareController::send_command(double, double)[m[K’:
+[9.685s] [01m[K/workspaces/isaac_ros-dev/src/my_action_server/src/waveshare_controller.cpp:72:29:[m[K [01;31m[Kerror: [m[K‘[01m[Kusing element_type = class drivers::serial_driver::SerialPort[m[K’ {aka ‘[01m[Kclass drivers::serial_driver::SerialPort[m[K’} has no member named ‘[01m[Kwrite[m[K’
+[9.685s]    72 |       serial_port_->port()->[01;31m[Kwrite[m[K(data);
+[9.686s]       |                             [01;31m[K^~~~~[m[K
+[17.885s] gmake[2]: *** [CMakeFiles/waveshare_controller.dir/build.make:76: CMakeFiles/waveshare_controller.dir/src/waveshare_controller.cpp.o] Error 1
+[17.886s] gmake[1]: *** [CMakeFiles/Makefile2:165: CMakeFiles/waveshare_controller.dir/all] Error 2
+[17.886s] gmake: *** [Makefile:146: all] Error 2
+[17.893s] Invoked command in '/workspaces/isaac_ros-dev/build/my_action_server' returned '2': AMENT_PREFIX_PATH=/workspaces/isaac_ros-dev/install/custom_interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/workspaces/isaac_ros-dev/install/custom_interfaces:/usr/local/libcudss-linux-0.3.0.9_cuda12-archive:/opt/ros/humble LD_LIBRARY_PATH=/workspaces/isaac_ros-dev/install/custom_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/workspaces/isaac_ros-dev/install/custom_interfaces/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake --build /workspaces/isaac_ros-dev/build/my_action_server -- -j6 -l6

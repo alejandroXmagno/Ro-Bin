@@ -1,0 +1,112 @@
+[0.000000] (-) TimerEvent: {}
+[0.000699] (-) JobUnselected: {'identifier': 'isaac_common'}
+[0.001373] (-) JobUnselected: {'identifier': 'isaac_common_py'}
+[0.001697] (-) JobUnselected: {'identifier': 'isaac_ros_apriltag_interfaces'}
+[0.001994] (-) JobUnselected: {'identifier': 'isaac_ros_bi3d_interfaces'}
+[0.002101] (-) JobUnselected: {'identifier': 'isaac_ros_common'}
+[0.002280] (-) JobUnselected: {'identifier': 'isaac_ros_launch_utils'}
+[0.002364] (-) JobUnselected: {'identifier': 'isaac_ros_nitros_bridge_interfaces'}
+[0.002413] (-) JobUnselected: {'identifier': 'isaac_ros_nova_interfaces'}
+[0.002457] (-) JobUnselected: {'identifier': 'isaac_ros_pointcloud_interfaces'}
+[0.002503] (-) JobUnselected: {'identifier': 'isaac_ros_r2b_galileo'}
+[0.002568] (-) JobUnselected: {'identifier': 'isaac_ros_rosbag_utils'}
+[0.002632] (-) JobUnselected: {'identifier': 'isaac_ros_tensor_list_interfaces'}
+[0.003049] (-) JobUnselected: {'identifier': 'isaac_ros_test'}
+[0.003134] (-) JobUnselected: {'identifier': 'isaac_ros_test_cmake'}
+[0.003268] (topic_publisher_pkg) JobQueued: {'identifier': 'topic_publisher_pkg', 'dependencies': OrderedDict()}
+[0.003354] (topic_publisher_pkg) JobStarted: {'identifier': 'topic_publisher_pkg'}
+[0.025575] (topic_publisher_pkg) JobProgress: {'identifier': 'topic_publisher_pkg', 'progress': 'cmake'}
+[0.026761] (topic_publisher_pkg) Command: {'cmd': ['/usr/bin/cmake', '/workspaces/isaac_ros-dev/topic_publisher_pkg', '-DCMAKE_INSTALL_PREFIX=/workspaces/isaac_ros-dev/install/topic_publisher_pkg'], 'cwd': '/workspaces/isaac_ros-dev/build/topic_publisher_pkg', 'env': OrderedDict([('LIBRARY_PATH', '/usr/local/cuda/lib64/stubs'), ('PYTHONWARNINGS', 'ignore:::setuptools.command.install,ignore:::setuptools.command.easy_install,ignore:::pkg_resources,ignore:::setuptools.command.develop'), ('NV_LIBCUBLAS_VERSION', '12.6.1.4-1'), ('USER', 'stickykeys'), ('NV_CUDA_NSIGHT_COMPUTE_VERSION', '12.6.11-1'), ('HOSTNAME', 'stickykeys-desktop'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/aarch64-linux-gnu:/opt/ros/humble/lib:/usr/lib/aarch64-linux-gnu/tegra/weston:/usr/lib/aarch64-linux-gnu/tegra-egl:/usr/local/cuda-12.6/targets/aarch64-linux/lib:/usr/lib/aarch64-linux-gnu/tegra:/opt/nvidia/vpi3/lib64:/usr/local/libcudss-linux-0.3.0.9_cuda12-archive/lib:/usr/local/nvidia/lib:/usr/local/nvidia/lib64:/usr/lib/aarch64-linux-gnu-host:/opt/tritonserver/lib'), ('HOME', '/home/admin'), ('HOST_USER_GID', '1000'), ('NV_LIBCUBLAS_DEV_VERSION', '12.6.1.4-1'), ('ROS_PYTHON_VERSION', '3'), ('NVIDIA_PVA_DEVICE', 'all'), ('NV_LIBNPP_PACKAGE', 'libnpp-12-6=12.3.1.54-1'), ('CUDA_VERSION', '12.6.11'), ('COLCON_PREFIX_PATH', '/workspaces/isaac_ros-dev/install'), ('ROS_DISTRO', 'humble'), ('NV_LIBCUBLAS_PACKAGE_NAME', 'libcublas-12-6'), ('NVIDIA_REQUIRE_CUDA', 'cuda>=12.6'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('NV_LIBCUSPARSE_VERSION', '12.5.3.3-1'), ('NVIDIA_DRIVER_CAPABILITIES', 'all'), ('NV_CUDA_LIB_VERSION', '12.6.11-1'), ('NV_NVML_DEV_VERSION', '12.6.68-1'), ('USERNAME', 'admin'), ('NV_LIBNPP_DEV_PACKAGE', 'libnpp-dev-12-6=12.3.1.54-1'), ('TERM', 'xterm'), ('ISAAC_ROS_WS', '/workspaces/isaac_ros-dev'), ('NV_CUDA_CUDART_VERSION', '12.6.68-1'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/opt/ros/humble/bin:/opt/ros/humble/vcstool/scripts:/usr/local/nvidia/bin:/usr/local/cuda/bin:/usr/src/tensorrt/bin:/usr/local/nvidia/bin:/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'), ('NV_LIBCUBLAS_DEV_PACKAGE_NAME', 'libcublas-dev-12-6'), ('NV_LIBCUBLAS_PACKAGE', 'libcublas-12-6=12.6.1.4-1'), ('HOST_USER_UID', '1000'), ('NVARCH', 'arm64'), ('CUDSS_DIR', '/usr/local/libcudss-linux-0.3.0.9_cuda12-archive'), ('NV_LIBCUSPARSE_DEV_VERSION', '12.5.3.3-1'), ('DISPLAY', ':1'), ('NVIDIA_PRODUCT_NAME', 'CUDA'), ('LANG', 'en_US.UTF-8'), ('RMW_IMPLEMENTATION', 'rmw_fastrtps_cpp'), ('NV_CUDA_CUDART_DEV_VERSION', '12.6.68-1'), ('ROS_ROOT', '/opt/ros/humble'), ('SSH_AUTH_SOCK', '/ssh-agent'), ('AMENT_PREFIX_PATH', '/opt/ros/humble'), ('DEBIAN_FRONTEND', 'noninteractive'), ('SHELL', '/bin/bash'), ('TRT_INCLUDE_PATH', '/usr/include/aarch64-linux-gnu'), ('NV_LIBCUBLAS_DEV_PACKAGE', 'libcublas-dev-12-6=12.6.1.4-1'), ('NV_CUDA_NSIGHT_COMPUTE_DEV_PACKAGE', 'cuda-nsight-compute-12-6=12.6.11-1'), ('NVIDIA_REQUIRE_JETPACK_HOST_MOUNTS', 'base-only'), ('NV_NVTX_VERSION', '12.6.68-1'), ('NV_LIBNPP_VERSION', '12.3.1.54-1'), ('PWD', '/workspaces/isaac_ros-dev/build/topic_publisher_pkg'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages:/opt/ros/humble/vcstool:'), ('NVIDIA_VISIBLE_DEVICES', 'void'), ('COLCON', '1'), ('NV_LIBNPP_DEV_VERSION', '12.3.1.54-1'), ('CMAKE_PREFIX_PATH', '/usr/local/libcudss-linux-0.3.0.9_cuda12-archive::/opt/ros/humble'), ('TRT_LIB_PATH', '/usr/lib/aarch64-linux-gnu')]), 'shell': False}
+[0.099412] (-) TimerEvent: {}
+[0.200583] (-) TimerEvent: {}
+[0.301295] (-) TimerEvent: {}
+[0.339753] (topic_publisher_pkg) StdoutLine: {'line': b'-- The C compiler identification is GNU 11.4.0\n'}
+[0.401485] (-) TimerEvent: {}
+[0.502224] (-) TimerEvent: {}
+[0.542983] (topic_publisher_pkg) StdoutLine: {'line': b'-- The CXX compiler identification is GNU 11.4.0\n'}
+[0.568964] (topic_publisher_pkg) StdoutLine: {'line': b'-- Detecting C compiler ABI info\n'}
+[0.602413] (-) TimerEvent: {}
+[0.703157] (-) TimerEvent: {}
+[0.745645] (topic_publisher_pkg) StdoutLine: {'line': b'-- Detecting C compiler ABI info - done\n'}
+[0.763355] (topic_publisher_pkg) StdoutLine: {'line': b'-- Check for working C compiler: /usr/bin/cc - skipped\n'}
+[0.766588] (topic_publisher_pkg) StdoutLine: {'line': b'-- Detecting C compile features\n'}
+[0.768960] (topic_publisher_pkg) StdoutLine: {'line': b'-- Detecting C compile features - done\n'}
+[0.776775] (topic_publisher_pkg) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info\n'}
+[0.803551] (-) TimerEvent: {}
+[0.904360] (-) TimerEvent: {}
+[0.962914] (topic_publisher_pkg) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info - done\n'}
+[0.982595] (topic_publisher_pkg) StdoutLine: {'line': b'-- Check for working CXX compiler: /usr/bin/c++ - skipped\n'}
+[0.983190] (topic_publisher_pkg) StdoutLine: {'line': b'-- Detecting CXX compile features\n'}
+[0.984002] (topic_publisher_pkg) StdoutLine: {'line': b'-- Detecting CXX compile features - done\n'}
+[0.998146] (topic_publisher_pkg) StdoutLine: {'line': b'-- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)\n'}
+[1.004410] (-) TimerEvent: {}
+[1.104940] (-) TimerEvent: {}
+[1.205623] (-) TimerEvent: {}
+[1.306296] (-) TimerEvent: {}
+[1.406972] (-) TimerEvent: {}
+[1.507600] (-) TimerEvent: {}
+[1.608230] (-) TimerEvent: {}
+[1.708864] (-) TimerEvent: {}
+[1.809493] (-) TimerEvent: {}
+[1.910146] (-) TimerEvent: {}
+[2.010820] (-) TimerEvent: {}
+[2.111512] (-) TimerEvent: {}
+[2.212208] (-) TimerEvent: {}
+[2.313041] (-) TimerEvent: {}
+[2.416474] (-) TimerEvent: {}
+[2.517179] (-) TimerEvent: {}
+[2.618012] (-) TimerEvent: {}
+[2.719028] (-) TimerEvent: {}
+[2.819846] (-) TimerEvent: {}
+[2.905293] (topic_publisher_pkg) StdoutLine: {'line': b'-- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter \n'}
+[2.919939] (-) TimerEvent: {}
+[3.020539] (-) TimerEvent: {}
+[3.121217] (-) TimerEvent: {}
+[3.222064] (-) TimerEvent: {}
+[3.251894] (topic_publisher_pkg) StdoutLine: {'line': b'-- Found rclcpp: 16.0.12 (/opt/ros/humble/share/rclcpp/cmake)\n'}
+[3.322274] (-) TimerEvent: {}
+[3.409803] (topic_publisher_pkg) StdoutLine: {'line': b'-- Found rosidl_generator_c: 3.1.6 (/opt/ros/humble/share/rosidl_generator_c/cmake)\n'}
+[3.422440] (-) TimerEvent: {}
+[3.428755] (topic_publisher_pkg) StdoutLine: {'line': b'-- Found rosidl_adapter: 3.1.6 (/opt/ros/humble/share/rosidl_adapter/cmake)\n'}
+[3.459371] (topic_publisher_pkg) StdoutLine: {'line': b'-- Found rosidl_generator_cpp: 3.1.6 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)\n'}
+[3.499331] (topic_publisher_pkg) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[3.522583] (-) TimerEvent: {}
+[3.550260] (topic_publisher_pkg) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[3.622822] (-) TimerEvent: {}
+[3.707369] (topic_publisher_pkg) StdoutLine: {'line': b'-- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)\n'}
+[3.718958] (topic_publisher_pkg) StdoutLine: {'line': b'-- Found rmw_fastrtps_cpp: 6.2.7 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)\n'}
+[3.722885] (-) TimerEvent: {}
+[3.823421] (-) TimerEvent: {}
+[3.924144] (-) TimerEvent: {}
+[4.000717] (topic_publisher_pkg) StdoutLine: {'line': b'-- Found OpenSSL: /usr/lib/aarch64-linux-gnu/libcrypto.so (found version "3.0.2")  \n'}
+[4.024351] (-) TimerEvent: {}
+[4.095960] (topic_publisher_pkg) StdoutLine: {'line': b'-- Found FastRTPS: /opt/ros/humble/include  \n'}
+[4.124489] (-) TimerEvent: {}
+[4.222620] (topic_publisher_pkg) StdoutLine: {'line': b"-- Using RMW implementation 'rmw_fastrtps_cpp' as default\n"}
+[4.224565] (-) TimerEvent: {}
+[4.260495] (topic_publisher_pkg) StdoutLine: {'line': b'-- Looking for pthread.h\n'}
+[4.324782] (-) TimerEvent: {}
+[4.425486] (-) TimerEvent: {}
+[4.431759] (topic_publisher_pkg) StdoutLine: {'line': b'-- Looking for pthread.h - found\n'}
+[4.432939] (topic_publisher_pkg) StdoutLine: {'line': b'-- Performing Test CMAKE_HAVE_LIBC_PTHREAD\n'}
+[4.525708] (-) TimerEvent: {}
+[4.619147] (topic_publisher_pkg) StdoutLine: {'line': b'-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success\n'}
+[4.625867] (-) TimerEvent: {}
+[4.627391] (topic_publisher_pkg) StdoutLine: {'line': b'-- Found Threads: TRUE  \n'}
+[4.726072] (-) TimerEvent: {}
+[4.819745] (topic_publisher_pkg) StdoutLine: {'line': b'-- Found rosidl_default_generators: 1.2.0 (/opt/ros/humble/share/rosidl_default_generators/cmake)\n'}
+[4.826175] (-) TimerEvent: {}
+[4.844431] (topic_publisher_pkg) StderrLine: {'line': b'\x1b[31mCMake Error at /opt/ros/humble/share/rosidl_cmake/cmake/rosidl_generate_interfaces.cmake:93 (message):\n'}
+[4.845036] (topic_publisher_pkg) StderrLine: {'line': b"  rosidl_generate_interfaces() the passed file 'action/Move.action' doesn't\n"}
+[4.845234] (topic_publisher_pkg) StderrLine: {'line': b'  exist relative to the CMAKE_CURRENT_SOURCE_DIR\n'}
+[4.845394] (topic_publisher_pkg) StderrLine: {'line': b"  '/workspaces/isaac_ros-dev/topic_publisher_pkg'\n"}
+[4.845541] (topic_publisher_pkg) StderrLine: {'line': b'Call Stack (most recent call first):\n'}
+[4.845685] (topic_publisher_pkg) StderrLine: {'line': b'  CMakeLists.txt:14 (rosidl_generate_interfaces)\n'}
+[4.845826] (topic_publisher_pkg) StderrLine: {'line': b'\n'}
+[4.845963] (topic_publisher_pkg) StderrLine: {'line': b'\x1b[0m\n'}
+[4.846099] (topic_publisher_pkg) StdoutLine: {'line': b'-- Configuring incomplete, errors occurred!\n'}
+[4.846261] (topic_publisher_pkg) StdoutLine: {'line': b'See also "/workspaces/isaac_ros-dev/build/topic_publisher_pkg/CMakeFiles/CMakeOutput.log".\n'}
+[4.867661] (topic_publisher_pkg) CommandEnded: {'returncode': 1}
+[4.926945] (-) TimerEvent: {}
+[4.934624] (topic_publisher_pkg) JobEnded: {'identifier': 'topic_publisher_pkg', 'rc': 1}
+[4.946487] (-) EventReactorShutdown: {}

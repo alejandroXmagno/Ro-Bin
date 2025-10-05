@@ -1,0 +1,32 @@
+[0.034s] Invoking command in '/workspaces/isaac_ros-dev/build/my_action_client': CMAKE_PREFIX_PATH=/workspaces/isaac_ros-dev/install/custom_interfaces:/workspaces/isaac_ros-dev/install/my_action_server:/workspaces/isaac_ros-dev/install/my_action_client:/usr/local/libcudss-linux-0.3.0.9_cuda12-archive:/opt/ros/humble /usr/bin/cmake --build /workspaces/isaac_ros-dev/build/my_action_client -- -j6 -l6
+[0.099s] -- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)
+[0.466s] -- Found rclcpp: 16.0.12 (/opt/ros/humble/share/rclcpp/cmake)
+[0.541s] -- Found rosidl_generator_c: 3.1.6 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[0.546s] -- Found rosidl_adapter: 3.1.6 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[0.560s] -- Found rosidl_generator_cpp: 3.1.6 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[0.581s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[0.609s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[0.681s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[0.685s] -- Found rmw_fastrtps_cpp: 6.2.7 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)
+[1.021s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[1.155s] -- Found rclcpp_action: 16.0.12 (/opt/ros/humble/share/rclcpp_action/cmake)
+[1.237s] -- Found custom_interfaces: 0.0.0 (/workspaces/isaac_ros-dev/install/custom_interfaces/share/custom_interfaces/cmake)
+[1.316s] -- Found vision_msgs: 4.1.1 (/opt/ros/humble/share/vision_msgs/cmake)
+[1.357s] -- Found ament_lint_auto: 0.12.12 (/opt/ros/humble/share/ament_lint_auto/cmake)
+[1.537s] [31mCMake Error at CMakeLists.txt:38 (install):
+[1.537s]   install TARGETS given target "action_client_node" which does not exist.
+[1.538s] 
+[1.538s] [0m
+[1.544s] -- Added test 'cppcheck' to perform static code analysis on C / C++ code
+[1.544s] -- Configured cppcheck include dirs: 
+[1.544s] -- Configured cppcheck exclude dirs and/or files: 
+[1.545s] -- Added test 'flake8' to check Python code syntax and style conventions
+[1.546s] -- Added test 'lint_cmake' to check CMake code style
+[1.546s] -- Added test 'pep257' to check Python code against some of the docstring style conventions in PEP 257
+[1.548s] -- Added test 'uncrustify' to check C / C++ code style
+[1.548s] -- Configured uncrustify additional arguments: 
+[1.549s] -- Added test 'xmllint' to check XML markup files
+[1.551s] -- Configuring incomplete, errors occurred!
+[1.551s] See also "/workspaces/isaac_ros-dev/build/my_action_client/CMakeFiles/CMakeOutput.log".
+[1.573s] gmake: *** [Makefile:267: cmake_check_build_system] Error 1
+[1.577s] Invoked command in '/workspaces/isaac_ros-dev/build/my_action_client' returned '2': CMAKE_PREFIX_PATH=/workspaces/isaac_ros-dev/install/custom_interfaces:/workspaces/isaac_ros-dev/install/my_action_server:/workspaces/isaac_ros-dev/install/my_action_client:/usr/local/libcudss-linux-0.3.0.9_cuda12-archive:/opt/ros/humble /usr/bin/cmake --build /workspaces/isaac_ros-dev/build/my_action_client -- -j6 -l6

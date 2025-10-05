@@ -1,0 +1,7 @@
+[01m[K/workspaces/isaac_ros-dev/src/my_action_server/src/waveshare_controller.cpp:[m[K In member function ‘[01m[Kvoid WaveshareController::send_command(double, double)[m[K’:
+[01m[K/workspaces/isaac_ros-dev/src/my_action_server/src/waveshare_controller.cpp:72:29:[m[K [01;31m[Kerror: [m[K‘[01m[Kusing element_type = class drivers::serial_driver::SerialPort[m[K’ {aka ‘[01m[Kclass drivers::serial_driver::SerialPort[m[K’} has no member named ‘[01m[Kwrite[m[K’
+   72 |       serial_port_->port()->[01;31m[Kwrite[m[K(data);
+      |                             [01;31m[K^~~~~[m[K
+gmake[2]: *** [CMakeFiles/waveshare_controller.dir/build.make:76: CMakeFiles/waveshare_controller.dir/src/waveshare_controller.cpp.o] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:165: CMakeFiles/waveshare_controller.dir/all] Error 2
+gmake: *** [Makefile:146: all] Error 2

@@ -1,0 +1,81 @@
+[0.025s] Invoking command in '/workspaces/isaac_ros-dev/build/custom_interfaces': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /workspaces/isaac_ros-dev/build/custom_interfaces -- -j6 -l6
+[0.091s] -- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)
+[0.421s] -- Found rclcpp: 16.0.12 (/opt/ros/humble/share/rclcpp/cmake)
+[0.494s] -- Found rosidl_generator_c: 3.1.6 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[0.499s] -- Found rosidl_adapter: 3.1.6 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[0.513s] -- Found rosidl_generator_cpp: 3.1.6 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[0.534s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[0.561s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[0.632s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[0.635s] -- Found rmw_fastrtps_cpp: 6.2.7 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)
+[0.944s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[1.066s] -- Found geometry_msgs: 4.8.0 (/opt/ros/humble/share/geometry_msgs/cmake)
+[1.099s] -- Found rosidl_default_generators: 1.2.0 (/opt/ros/humble/share/rosidl_default_generators/cmake)
+[1.821s] -- Found ament_cmake_ros: 0.10.0 (/opt/ros/humble/share/ament_cmake_ros/cmake)
+[2.695s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[3.044s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[3.113s] -- Found python_cmake_module: 0.10.0 (/opt/ros/humble/share/python_cmake_module/cmake)
+[3.186s] -- Using PYTHON_EXECUTABLE: /usr/bin/python3
+[3.186s] -- Using PYTHON_INCLUDE_DIRS: /usr/include/python3.10
+[3.186s] -- Using PYTHON_LIBRARIES: /usr/lib/aarch64-linux-gnu/libpython3.10.so
+[3.510s] -- Using numpy include directory: /usr/local/lib/python3.10/dist-packages/numpy/core/include
+[3.538s] -- Found ament_lint_auto: 0.12.12 (/opt/ros/humble/share/ament_lint_auto/cmake)
+[3.643s] -- Added test 'cppcheck' to perform static code analysis on C / C++ code
+[3.644s] -- Configured cppcheck include dirs: 
+[3.644s] -- Configured cppcheck exclude dirs and/or files: 
+[3.656s] -- Added test 'flake8' to check Python code syntax and style conventions
+[3.677s] -- Added test 'lint_cmake' to check CMake code style
+[3.688s] -- Added test 'pep257' to check Python code against some of the docstring style conventions in PEP 257
+[3.770s] -- Added test 'uncrustify' to check C / C++ code style
+[3.771s] -- Configured uncrustify additional arguments: 
+[3.782s] -- Added test 'xmllint' to check XML markup files
+[3.788s] -- Configuring done
+[3.876s] -- Generating done
+[3.908s] -- Build files have been written to: /workspaces/isaac_ros-dev/build/custom_interfaces
+[4.041s] [  3%] Built target custom_interfaces__cpp
+[4.061s] [  6%] [32mBuilding C object CMakeFiles/custom_interfaces__rosidl_generator_c.dir/rosidl_generator_c/custom_interfaces/action/detail/move__functions.c.o[0m
+[4.115s] [  6%] Built target ament_cmake_python_copy_custom_interfaces
+[4.135s] In file included from [01m[K/workspaces/isaac_ros-dev/build/custom_interfaces/rosidl_generator_c/custom_interfaces/action/detail/move__functions.h:19[m[K,
+[4.148s]                  from [01m[K/workspaces/isaac_ros-dev/build/custom_interfaces/rosidl_generator_c/custom_interfaces/action/detail/move__functions.c:4[m[K:
+[4.148s] [01m[K/workspaces/isaac_ros-dev/build/custom_interfaces/rosidl_generator_c/custom_interfaces/action/detail/move__struct.h:22:10:[m[K [01;31m[Kfatal error: [m[Kgeometry_msgs/msg/detail/twist__struct.h: No such file or directory
+[4.148s]    22 | #include [01;31m[K"geometry_msgs/msg/detail/twist__struct.h"[m[K
+[4.148s]       |          [01;31m[K^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[4.148s] compilation terminated.
+[4.149s] [ 12%] [32mBuilding CXX object CMakeFiles/custom_interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/custom_interfaces/action/detail/move__type_support.cpp.o[0m
+[4.149s] [ 12%] [32mBuilding CXX object CMakeFiles/custom_interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/custom_interfaces/action/detail/dds_fastrtps/move__type_support.cpp.o[0m
+[4.149s] gmake[2]: *** [CMakeFiles/custom_interfaces__rosidl_generator_c.dir/build.make:112: CMakeFiles/custom_interfaces__rosidl_generator_c.dir/rosidl_generator_c/custom_interfaces/action/detail/move__functions.c.o] Error 1
+[4.153s] gmake[1]: *** [CMakeFiles/Makefile2:213: CMakeFiles/custom_interfaces__rosidl_generator_c.dir/all] Error 2
+[4.153s] gmake[1]: *** Waiting for unfinished jobs....
+[4.177s] [ 16%] [32mBuilding CXX object CMakeFiles/custom_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/custom_interfaces/action/move__type_support.cpp.o[0m
+[4.302s] In file included from [01m[K/workspaces/isaac_ros-dev/build/custom_interfaces/rosidl_typesupport_fastrtps_cpp/custom_interfaces/action/detail/move__rosidl_typesupport_fastrtps_cpp.hpp:11[m[K,
+[4.302s]                  from [01m[K/workspaces/isaac_ros-dev/build/custom_interfaces/rosidl_typesupport_fastrtps_cpp/custom_interfaces/action/detail/dds_fastrtps/move__type_support.cpp:4[m[K:
+[4.302s] [01m[K/workspaces/isaac_ros-dev/build/custom_interfaces/rosidl_generator_cpp/custom_interfaces/action/detail/move__struct.hpp:20:10:[m[K [01;31m[Kfatal error: [m[Kgeometry_msgs/msg/detail/twist__struct.hpp: No such file or directory
+[4.303s]    20 | #include [01;31m[K"geometry_msgs/msg/detail/twist__struct.hpp"[m[K
+[4.303s]       |          [01;31m[K^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[4.303s] compilation terminated.
+[4.306s] gmake[2]: *** [CMakeFiles/custom_interfaces__rosidl_typesupport_fastrtps_cpp.dir/build.make:98: CMakeFiles/custom_interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/custom_interfaces/action/detail/dds_fastrtps/move__type_support.cpp.o] Error 1
+[4.307s] gmake[1]: *** [CMakeFiles/Makefile2:291: CMakeFiles/custom_interfaces__rosidl_typesupport_fastrtps_cpp.dir/all] Error 2
+[4.325s] In file included from [01m[K/workspaces/isaac_ros-dev/build/custom_interfaces/rosidl_typesupport_introspection_cpp/custom_interfaces/action/detail/move__type_support.cpp:12[m[K:
+[4.326s] [01m[K/workspaces/isaac_ros-dev/build/custom_interfaces/rosidl_generator_cpp/custom_interfaces/action/detail/move__struct.hpp:20:10:[m[K [01;31m[Kfatal error: [m[Kgeometry_msgs/msg/detail/twist__struct.hpp: No such file or directory
+[4.326s]    20 | #include [01;31m[K"geometry_msgs/msg/detail/twist__struct.hpp"[m[K
+[4.326s]       |          [01;31m[K^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[4.326s] compilation terminated.
+[4.330s] gmake[2]: *** [CMakeFiles/custom_interfaces__rosidl_typesupport_introspection_cpp.dir/build.make:98: CMakeFiles/custom_interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/custom_interfaces/action/detail/move__type_support.cpp.o] Error 1
+[4.330s] gmake[1]: *** [CMakeFiles/Makefile2:369: CMakeFiles/custom_interfaces__rosidl_typesupport_introspection_cpp.dir/all] Error 2
+[4.330s] In file included from [01m[K/workspaces/isaac_ros-dev/build/custom_interfaces/rosidl_typesupport_cpp/custom_interfaces/action/move__type_support.cpp:7[m[K:
+[4.331s] [01m[K/workspaces/isaac_ros-dev/build/custom_interfaces/rosidl_generator_cpp/custom_interfaces/action/detail/move__struct.hpp:20:10:[m[K [01;31m[Kfatal error: [m[Kgeometry_msgs/msg/detail/twist__struct.hpp: No such file or directory
+[4.331s]    20 | #include [01;31m[K"geometry_msgs/msg/detail/twist__struct.hpp"[m[K
+[4.331s]       |          [01;31m[K^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[4.331s] compilation terminated.
+[4.335s] gmake[2]: *** [CMakeFiles/custom_interfaces__rosidl_typesupport_cpp.dir/build.make:93: CMakeFiles/custom_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/custom_interfaces/action/move__type_support.cpp.o] Error 1
+[4.336s] gmake[1]: *** [CMakeFiles/Makefile2:395: CMakeFiles/custom_interfaces__rosidl_typesupport_cpp.dir/all] Error 2
+[5.156s] running egg_info
+[5.206s] writing custom_interfaces.egg-info/PKG-INFO
+[5.206s] writing dependency_links to custom_interfaces.egg-info/dependency_links.txt
+[5.207s] writing top-level names to custom_interfaces.egg-info/top_level.txt
+[5.489s] ERROR setuptools_scm._file_finders.git listing git files failed - pretending there aren't any
+[5.778s] reading manifest file 'custom_interfaces.egg-info/SOURCES.txt'
+[5.780s] writing manifest file 'custom_interfaces.egg-info/SOURCES.txt'
+[5.922s] [ 16%] Built target ament_cmake_python_build_custom_interfaces_egg
+[5.925s] gmake: *** [Makefile:146: all] Error 2
+[5.931s] Invoked command in '/workspaces/isaac_ros-dev/build/custom_interfaces' returned '2': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /workspaces/isaac_ros-dev/build/custom_interfaces -- -j6 -l6
