@@ -1,0 +1,1 @@
+/home/lechonk/rover_workspace/build/roverrobotics_driver/ament_cmake_environment_hooks/local_setup.bash

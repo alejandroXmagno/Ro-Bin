@@ -1,0 +1,37 @@
+# ROS 2 Build Artifacts (DO NOT COMMIT)
+build/
+install/
+log/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info/
+dist/
+*.eggs/
+
+# C++
+*.o
+*.a
+*.dSYM/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.log
+*.tmp
+
+# Local environment files
+setup_rover.bash

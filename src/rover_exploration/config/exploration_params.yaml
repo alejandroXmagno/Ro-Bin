@@ -1,0 +1,23 @@
+autonomous_explorer:
+  ros__parameters:
+    # Exploration radius (meters) - how far to look for goals
+    exploration_radius: 6.0
+    
+    # Frontier detection threshold - minimum number of unknown neighbors
+    frontier_threshold: 8
+    
+    # Minimum frontier cluster size to be considered valid
+    min_frontier_size: 5
+    
+    # Goal timeout (seconds) - abandon goal if not reached within this time
+    goal_timeout: 45.0
+    
+    # Obstacle distance threshold (meters) - emergency stop distance
+    obstacle_distance_threshold: 0.4
+    
+    # Random exploration probability (0.0-1.0)
+    # Higher values = more random exploration, lower = more frontier-based
+    random_exploration_probability: 0.3
+
+
+
