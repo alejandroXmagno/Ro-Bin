@@ -1,4 +1,31 @@
-# This is for launching the autonomous exploration in empty (custom) gazebo simulation.
+# Rover Workspace Setup
+
+## Initial Setup
+
+1. Copy the template file to create your local setup file:
+   ```bash
+   cp setup_rover.bash.template setup_rover.bash
+   ```
+
+2. The script automatically detects paths, but you can customize if needed:
+   - **ROS Distribution**: Set `ROS_DISTRO` environment variable (default: `humble`)
+     ```bash
+     export ROS_DISTRO=foxy  # or your installed distribution
+     ```
+   - **ROS Installation Path**: Set `ROS_INSTALL_PATH` if installed elsewhere
+     ```bash
+     export ROS_INSTALL_PATH=/path/to/ros
+     ```
+   - **Workspace Location**: Set `WORKSPACE_PATH` if workspace is elsewhere
+     ```bash
+     export WORKSPACE_PATH=/path/to/workspace
+     ```
+
+3. The `setup_rover.bash` file is git-ignored so you can customize it without affecting the repository.
+
+## Launching Autonomous Exploration
+
+This is for launching the autonomous exploration in empty (custom) gazebo simulation.
 
 # Terminal 1: Launch everything
 cd ~/rover_workspace

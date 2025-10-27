@@ -1,0 +1,42 @@
+#!/bin/bash
+# Rover workspace setup script
+# Copy this file to setup_rover.bash and customize the variables below
+
+# ===== CONFIGURATION - Customize these paths for your system =====
+
+# ROS 2 distribution name (e.g., humble, foxy, galactic)
+# Find available distributions: ls /opt/ros/
+ROS_DISTRO="${ROS_DISTRO:-humble}"
+
+# ROS 2 installation path (adjust if installed in non-standard location)
+ROS_INSTALL_PATH="${ROS_INSTALL_PATH:-/opt/ros/${ROS_DISTRO}}"
+
+# Workspace location (defaults to directory containing this script)
+# You can override this by setting WORKSPACE_PATH environment variable
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+WORKSPACE_PATH="${WORKSPACE_PATH:-${SCRIPT_DIR}}"
+
+# ===== ROS 2 Setup =====
+if [ ! -f "${ROS_INSTALL_PATH}/setup.bash" ]; then
+    echo "❌ Error: ROS 2 not found at ${ROS_INSTALL_PATH}"
+    echo "Please install ROS 2 or set ROS_INSTALL_PATH environment variable"
+    return 1
+fi
+source "${ROS_INSTALL_PATH}/setup.bash"
+
+# ===== Workspace Setup =====
+if [ ! -d "${WORKSPACE_PATH}/install" ]; then
+    echo "⚠️  Warning: Install directory not found at ${WORKSPACE_PATH}/install"
+    echo "Make sure you've built the workspace with: colcon build"
+else
+    source "${WORKSPACE_PATH}/install/local_setup.bash"
+fi
+
+# Graphics settings for compatibility (useful for WSL, Docker, etc.)
+export LIBGL_ALWAYS_SOFTWARE=1
+export MESA_GL_VERSION_OVERRIDE=3.3
+
+echo "✅ Rover workspace ready!"
+echo "ROS 2: ${ROS_DISTRO} from ${ROS_INSTALL_PATH}"
+echo "Workspace: ${WORKSPACE_PATH}"
+
