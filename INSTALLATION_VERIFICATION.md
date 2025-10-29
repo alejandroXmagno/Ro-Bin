@@ -5,7 +5,7 @@
 **Package Name**: `rover_exploration`  
 **Build Status**: ✅ **SUCCESS**  
 **Build Time**: 1.09s  
-**Installation Path**: `/home/lechonka/rover_workspace/install/rover_exploration`
+**Installation Path**: `/home/stickykeys/rover_workspace/install/rover_exploration`
 
 ## ✅ Files Created and Verified
 
@@ -52,7 +52,7 @@ rover_exploration autonomous_explorer ✅
 ### Installation Verification
 ```bash
 $ ros2 pkg prefix rover_exploration
-/home/lechonka/rover_workspace/install/rover_exploration ✅
+/home/stickykeys/rover_workspace/install/rover_exploration ✅
 ```
 
 ## ✅ Installed Files Structure

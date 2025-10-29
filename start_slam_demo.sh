@@ -14,7 +14,7 @@ export MESA_GL_VERSION_OVERRIDE=3.3
 export LIBGL_ALWAYS_INDIRECT=0
 export SVGA_VGPU10=0
 
-cd /home/lechonka/rover_workspace
+cd /home/stickykeys/rover_workspace
 source install/setup.bash 2>/dev/null
 
 echo "Step 1: Launching Gazebo with Mini Rover..."
@@ -43,7 +43,7 @@ echo ""
 echo "NEXT STEPS:"
 echo ""
 echo "1. Open RViz2 (in a NEW terminal):"
-echo "   cd /home/lechonka/rover_workspace"
+echo "   cd /home/stickykeys/rover_workspace"
 echo "   source install/setup.bash"
 echo "   ros2 run rviz2 rviz2"
 echo ""
@@ -55,7 +55,7 @@ echo "   - Add 'RobotModel'"
 echo "   - Change 'Fixed Frame' to 'odom'"
 echo ""
 echo "3. Move the robot (in ANOTHER terminal):"
-echo "   cd /home/lechonka/rover_workspace"
+echo "   cd /home/stickykeys/rover_workspace"
 echo "   source install/setup.bash"
 echo "   ros2 run teleop_twist_keyboard teleop_twist_keyboard"
 echo ""

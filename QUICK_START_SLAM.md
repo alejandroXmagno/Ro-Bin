@@ -11,7 +11,7 @@
 Open a **NEW terminal** and run:
 
 ```bash
-cd /home/lechonka/rover_workspace
+cd /home/stickykeys/rover_workspace
 source install/setup.bash
 ros2 run teleop_twist_keyboard teleop_twist_keyboard
 ```
@@ -29,7 +29,7 @@ ros2 run teleop_twist_keyboard teleop_twist_keyboard
 In **ANOTHER new terminal**:
 
 ```bash
-cd /home/lechonka/rover_workspace
+cd /home/stickykeys/rover_workspace
 source install/setup.bash
 ros2 run slam_toolbox async_slam_toolbox_node --ros-args \
   -p use_sim_time:=true \

@@ -1,1 +1,1 @@
-/home/lechonk/rover_workspace/build/roverrobotics_input_manager/ament_cmake_environment_hooks/ament_prefix_path.dsv
+prepend-non-duplicate;AMENT_PREFIX_PATH;

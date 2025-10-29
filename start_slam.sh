@@ -1,5 +1,5 @@
 #!/bin/bash
-cd /home/lechonka/rover_workspace
+cd /home/stickykeys/rover_workspace
 source install/setup.bash
 echo "=========================================="
 echo "  Starting SLAM Toolbox for Mapping      "
