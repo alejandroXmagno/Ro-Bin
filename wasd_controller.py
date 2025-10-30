@@ -16,8 +16,8 @@ class WASDController(Node):
         self.publisher = self.create_publisher(Twist, '/cmd_vel', 10)
         
         # Movement parameters
-        self.linear_speed = 0.2  # m/s
-        self.angular_speed = 0.5  # rad/s
+        self.linear_speed = 0.01  # m/s
+        self.angular_speed = 0.3  # rad/s
         
         # Get terminal settings for non-blocking input
         self.settings = termios.tcgetattr(sys.stdin)

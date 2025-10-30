@@ -4,7 +4,7 @@ roverrobotics_driver:
     drivetrain: "differential"   # differential, mecanum
     robot_type: "mini"
     comm_type: "serial"
-    device_port: "/dev/ttyACM1" # FTDI converter for VESC controller
+    device_port: "/dev/ttyACM0" # FTDI converter for VESC controller
 
     # Robot Kinematics
     wheel_radius: 0.08255  # Wheel radius (meters)
