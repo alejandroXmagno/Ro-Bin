@@ -21,12 +21,22 @@ autonomous_explorer:
     
     # Goal timeout (seconds) - abandon goal if not reached within this time
     # Should be long enough to reach distant frontiers
-    # Increase if robot keeps timing out before reaching goals
-    goal_timeout: 45.0
+    # Increased to 120s to allow completion of long paths to unexplored areas
+    goal_timeout: 120.0
     
-    # Obstacle distance threshold (meters) - emergency stop distance
-    # Robot stops if obstacle is closer than this
-    obstacle_distance_threshold: 0.4
+    # Obstacle distance thresholds (meters) - Two-level obstacle avoidance
+    # WARNING threshold: Cancel goal if obstacle within this distance for 1 second
+    # Prevents robot from getting too close to walls
+    obstacle_distance_threshold: 0.8
+    
+    # CRITICAL threshold: Immediate emergency cancel if obstacle this close
+    # Prevents robot from hitting walls
+    critical_obstacle_threshold: 0.5
+    
+    # Minimum interval between goals (seconds)
+    # Prevents immediate new goal calculation after completion
+    # Allows robot to settle and verify completion
+    min_goal_interval: 3.0
     
     # Random exploration probability - NOT CURRENTLY USED
     # Algorithm now uses frontier-based with random fallback
