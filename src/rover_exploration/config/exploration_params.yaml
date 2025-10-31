@@ -1,22 +1,35 @@
 autonomous_explorer:
   ros__parameters:
-    # Exploration radius (meters) - how far to look for goals
-    exploration_radius: 6.0
+    # ============================================================
+    # FRONTIER-BASED EXPLORATION PARAMETERS
+    # ============================================================
     
-    # Frontier detection threshold - minimum number of unknown neighbors
+    # Exploration radius (meters) - how far to search for frontiers
+    # Larger = looks further ahead, finds more distant unexplored areas
+    # Smaller = stays closer to current position
+    # Recommended: 6.0-10.0 for large environments, 3.0-5.0 for small
+    exploration_radius: 8.0
+    
+    # Frontier detection threshold - minimum distance between frontier cells
+    # Lower = more granular frontier detection
     frontier_threshold: 8
     
-    # Minimum frontier cluster size to be considered valid
+    # Minimum frontier cluster size - ignore small isolated frontiers
+    # Prevents robot from chasing tiny unexplored gaps
+    # Recommended: 3-10 depending on map resolution
     min_frontier_size: 5
     
     # Goal timeout (seconds) - abandon goal if not reached within this time
+    # Should be long enough to reach distant frontiers
+    # Increase if robot keeps timing out before reaching goals
     goal_timeout: 45.0
     
     # Obstacle distance threshold (meters) - emergency stop distance
+    # Robot stops if obstacle is closer than this
     obstacle_distance_threshold: 0.4
     
-    # Random exploration probability (0.0-1.0)
-    # Higher values = more random exploration, lower = more frontier-based
+    # Random exploration probability - NOT CURRENTLY USED
+    # Algorithm now uses frontier-based with random fallback
     random_exploration_probability: 0.3
 
 
