@@ -24,10 +24,10 @@ class AutonomousExplorer(Node):
         super().__init__('autonomous_explorer')
         
         # Parameters
-        self.declare_parameter('exploration_radius', 5.0)
+        self.declare_parameter('exploration_radius', 8.0)  # Increased to look further ahead
         self.declare_parameter('frontier_threshold', 10)
         self.declare_parameter('min_frontier_size', 5)
-        self.declare_parameter('goal_timeout', 30.0)
+        self.declare_parameter('goal_timeout', 45.0)  # Increased timeout to reach distant goals
         self.declare_parameter('obstacle_distance_threshold', 0.5)
         self.declare_parameter('random_exploration_probability', 0.3)
         
@@ -124,41 +124,40 @@ class AutonomousExplorer(Node):
                     self.cancel_current_goal()
                     
     def find_and_navigate_to_goal(self):
-        """Find a new exploration goal and navigate to it"""
-        # Randomly choose between frontier exploration and random exploration
-        if random.random() < self.random_prob:
-            goal = self.get_random_exploration_goal()
-            method = "random"
-        else:
-            goal = self.get_frontier_goal()
-            method = "frontier"
-            
+        """Find a new exploration goal and navigate to it - FRONTIER-BASED with random fallback"""
+        # Try frontier-based exploration first (prioritizes unexplored areas)
+        goal = self.get_frontier_goal()
+        
         if goal is not None:
-            self.get_logger().info(f'New {method} exploration goal found at ({goal[0]:.2f}, {goal[1]:.2f})')
+            distance = math.sqrt(
+                (goal[0] - self.current_pose.position.x)**2 +
+                (goal[1] - self.current_pose.position.y)**2
+            )
+            self.get_logger().info(f'🗺️  Frontier goal at ({goal[0]:.2f}, {goal[1]:.2f}) - {distance:.2f}m away')
             self.navigate_to_goal(goal)
         else:
-            self.get_logger().warn(f'No {method} goal found, trying alternative...')
-            # Try the other method
-            if method == "frontier":
-                goal = self.get_random_exploration_goal()
-            else:
-                goal = self.get_frontier_goal()
-                
+            # Fallback to random exploration if no frontiers found
+            self.get_logger().info('No frontiers found, trying random exploration...')
+            goal = self.get_random_exploration_goal()
             if goal is not None:
-                self.get_logger().info(f'Alternative goal found at ({goal[0]:.2f}, {goal[1]:.2f})')
+                distance = math.sqrt(
+                    (goal[0] - self.current_pose.position.x)**2 +
+                    (goal[1] - self.current_pose.position.y)**2
+                )
+                self.get_logger().info(f'🎲 Random goal at ({goal[0]:.2f}, {goal[1]:.2f}) - {distance:.2f}m away')
                 self.navigate_to_goal(goal)
             else:
-                self.get_logger().warn('No exploration goals available, exploration may be complete!')
+                self.get_logger().warn('Could not find any exploration goal!')
                 
     def get_frontier_goal(self):
-        """Find frontier cells (boundary between known and unknown space)"""
-        if self.map_data is None or self.map_info is None:
+        """Find frontier cells (boundary between known and unknown space) and prioritize larger unexplored regions"""
+        if self.map_data is None or self.map_info is None or self.current_pose is None:
             return None
             
         height, width = self.map_data.shape
         frontiers = []
         
-        # Find frontier cells
+        # Find frontier cells with better scoring
         for y in range(1, height - 1):
             for x in range(1, width - 1):
                 # Check if cell is free (value 0)
@@ -173,31 +172,55 @@ class AutonomousExplorer(Node):
                         world_x = x * self.map_info.resolution + self.map_info.origin.position.x
                         world_y = y * self.map_info.resolution + self.map_info.origin.position.y
                         
-                        # Check if within exploration radius
-                        if self.current_pose is not None:
-                            dist = math.sqrt(
-                                (world_x - self.current_pose.position.x)**2 +
-                                (world_y - self.current_pose.position.y)**2
-                            )
-                            if dist < self.exploration_radius:
-                                frontiers.append((world_x, world_y, dist))
+                        # Calculate distance from robot
+                        dist = math.sqrt(
+                            (world_x - self.current_pose.position.x)**2 +
+                            (world_y - self.current_pose.position.y)**2
+                        )
+                        
+                        # Include frontiers within exploration radius
+                        if dist < self.exploration_radius:
+                            # Count nearby unknown cells (measure of unexplored area size)
+                            unknown_count = self.count_nearby_unknown(x, y, radius=3)
+                            frontiers.append((world_x, world_y, dist, unknown_count))
         
         if not frontiers:
             return None
             
-        # Cluster frontiers and find the closest cluster centroid
-        if len(frontiers) >= self.min_frontier_size:
-            # Sort by distance and take the closest frontier
-            frontiers.sort(key=lambda f: f[2])
+        # Filter out recently explored frontiers
+        filtered_frontiers = []
+        for frontier in frontiers:
+            if not self.is_recently_explored(frontier, threshold=1.5):
+                filtered_frontiers.append(frontier)
+        
+        if not filtered_frontiers:
+            self.get_logger().info('All frontiers recently explored, clearing history...')
+            self.explored_frontiers = self.explored_frontiers[-10:]  # Keep only last 10
+            filtered_frontiers = frontiers  # Use all frontiers
+        
+        if len(filtered_frontiers) >= self.min_frontier_size:
+            # Score frontiers: prioritize larger unexplored areas, with distance as secondary factor
+            # Score = unknown_count * 2.0 - distance * 0.5 (higher score = better)
+            scored_frontiers = []
+            for f in filtered_frontiers:
+                world_x, world_y, dist, unknown_count = f
+                score = unknown_count * 2.0 - dist * 0.5
+                scored_frontiers.append((world_x, world_y, dist, unknown_count, score))
             
-            # Take the closest frontier that hasn't been explored recently
-            for frontier in frontiers[:20]:  # Check top 20 closest
-                if not self.is_recently_explored(frontier):
-                    self.explored_frontiers.append(frontier)
-                    # Keep only last 50 explored frontiers
-                    if len(self.explored_frontiers) > 50:
-                        self.explored_frontiers.pop(0)
-                    return (frontier[0], frontier[1])
+            # Sort by score (highest first)
+            scored_frontiers.sort(key=lambda f: f[4], reverse=True)
+            
+            # Take the best frontier
+            best = scored_frontiers[0]
+            goal = (best[0], best[1])
+            
+            # Add to explored frontiers history
+            self.explored_frontiers.append(goal + (best[2],))
+            # Keep last 100 explored frontiers for better memory
+            if len(self.explored_frontiers) > 100:
+                self.explored_frontiers.pop(0)
+                
+            return goal
         
         return None
         
@@ -229,9 +252,26 @@ class AutonomousExplorer(Node):
                     
         return None
         
-    def is_recently_explored(self, frontier, threshold=1.0):
-        """Check if a frontier was recently explored"""
-        for explored in self.explored_frontiers[-10:]:  # Check last 10
+    def count_nearby_unknown(self, grid_x, grid_y, radius=3):
+        """Count unknown cells near a frontier point to estimate unexplored area size"""
+        if self.map_data is None:
+            return 0
+        
+        height, width = self.map_data.shape
+        unknown_count = 0
+        
+        for dy in range(-radius, radius + 1):
+            for dx in range(-radius, radius + 1):
+                ny, nx = grid_y + dy, grid_x + dx
+                if 0 <= ny < height and 0 <= nx < width:
+                    if self.map_data[ny, nx] == -1:  # Unknown cell
+                        unknown_count += 1
+        
+        return unknown_count
+    
+    def is_recently_explored(self, frontier, threshold=1.5):
+        """Check if a frontier was recently explored (with larger threshold to avoid revisiting)"""
+        for explored in self.explored_frontiers[-30:]:  # Check last 30 instead of 10
             dist = math.sqrt(
                 (frontier[0] - explored[0])**2 +
                 (frontier[1] - explored[1])**2
