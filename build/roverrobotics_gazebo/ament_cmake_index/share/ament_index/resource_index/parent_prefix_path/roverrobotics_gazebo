@@ -1,1 +1,1 @@
-/home/stickykeys/rover_workspace/install/roverrobotics_description:/opt/ros/humble
+/home/stickykeys/rover_workspace/install/rplidar_ros:/home/stickykeys/rover_workspace/install/roverrobotics_input_manager:/home/stickykeys/rover_workspace/install/roverrobotics_gazebo:/home/stickykeys/rover_workspace/install/roverrobotics_driver:/home/stickykeys/rover_workspace/install/roverrobotics_description:/home/stickykeys/rover_workspace/install/rover_exploration:/home/stickykeys/rover_workspace/install/bno055:/opt/ros/humble
