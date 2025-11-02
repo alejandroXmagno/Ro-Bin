@@ -1,6 +1,6 @@
 # CMake generated Testfile for 
-# Source directory: /home/stickykeys/rover_workspace/src/rplidar_ros
-# Build directory: /home/stickykeys/rover_workspace/build/rplidar_ros
+# Source directory: /home/lechonk/rover_workspace/src/rplidar_ros
+# Build directory: /home/lechonk/rover_workspace/build/rplidar_ros
 # 
 # This file includes the relevant testing commands required for 
 # testing this directory and lists subdirectories to be tested as well.

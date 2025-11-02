@@ -1,0 +1,221 @@
+# RealSense D435i Configuration Optimized for Autonomous Navigation
+# This configuration enables depth sensing for obstacle avoidance and navigation
+
+realsense:
+  ros__parameters:
+    active: true  # Set to true to enable RealSense
+    
+    # Camera identification
+    camera_name: "camera"
+    serial_no: ''  # Leave empty to auto-detect, or specify serial number
+    device_type: ''  # Leave empty for auto-detection
+    
+    # Frame IDs
+    base_frame_id: "camera_link"
+    odom_frame_id: "odom"
+    
+    # Enable required streams for navigation
+    enable_depth: true
+    enable_color: true
+    enable_infra1: false  # Disable infrared to save bandwidth
+    enable_infra2: false
+    enable_accel: false   # Use robot's main IMU instead
+    enable_gyro: false    # Use robot's main IMU instead
+    enable_sync: false
+    
+    # Depth module settings (640x480 @ 15fps for balance of quality and performance)
+    depth_module:
+      profile: 640x480x15
+      enable_auto_exposure: true
+      emitter_enabled: 1  # IR emitter ON for better depth in dark areas
+      emitter_always_on: false
+      laser_power: 150.0  # Max power for better range
+      exposure: 8500
+      gain: 16
+      visual_preset: 0  # Default preset
+      frames_queue_size: 16
+      global_time_enabled: true
+      auto_exposure_roi:
+        left: 0
+        top: 0
+        right: 639
+        bottom: 479
+    
+    # RGB camera settings
+    rgb_camera:
+      profile: 640x480x15  # Match depth resolution
+      enable_auto_exposure: true
+      enable_auto_white_balance: true
+      frames_queue_size: 16
+      global_time_enabled: true
+      exposure: 166
+      gain: 64
+      brightness: 0
+      contrast: 50
+      saturation: 64
+      sharpness: 50
+      white_balance: 4600.0
+      gamma: 300
+      hue: 0
+      power_line_frequency: 3
+      backlight_compensation: false
+      auto_exposure_priority: false
+      auto_exposure_roi:
+        left: 0
+        top: 0
+        right: 639
+        bottom: 479
+    
+    # ENABLE POINTCLOUD - Critical for Nav2 obstacle detection
+    pointcloud:
+      enable: true
+      allow_no_texture_points: true  # Allow points even without color data
+      ordered_pc: false
+      filter_magnitude: 2
+      frames_queue_size: 16
+      pointcloud_qos: DEFAULT
+      stream_filter: 0
+      stream_format_filter: 0
+      stream_index_filter: -1
+    
+    # ALIGN DEPTH TO COLOR - Improves pointcloud quality
+    align_depth:
+      enable: true
+      frames_queue_size: 16
+    
+    # Spatial Filter - Reduces depth noise (IMPORTANT for navigation)
+    spatial_filter:
+      enable: true
+      filter_magnitude: 2
+      filter_smooth_alpha: 0.5
+      filter_smooth_delta: 20
+      holes_fill: 0
+      frames_queue_size: 16
+      stream_filter: 1
+      stream_format_filter: 1
+      stream_index_filter: -1
+    
+    # Temporal Filter - Smooths depth over time
+    temporal_filter:
+      enable: true
+      filter_smooth_alpha: 0.4
+      filter_smooth_delta: 20
+      holes_fill: 3
+      frames_queue_size: 16
+      stream_filter: 1
+      stream_format_filter: 1
+      stream_index_filter: -1
+    
+    # Decimation Filter - Reduces resolution for performance (disabled for accuracy)
+    decimation_filter:
+      enable: false
+      filter_magnitude: 2
+      frames_queue_size: 16
+      stream_filter: 1
+      stream_format_filter: 1
+      stream_index_filter: -1
+    
+    # Hole Filling Filter - Fills holes in depth image
+    hole_filling_filter:
+      enable: true
+      holes_fill: 1  # 1=fill from left, 2=farthest from around, 3=nearest from around
+      frames_queue_size: 16
+      stream_filter: 1
+      stream_format_filter: 1
+      stream_index_filter: -1
+    
+    # Colorizer - For visualization (optional)
+    colorizer:
+      enable: false
+      color_scheme: 0
+      histogram_equalization_enabled: true
+      min_distance: 0.0
+      max_distance: 6.0
+      frames_queue_size: 16
+      stream_filter: 1
+      stream_format_filter: 1
+      stream_index_filter: -1
+      visual_preset: 0
+    
+    # Disparity filters (disabled)
+    disparity_filter:
+      enable: false
+    disparity_to_depth:
+      enable: false
+    
+    # HDR and sequence filters (disabled)
+    hdr_merge:
+      enable: false
+      frames_queue_size: 16
+    filter_by_sequence_id:
+      enable: false
+      frames_queue_size: 16
+      sequence_id: 1
+    
+    # Motion correction (disabled since we use robot IMU)
+    motion_module:
+      enable_motion_correction: false
+      frames_queue_size: 16
+      global_time_enabled: true
+    
+    # QoS settings
+    depth_qos: SYSTEM_DEFAULT
+    color_qos: SYSTEM_DEFAULT
+    infra1_qos: SYSTEM_DEFAULT
+    infra2_qos: SYSTEM_DEFAULT
+    depth_info_qos: DEFAULT
+    color_info_qos: DEFAULT
+    infra1_info_qos: DEFAULT
+    infra2_info_qos: DEFAULT
+    gyro_qos: SENSOR_DATA
+    accel_qos: SENSOR_DATA
+    gyro_info_qos: DEFAULT
+    accel_info_qos: DEFAULT
+    
+    qos_overrides:
+      /parameter_events:
+        publisher:
+          depth: 1000
+          durability: volatile
+          history: keep_last
+          reliability: reliable
+      /tf_static:
+        publisher:
+          depth: 1
+          history: keep_last
+          reliability: reliable
+    
+    # TF settings
+    publish_tf: true
+    publish_odom_tf: false
+    tf_publish_rate: 0.0  # 0 = publish with every frame
+    
+    # Miscellaneous
+    clip_distance: -1.0  # -1 = no clipping
+    linear_accel_cov: 0.01
+    angular_velocity_cov: 0.01
+    hold_back_imu_for_frames: false
+    unite_imu_method: 2
+    diagnostics_period: 0.0
+    initial_reset: false
+    reconnect_timeout: 6.0
+    wait_for_device_timeout: -1.0
+    rosbag_filename: ''
+    json_file_path: ''
+    usb_port_id: ''
+    use_sim_time: false
+    
+    # Sensor rates (if IMU enabled)
+    gyro_fps: 200
+    accel_fps: 100
+
+# Depth to LaserScan conversion for Nav2
+# Converts 3D depth data to 2D laser scan for costmap
+depthimage_to_laserscan:
+  ros__parameters:
+    scan_time: 0.033  # 30 Hz
+    range_min: 0.3    # Minimum range in meters
+    range_max: 6.0    # Maximum range in meters
+    scan_height: 100  # Number of pixel rows to use from depth image
+    output_frame: camera_depth_frame
+
