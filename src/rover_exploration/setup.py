@@ -30,6 +30,7 @@ setup(
     entry_points={
         'console_scripts': [
             'autonomous_explorer = rover_exploration.autonomous_explorer:main',
+            'blazepose_detector = rover_exploration.blazepose_detector:main',
         ],
     },
 )
