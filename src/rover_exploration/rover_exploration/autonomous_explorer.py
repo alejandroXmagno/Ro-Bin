@@ -12,11 +12,13 @@ from rclpy.action import ActionClient
 from nav2_msgs.action import NavigateToPose
 from geometry_msgs.msg import PoseStamped, Twist
 from nav_msgs.msg import OccupancyGrid, Odometry
-from sensor_msgs.msg import LaserScan
+from sensor_msgs.msg import LaserScan, Image
+from std_msgs.msg import String
 import numpy as np
 import math
 from collections import deque
 import random
+import json
 
 
 class AutonomousExplorer(Node):
@@ -32,6 +34,8 @@ class AutonomousExplorer(Node):
         self.declare_parameter('critical_obstacle_threshold', 0.5)  # Emergency stop within 0.5m
         self.declare_parameter('random_exploration_probability', 0.3)
         self.declare_parameter('min_goal_interval', 3.0)  # Minimum time between goal completions
+        self.declare_parameter('person_tracking_enabled', True)  # Enable person tracking
+        self.declare_parameter('person_approach_distance', 1.5)  # Stop 1.5m from person
         
         self.exploration_radius = self.get_parameter('exploration_radius').value
         self.frontier_threshold = self.get_parameter('frontier_threshold').value
@@ -41,6 +45,8 @@ class AutonomousExplorer(Node):
         self.critical_obstacle_threshold = self.get_parameter('critical_obstacle_threshold').value
         self.random_prob = self.get_parameter('random_exploration_probability').value
         self.min_goal_interval = self.get_parameter('min_goal_interval').value
+        self.person_tracking_enabled = self.get_parameter('person_tracking_enabled').value
+        self.person_approach_distance = self.get_parameter('person_approach_distance').value
         
         # State variables
         self.current_pose = None
@@ -59,6 +65,15 @@ class AutonomousExplorer(Node):
         self.stuck_count = 0
         self.blacklisted_goals = []  # Goals that led to stuck situations
         self.recovery_in_progress = False
+        
+        # Person tracking
+        self.person_detected = False
+        self.person_position = None  # (x, y) in image coordinates
+        self.last_person_detection_time = None
+        self.tracking_person = False
+        self.waiting_by_person = False
+        self.person_wait_start_time = None
+        self.person_wait_duration = 10.0  # Wait 10 seconds by person
         
         # Publishers
         self.cmd_vel_pub = self.create_publisher(Twist, '/cmd_vel', 10)
@@ -85,6 +100,13 @@ class AutonomousExplorer(Node):
             10
         )
         
+        self.person_detection_sub = self.create_subscription(
+            String,
+            '/person_detection/results',
+            self.person_detection_callback,
+            10
+        )
+        
         # Action client for navigation
         self.nav_client = ActionClient(self, NavigateToPose, 'navigate_to_pose')
         
@@ -107,6 +129,49 @@ class AutonomousExplorer(Node):
     def scan_callback(self, msg):
         """Store laser scan data"""
         self.scan_data = msg
+    
+    def person_detection_callback(self, msg):
+        """Handle person detection results"""
+        if not self.person_tracking_enabled:
+            return
+        
+        try:
+            detection_data = json.loads(msg.data)
+            
+            if detection_data.get('person_detected', False):
+                self.person_detected = True
+                self.last_person_detection_time = self.get_clock().now()
+                
+                # Extract person center position
+                person_center = detection_data.get('person_center')
+                if person_center:
+                    self.person_position = (
+                        person_center.get('x', 0.5),  # Normalized x
+                        person_center.get('y', 0.5)   # Normalized y
+                    )
+                    
+                    if not self.tracking_person:
+                        self.get_logger().info(f'👤 Person detected at ({self.person_position[0]:.2f}, {self.person_position[1]:.2f})!')
+                        self.tracking_person = True
+            else:
+                # Clear detection flag immediately
+                self.person_detected = False
+                
+                # But keep tracking for a bit to handle brief occlusions
+                current_time = self.get_clock().now()
+                if self.last_person_detection_time:
+                    time_since_detection = (current_time - self.last_person_detection_time).nanoseconds / 1e9
+                    # Stop tracking if no person seen for 2 seconds
+                    if time_since_detection > 2.0:
+                        if self.tracking_person:
+                            self.get_logger().info('Person lost, resuming exploration')
+                        self.tracking_person = False
+                else:
+                    # No detection time recorded, clear tracking immediately
+                    self.tracking_person = False
+                
+        except json.JSONDecodeError as e:
+            self.get_logger().warn(f'Failed to parse person detection data: {e}')
         
     def safety_check(self):
         """Two-level obstacle detection: critical (immediate) and warning (sustained)"""
@@ -179,6 +244,36 @@ class AutonomousExplorer(Node):
         # Skip if recovery in progress
         if self.recovery_in_progress:
             return
+        
+        # Check if we're waiting by a person
+        if self.waiting_by_person:
+            # Safety check: if wait time was never set, exit waiting state
+            if self.person_wait_start_time is None:
+                self.get_logger().warn('⚠️  Waiting by person but no start time set, clearing state')
+                self.waiting_by_person = False
+                self.tracking_person = False
+                return
+                
+            elapsed = (self.get_clock().now() - self.person_wait_start_time).nanoseconds / 1e9
+            if elapsed < self.person_wait_duration:
+                # Still waiting, log every 2 seconds
+                if int(elapsed) % 2 == 0 and elapsed % 2 < 0.5:
+                    remaining = self.person_wait_duration - elapsed
+                    self.get_logger().info(f'⏳ Waiting by person... {remaining:.0f}s remaining')
+                return
+            else:
+                # Done waiting, look for another person
+                self.get_logger().info('✅ Wait complete! Looking for another person...')
+                self.waiting_by_person = False
+                self.person_wait_start_time = None
+                self.tracking_person = False
+                self.person_detected = False
+                # Continue to explore/find next person
+        
+        # PRIORITY: Track person if detected (and not already waiting)
+        if self.person_detected and self.person_tracking_enabled and not self.waiting_by_person:
+            self.navigate_to_person()
+            return
             
         # Check if we need a new goal
         if not self.goal_active:
@@ -226,6 +321,72 @@ class AutonomousExplorer(Node):
                 self.navigate_to_goal(goal)
             else:
                 self.get_logger().warn('Could not find any exploration goal!')
+    
+    def navigate_to_person(self):
+        """Navigate towards detected person"""
+        if not self.person_position or self.current_pose is None:
+            return
+        
+        # Calculate direction to person based on camera view
+        # person_position[0] is normalized x (0 = left, 1 = right)
+        # Camera is side-facing (90° to robot's forward direction)
+        
+        # Since camera faces to the side (perpendicular to robot):
+        # - If person is on left side of image (x < 0.5), they're ahead of the camera
+        # - If person is on right side of image (x > 0.5), they're behind the camera
+        
+        person_x_norm = self.person_position[0]  # 0 to 1
+        
+        # Calculate robot's current orientation
+        from tf_transformations import euler_from_quaternion
+        orientation = self.current_pose.orientation
+        _, _, yaw = euler_from_quaternion([
+            orientation.x, orientation.y, orientation.z, orientation.w
+        ])
+        
+        # Camera faces 90° to the right (perpendicular to forward)
+        # Estimate person direction relative to robot
+        # person_x_norm < 0.5 means person is in front half of camera view (ahead)
+        # person_x_norm > 0.5 means person is in back half of camera view (behind)
+        
+        # Offset angle based on person position in camera frame
+        # Map [0, 1] to approximately [-45°, +45°] relative to camera direction
+        angle_offset_in_camera = (person_x_norm - 0.5) * (math.pi / 2)  # -π/4 to +π/4
+        
+        # Camera is at 90° (π/2) to robot's forward direction
+        camera_angle = yaw + math.pi / 2
+        person_angle = camera_angle + angle_offset_in_camera
+        
+        # Estimate distance (simplified - assume 2 meters if we can see them)
+        estimated_distance = 2.0
+        
+        # Calculate goal position
+        goal_x = self.current_pose.position.x + (estimated_distance - self.person_approach_distance) * math.cos(person_angle)
+        goal_y = self.current_pose.position.y + (estimated_distance - self.person_approach_distance) * math.sin(person_angle)
+        
+        # Cancel current goal if tracking new person
+        if self.goal_active and not self.tracking_person:
+            self.cancel_current_goal()
+        
+        # Navigate to person location (if not already there)
+        distance_to_goal = math.sqrt(
+            (goal_x - self.current_pose.position.x)**2 +
+            (goal_y - self.current_pose.position.y)**2
+        )
+        
+        # Only send new goal if not already at person or if goal changed significantly
+        if distance_to_goal > 0.3:  # More than 30cm away
+            self.get_logger().info(f'🚶 Navigating towards person at ({goal_x:.2f}, {goal_y:.2f})')
+            self.navigate_to_goal((goal_x, goal_y))
+        else:
+            # Already near the person - start waiting
+            if not self.waiting_by_person:
+                self.get_logger().info(f'👋 Reached person! Waiting {self.person_wait_duration:.0f} seconds...')
+                self.waiting_by_person = True
+                self.person_wait_start_time = self.get_clock().now()
+                # Cancel any active navigation goal
+                if self.goal_active:
+                    self.cancel_current_goal()
                 
     def get_frontier_goal(self):
         """Find frontier cells (boundary between known and unknown space) and prioritize larger unexplored regions"""

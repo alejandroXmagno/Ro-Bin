@@ -41,6 +41,20 @@ autonomous_explorer:
     # Random exploration probability - NOT CURRENTLY USED
     # Algorithm now uses frontier-based with random fallback
     random_exploration_probability: 0.3
+    
+    # ============================================================
+    # PERSON TRACKING PARAMETERS
+    # ============================================================
+    
+    # Enable person tracking mode
+    # When true, robot will navigate towards detected people
+    # When false, robot only explores autonomously
+    person_tracking_enabled: true
+    
+    # Person approach distance (meters)
+    # Robot will stop this far from detected person
+    # Set to 0.3m (approximately 1 foot)
+    person_approach_distance: 0.3
 
 
 
