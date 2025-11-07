@@ -70,6 +70,68 @@ ros2 topic echo /scan                    # View raw scan data
 ros2 topic hz /scan                      # Check scan frequency
 ros2 launch rover_exploration view_lidar_hardware.launch.py  # Alternative RViz launch
 
+## Viewing RealSense Camera
+
+The RealSense is connected to the Jetson. View what it sees using one of these methods:
+
+### Method 1: Web Browser (Easiest - Works from Any Device!)
+
+```bash
+# On Jetson: Start robot
+ros2 launch roverrobotics_driver mini.launch.py
+
+# On Jetson: Start web stream
+./stream_realsense_web.sh
+
+# On your laptop/phone/tablet: Open browser to:
+# http://<jetson-ip>:5000/
+```
+
+View from **any device** on your network! Perfect for monitoring from your laptop while robot drives around.
+
+### Method 2: RViz (Best for Navigation)
+
+```bash
+# On Jetson: Start robot
+ros2 launch roverrobotics_driver mini.launch.py
+
+# On your laptop: Open RViz
+./view_realsense_rviz.sh
+```
+
+Shows camera feeds + robot position + LiDAR in one view.
+
+### Method 3: OpenCV Viewer (If SSH'd with X11)
+
+```bash
+# SSH to Jetson with X11 forwarding
+ssh -X stickykeys@<jetson-ip>
+
+# On Jetson: View camera
+./view_realsense.sh
+```
+
+**Keyboard controls:**
+- `d` - Toggle depth view
+- `i` - Toggle infrared view
+- `c` - Cycle depth colormap
+- `q` - Quit
+
+### Method 4: Check Topics
+
+```bash
+# Check if RealSense is working
+./check_realsense.sh
+
+# View raw data
+ros2 topic echo /camera/camera/color/image_raw
+ros2 topic hz /camera/camera/color/image_raw
+```
+
+**Recommended:** Use **Method 1 (Web Browser)** for easiest remote viewing!
+
+See `REALSENSE_VIEWER_GUIDE.md` for detailed guide and troubleshooting.
+
 ## Recording Close Obstacles
 
 To record which LiDAR positions detect obstacles less than 1 foot away over a 5-second period:
@@ -121,7 +183,7 @@ To run the LiDAR scanner while ignoring the recorded angles (useful for filterin
 # Terminal 1: Robot driver (already running)
 ros2 launch roverrobotics_driver mini.launch.py
 
-# Terminal 2: Start filtered LiDAR scanner
+# Terminal 2: Start filtered LiDAR scanner (±2° tolerance by default)
 ./run_filtered_lidar.sh close_obstacles_1762028491_unique_angles.txt
 
 # Terminal 3 (optional): View both original and filtered scans
@@ -130,11 +192,61 @@ ros2 launch rover_exploration view_filtered_lidar.launch.py
 
 The filtered scanner will:
 - Subscribe to `/scan` (original LiDAR data)
-- Filter out the specified angles by setting them to infinity
+- Filter out the specified angles **±2 degrees** (for robustness)
 - Publish filtered data to `/scan_filtered`
 - Show statistics on how many points were filtered
 
+**Angle tolerance:** Default is ±2.0° to catch angles close to recorded ones. Adjust with:
+```bash
+./run_filtered_lidar.sh angles.txt 1.0   # ±1 degree (stricter)
+./run_filtered_lidar.sh angles.txt 3.0   # ±3 degrees (looser)
+```
+
 You can use `/scan_filtered` with navigation and SLAM algorithms to ignore known obstacles.
+
+### Filter Multiple Types of Obstacles (e.g., Robot Parts + Trash Bin Stands)
+
+If you need to filter multiple types of obstacles (like robot parts AND external stands):
+
+**Quick Method (Automated):**
+```bash
+# Terminal 1: Start robot driver
+ros2 launch roverrobotics_driver mini.launch.py
+
+# Terminal 2: Record and merge (interactive)
+./record_and_merge_filters.sh
+# This will:
+# 1. Record new obstacles
+# 2. Extract angles
+# 3. Ask if you want to merge with existing filters
+# 4. Give you the command to use the merged filter
+```
+
+**Manual Method:**
+```bash
+# 1. Record the new obstacles (e.g., trash bin stands behind LiDAR)
+./record_obstacles.sh 5 0.3048
+
+# 2. Extract angles from the new recording
+./extract_angles.sh close_obstacles_NEW_TIMESTAMP.json
+
+# 3. Merge with existing filter
+./merge_angle_filters.sh combined_filters.txt \
+    close_obstacles_1762028491_unique_angles.txt \
+    close_obstacles_NEW_TIMESTAMP_unique_angles.txt
+
+# 4. Use merged filter for navigation
+./run_hardware_navigation.sh --angles combined_filters.txt --explore
+```
+
+**Example Use Case - Filtering Trash Bin Stands:**
+If you have 4 stands behind the LiDAR holding up a trash bin that cause navigation issues:
+1. Position robot so LiDAR sees only those stands
+2. Run `./record_and_merge_filters.sh`
+3. Choose option 1 to merge with existing filters
+4. Use the merged filter for navigation
+
+See `FILTER_TRASH_BIN_STANDS.md` for detailed guide.
 
 ## Autonomous Navigation on Physical Robot
 
@@ -149,14 +261,27 @@ fuser -kv /dev/ttyACM0 || true
 source install/setup.bash 
 ros2 launch roverrobotics_driver mini.launch.py
 
-# Terminal 2: Start navigation stack (automatically starts filtered LiDAR)
+# Terminal 2: Start navigation with automatic filtered LiDAR
+./run_hardware_navigation.sh --explore
+```
+
+**That's it!** The script will:
+- ✅ Auto-detect your most recent obstacle recording
+- ✅ Start filtered LiDAR with ±2° tolerance
+- ✅ Use `/scan_filtered` for navigation
+- ✅ Enable autonomous exploration
+
+**Advanced options:**
+```bash
+# Manual goals only (no exploration)
 ./run_hardware_navigation.sh
 
-# OR with autonomous exploration enabled:
-./run_hardware_navigation.sh --explore
+# Specify custom angles file
+./run_hardware_navigation.sh --angles my_angles.txt --explore
 
-# OR specify custom angles file:
-./run_hardware_navigation.sh --angles close_obstacles_1762028491_unique_angles.txt --explore
+# Without any angles file (unfiltered)
+./run_hardware_navigation.sh --explore
+# (Will warn and continue with /scan after 3 seconds)
 ```
 
 ### Manual Setup (3 Terminals)
@@ -190,4 +315,32 @@ The hardware navigation system:
 - ✅ Runs **Nav2** for path planning and obstacle avoidance
 - ✅ Optionally runs **autonomous exploration** to explore the environment
 - ✅ All configured for hardware (use_sim_time: false)
+- ✅ **TUNED TO PREVENT JITTER AND STUCK BEHAVIOR** (see NAVIGATION_FIXES.md)
+
+### Visualization with RViz2
+
+To see LiDAR scans and path planning in action:
+
+```bash
+# Terminal 1: Robot + Navigation (already running)
+./run_hardware_navigation.sh --explore
+
+# Terminal 2: Open RViz2 visualization
+./view_hardware_nav.sh
+```
+
+**What you'll see in RViz:**
+- 🔴 **RED points** - Original LiDAR scan (`/scan`)
+- 🟢 **GREEN points** - Filtered LiDAR scan (`/scan_filtered`)
+- 🟢 **GREEN line** - Global path plan
+- 🟡 **YELLOW line** - Local path plan  
+- 🗺️ **Gray map** - SLAM-generated map
+- 🎯 **Orange marker** - Current navigation goal
+- 🤖 **Robot model** - Your rover with footprint
+- **Blue/purple overlay** - Local costmap (obstacle inflation)
+
+**Tools:**
+- Use "2D Goal Pose" to manually send the robot to a location
+- Use "2D Pose Estimate" to correct robot localization
+- Use "Measure" to measure distances on the map
 
