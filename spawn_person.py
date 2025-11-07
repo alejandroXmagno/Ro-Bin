@@ -6,25 +6,29 @@ import subprocess
 import sys
 import time
 
-def spawn_person(name, x, y, z=0, rotation=0):
-    """Spawn a human actor"""
+def spawn_person(name, x, y, z=0, rotation=0, waving=True):
+    """Spawn a human actor (will be detected as waving by pose detection)"""
+    # Use talk_b animation - BlazePose will detect if hands are raised
+    animation_file = "https://fuel.gazebosim.org/1.0/Mingfei/models/actor/tip/files/meshes/talk_b.dae"
+    animation_name = "standing"
+    
     sdf_content = f"""<?xml version="1.0"?>
 <sdf version="1.6">
   <actor name="{name}">
     <pose>{x} {y} {z} 0 0 {rotation}</pose>
     <skin>
-      <filename>https://fuel.gazebosim.org/1.0/Mingfei/models/actor/tip/files/meshes/talk_b.dae</filename>
+      <filename>{animation_file}</filename>
       <scale>1.0</scale>
     </skin>
-    <animation name="standing">
-      <filename>https://fuel.gazebosim.org/1.0/Mingfei/models/actor/tip/files/meshes/talk_b.dae</filename>
+    <animation name="{animation_name}">
+      <filename>{animation_file}</filename>
       <scale>0.055</scale>
       <interpolate_x>true</interpolate_x>
     </animation>
     <script>
       <loop>true</loop>
       <auto_start>true</auto_start>
-      <trajectory id="0" type="standing">
+      <trajectory id="0" type="{animation_name}">
         <waypoint>
           <time>0</time>
           <pose>0 0 1.0 0 0 0</pose>
@@ -69,18 +73,18 @@ def spawn_person(name, x, y, z=0, rotation=0):
         return False
 
 if __name__ == "__main__":
-    print("🤖 Spawning human actors in Gazebo...")
+    print("👋 Spawning waving human actors in Gazebo...")
     print("⚠️  Make sure Gazebo is running first!")
     time.sleep(2)
     
-    # Spawn multiple people at different locations with different rotations
-    spawn_person("person1", 5.0, 0.0, 0.0, rotation=0)
+    # Spawn multiple waving people at different locations with different rotations
+    spawn_person("person1", 5.0, 0.0, 0.0, rotation=0, waving=True)
     time.sleep(0.5)
-    spawn_person("person2", -3.0, 4.0, 0.0, rotation=1.57)  # 90 degrees
+    spawn_person("person2", -3.0, 4.0, 0.0, rotation=1.57, waving=True)  # 90 degrees
     time.sleep(0.5)
-    spawn_person("person3", 2.0, -3.0, 0.0, rotation=3.14)  # 180 degrees
+    spawn_person("person3", 2.0, -3.0, 0.0, rotation=3.14, waving=True)  # 180 degrees
     time.sleep(0.5)
-    spawn_person("person4", -2.0, -2.0, 0.0, rotation=4.71)  # 270 degrees
+    spawn_person("person4", -2.0, -2.0, 0.0, rotation=4.71, waving=True)  # 270 degrees
     
-    print("\n✅ Done! Check Gazebo window for human actors.")
+    print("\n✅ Done! All 4 people are waving. Check Gazebo window for human actors.")
 

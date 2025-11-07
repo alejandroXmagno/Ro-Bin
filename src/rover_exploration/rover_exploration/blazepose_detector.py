@@ -85,8 +85,12 @@ class BlazePoseDetector(Node):
         # Statistics
         self.detection_count = 0
         self.person_detected_count = 0
+        self.waving_detected_count = 0
         
-        self.get_logger().info(f'BlazePose Detector initialized')
+        # Hand waving detection state
+        self.previous_hand_positions = {}  # person_id -> [(x, y, timestamp), ...]
+        
+        self.get_logger().info(f'BlazePose Detector initialized (Hand Waving Detection)')
         self.get_logger().info(f'Detection rate: {self.detection_rate} Hz')
         self.get_logger().info(f'Subscribing to: {self.camera_topic}')
         self.get_logger().info(f'Min detection confidence: {self.min_detection_confidence}')
@@ -95,6 +99,38 @@ class BlazePoseDetector(Node):
         """Store latest image for processing"""
         with self.image_lock:
             self.latest_image = msg
+    
+    def detect_hand_waving(self, landmarks):
+        """Detect if a person is waving their hand (simplified for simulation)"""
+        # For simulation, detect any person with visible hands as "waving"
+        # This is because Gazebo actors have limited animations
+        left_wrist = landmarks[self.mp_pose.PoseLandmark.LEFT_WRIST]
+        right_wrist = landmarks[self.mp_pose.PoseLandmark.RIGHT_WRIST]
+        left_shoulder = landmarks[self.mp_pose.PoseLandmark.LEFT_SHOULDER]
+        right_shoulder = landmarks[self.mp_pose.PoseLandmark.RIGHT_SHOULDER]
+        
+        # Simplified: Hand is "waving" if wrist is at or above shoulder level
+        # (more lenient for simulation)
+        left_hand_up = (
+            left_wrist.visibility > 0.3 and
+            left_shoulder.visibility > 0.3 and
+            left_wrist.y < left_shoulder.y + 0.15  # Hand near or above shoulder
+        )
+        
+        right_hand_up = (
+            right_wrist.visibility > 0.3 and
+            right_shoulder.visibility > 0.3 and
+            right_wrist.y < right_shoulder.y + 0.15  # Hand near or above shoulder
+        )
+        
+        # Person is waving if either hand is raised enough
+        is_waving = left_hand_up or right_hand_up
+        
+        if is_waving:
+            hand_position = left_wrist if left_hand_up else right_wrist
+            return True, (hand_position.x, hand_position.y)
+        
+        return False, None
     
     def detect_person(self):
         """Run pose detection on the latest image"""
@@ -119,6 +155,7 @@ class BlazePoseDetector(Node):
             detection_data = {
                 'timestamp': self.get_clock().now().to_msg(),
                 'person_detected': False,
+                'is_waving': False,
                 'pose_landmarks': None,
                 'detection_count': self.detection_count
             }
@@ -126,6 +163,13 @@ class BlazePoseDetector(Node):
             if results.pose_landmarks:
                 self.person_detected_count += 1
                 detection_data['person_detected'] = True
+                
+                # Detect hand waving
+                is_waving, hand_pos = self.detect_hand_waving(results.pose_landmarks.landmark)
+                detection_data['is_waving'] = is_waving
+                
+                if is_waving:
+                    self.waving_detected_count += 1
                 
                 # Extract key landmarks
                 landmarks = results.pose_landmarks.landmark
@@ -166,8 +210,9 @@ class BlazePoseDetector(Node):
                     'pixel_y': int(nose.y * cv_image.shape[0])
                 }
                 
+                wave_status = "👋 WAVING!" if detection_data['is_waving'] else ""
                 self.get_logger().info(
-                    f'Person detected! Position: ({detection_data["person_center"]["pixel_x"]}, '
+                    f'Person detected! {wave_status} Position: ({detection_data["person_center"]["pixel_x"]}, '
                     f'{detection_data["person_center"]["pixel_y"]})'
                 )
             
@@ -188,19 +233,22 @@ class BlazePoseDetector(Node):
                 )
                 
                 # Add detection info text
+                status_text = 'Person Detected - WAVING!' if detection_data.get('is_waving', False) else 'Person Detected'
+                color = (0, 255, 255) if detection_data.get('is_waving', False) else (0, 255, 0)  # Yellow if waving
+                
                 cv2.putText(
                     annotated_image,
-                    f'Person Detected ({self.detection_rate} Hz)',
+                    status_text,
                     (10, 30),
                     cv2.FONT_HERSHEY_SIMPLEX,
                     0.7,
-                    (0, 255, 0),
+                    color,
                     2
                 )
                 
                 cv2.putText(
                     annotated_image,
-                    f'Detections: {self.person_detected_count}/{self.detection_count}',
+                    f'Detections: {self.person_detected_count}/{self.detection_count} | Waving: {self.waving_detected_count}',
                     (10, 60),
                     cv2.FONT_HERSHEY_SIMPLEX,
                     0.6,

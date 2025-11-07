@@ -131,14 +131,15 @@ class AutonomousExplorer(Node):
         self.scan_data = msg
     
     def person_detection_callback(self, msg):
-        """Handle person detection results"""
+        """Handle person detection results - only track waving people"""
         if not self.person_tracking_enabled:
             return
         
         try:
             detection_data = json.loads(msg.data)
             
-            if detection_data.get('person_detected', False):
+            # Only respond to people who are waving
+            if detection_data.get('person_detected', False) and detection_data.get('is_waving', False):
                 self.person_detected = True
                 self.last_person_detection_time = self.get_clock().now()
                 
@@ -151,7 +152,7 @@ class AutonomousExplorer(Node):
                     )
                     
                     if not self.tracking_person:
-                        self.get_logger().info(f'👤 Person detected at ({self.person_position[0]:.2f}, {self.person_position[1]:.2f})!')
+                        self.get_logger().info(f'👋 Waving person detected at ({self.person_position[0]:.2f}, {self.person_position[1]:.2f})!')
                         self.tracking_person = True
             else:
                 # Clear detection flag immediately
@@ -262,16 +263,25 @@ class AutonomousExplorer(Node):
                     self.get_logger().info(f'⏳ Waiting by person... {remaining:.0f}s remaining')
                 return
             else:
-                # Done waiting, look for another person
-                self.get_logger().info('✅ Wait complete! Looking for another person...')
+                # Done waiting, resume exploration to find another waving person
+                self.get_logger().info('✅ Wait complete! Leaving this person...')
+                
+                # Clear all person tracking states
                 self.waiting_by_person = False
                 self.person_wait_start_time = None
                 self.tracking_person = False
                 self.person_detected = False
+                self.person_position = None
+                
+                # Force new exploration goal immediately
+                self.goal_active = False
+                self.get_logger().info('🔍 Resuming exploration to find more waving people...')
                 # Continue to explore/find next person
         
         # PRIORITY: Track person if detected (and not already waiting)
         if self.person_detected and self.person_tracking_enabled and not self.waiting_by_person:
+            if self.goal_active and not self.tracking_person:
+                self.get_logger().info('👋 Waving person detected! Canceling exploration to approach person...')
             self.navigate_to_person()
             return
             
@@ -323,7 +333,7 @@ class AutonomousExplorer(Node):
                 self.get_logger().warn('Could not find any exploration goal!')
     
     def navigate_to_person(self):
-        """Navigate towards detected person"""
+        """Navigate towards detected waving person"""
         if not self.person_position or self.current_pose is None:
             return
         
@@ -337,12 +347,12 @@ class AutonomousExplorer(Node):
         
         person_x_norm = self.person_position[0]  # 0 to 1
         
-        # Calculate robot's current orientation
-        from tf_transformations import euler_from_quaternion
+        # Calculate robot's current orientation (yaw from quaternion)
         orientation = self.current_pose.orientation
-        _, _, yaw = euler_from_quaternion([
-            orientation.x, orientation.y, orientation.z, orientation.w
-        ])
+        # Convert quaternion to yaw using simplified formula
+        siny_cosp = 2 * (orientation.w * orientation.z + orientation.x * orientation.y)
+        cosy_cosp = 1 - 2 * (orientation.y * orientation.y + orientation.z * orientation.z)
+        yaw = math.atan2(siny_cosp, cosy_cosp)
         
         # Camera faces 90° to the right (perpendicular to forward)
         # Estimate person direction relative to robot
