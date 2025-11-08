@@ -1,0 +1,56 @@
+[INFO] [launch]: All log files can be found below /home/stickykeys/.ros/log/2025-11-07-19-08-47-337206-stickykeys-desktop-114157
+[INFO] [launch]: Default logging verbosity is set to INFO
+[INFO] [roverrobotics_driver-1]: process started with pid [114159]
+[INFO] [rplidar_composition-2]: process started with pid [114161]
+[INFO] [joint_state_publisher-3]: process started with pid [114163]
+[INFO] [robot_state_publisher-4]: process started with pid [114165]
+[INFO] [ekf_node-5]: process started with pid [114167]
+[rplidar_composition-2] [INFO] [1762560527.967697451] [rplidar]: RPLidar running on ROS2 package rplidar_ros. RPLIDAR SDK Version:2.1.0
+[roverrobotics_driver-1] [INFO] [1762560527.977358251] [roverrobotics_driver]: Starting Rover Driver node
+[rplidar_composition-2] [INFO] [1762560527.983400692] [rplidar]: RPLidar S/N: D424E18BC7E598C0C4E29BF427F1497E
+[rplidar_composition-2] [INFO] [1762560527.983899972] [rplidar]: Firmware Ver: 1.02
+[rplidar_composition-2] [INFO] [1762560527.983937574] [rplidar]: Hardware Rev: 18
+[rplidar_composition-2] [INFO] [1762560527.986114606] [rplidar]: RPLidar health status : 0
+[rplidar_composition-2] [INFO] [1762560527.986189808] [rplidar]: RPLidar health status : OK.
+[rplidar_composition-2] [INFO] [1762560527.989021166] [rplidar]: Start
+[roverrobotics_driver-1] [INFO] [1762560527.993021235] [roverrobotics_driver]: Robot type is Rover mini over serial
+[roverrobotics_driver-1] [INFO] [1762560527.993230970] [roverrobotics_driver]: Receiving velocity command from /cmd_vel
+[roverrobotics_driver-1] [INFO] [1762560527.993273180] [roverrobotics_driver]: Estop state is currently inactive
+[roverrobotics_driver-1] [INFO] [1762560527.993295132] [roverrobotics_driver]: Receiving Estop activation at /soft_estop/trigger
+[roverrobotics_driver-1] [INFO] [1762560527.993309341] [roverrobotics_driver]: Receiving Estop deactivation at /soft_estop/reset
+[roverrobotics_driver-1] [INFO] [1762560528.017601667] [roverrobotics_driver]: Publishing Robot status on /robot_status at 60.00hz
+[roverrobotics_driver-1] [INFO] [1762560528.017717735] [roverrobotics_driver]: Robot is in closed loop mode.
+[roverrobotics_driver-1] [INFO] [1762560528.017739080] [roverrobotics_driver]: PID is at P:0.0005 I:0.0000 D:0.0000
+[roverrobotics_driver-1] [INFO] [1762560528.017757832] [roverrobotics_driver]: Connecting to robot at /dev/ttyACM0
+[roverrobotics_driver-1] Warning: ~/robot.config file not found, persistent trim disabled
+[roverrobotics_driver-1] [INFO] [1762560528.019345853] [roverrobotics_driver]: Connected to robot at /dev/ttyACM0
+[robot_state_publisher-4] [INFO] [1762560528.035600856] [robot_state_publisher]: got segment base_link
+[robot_state_publisher-4] [INFO] [1762560528.035882402] [robot_state_publisher]: got segment chassis_link
+[robot_state_publisher-4] [INFO] [1762560528.035913443] [robot_state_publisher]: got segment fl_wheel_link
+[robot_state_publisher-4] [INFO] [1762560528.035926467] [robot_state_publisher]: got segment fr_wheel_link
+[robot_state_publisher-4] [INFO] [1762560528.035936195] [robot_state_publisher]: got segment imu_link
+[robot_state_publisher-4] [INFO] [1762560528.035945924] [robot_state_publisher]: got segment lidar_link
+[robot_state_publisher-4] [INFO] [1762560528.035954852] [robot_state_publisher]: got segment payload_link
+[robot_state_publisher-4] [INFO] [1762560528.035963588] [robot_state_publisher]: got segment rl_wheel_link
+[robot_state_publisher-4] [INFO] [1762560528.035972613] [robot_state_publisher]: got segment rr_wheel_link
+[rplidar_composition-2] [INFO] [1762560528.274475984] [rplidar]: current scan mode: Standard, sample rate: 16 Khz, max_distance: 16.0 m, scan frequency:10.0 Hz, 
+[joint_state_publisher-3] [INFO] [1762560528.639357278] [joint_state_publisher]: Waiting for robot_description to be published on the robot_description topic...
+[WARNING] [launch]: user interrupted with ctrl-c (SIGINT)
+[robot_state_publisher-4] [INFO] [1762560530.111054088] [rclcpp]: signal_handler(signum=2)
+[roverrobotics_driver-1] [INFO] [1762560530.111129355] [rclcpp]: signal_handler(signum=2)
+[ekf_node-5] [INFO] [1762560530.111056232] [rclcpp]: signal_handler(signum=2)
+[INFO] [robot_state_publisher-4]: process has finished cleanly [pid 114165]
+[INFO] [ekf_node-5]: process has finished cleanly [pid 114167]
+[INFO] [joint_state_publisher-3]: process has finished cleanly [pid 114163]
+[rplidar_composition-2] [INFO] [1762560530.390652711] [rplidar]: Stop motor
+[INFO] [rplidar_composition-2]: process has finished cleanly [pid 114161]
+[ERROR] [roverrobotics_driver-1]: process[roverrobotics_driver-1] failed to terminate '5' seconds after receiving 'SIGINT', escalating to 'SIGTERM'
+[INFO] [roverrobotics_driver-1]: sending signal 'SIGTERM' to process[roverrobotics_driver-1]
+[roverrobotics_driver-1] [INFO] [1762560535.128635625] [rclcpp]: signal_handler(signum=15)
+[WARNING] [launch]: user interrupted with ctrl-c (SIGINT) again, ignoring...
+[roverrobotics_driver-1] [INFO] [1762560535.707932068] [rclcpp]: signal_handler(signum=2)
+[WARNING] [launch]: user interrupted with ctrl-c (SIGINT) again, ignoring...
+[roverrobotics_driver-1] [INFO] [1762560536.506841335] [rclcpp]: signal_handler(signum=2)
+[ERROR] [roverrobotics_driver-1]: process[roverrobotics_driver-1] failed to terminate '10.0' seconds after receiving 'SIGTERM', escalating to 'SIGKILL'
+[INFO] [roverrobotics_driver-1]: sending signal 'SIGKILL' to process[roverrobotics_driver-1]
+[ERROR] [roverrobotics_driver-1]: process has died [pid 114159, exit code -9, cmd '/home/stickykeys/rover_workspace/install/roverrobotics_driver/lib/roverrobotics_driver/roverrobotics_driver --ros-args -r __node:=roverrobotics_driver --params-file /home/stickykeys/rover_workspace/install/roverrobotics_driver/share/roverrobotics_driver/config/mini_config.yaml'].

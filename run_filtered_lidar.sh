@@ -69,12 +69,17 @@ echo -e "${GREEN}Starting filtered LiDAR scanner...${NC}"
 echo "Input file: $ANGLES_FILE"
 echo "Original scans: /scan"
 echo "Filtered scans: /scan_filtered"
+echo "Angle tolerance: ±2.0° (default)"
 echo ""
 echo "Press Ctrl+C to stop"
 echo ""
 
-# Run the filtered scanner
-python3 filtered_lidar_scanner.py "$@"
+# Run the filtered scanner with 2 degree tolerance if no tolerance specified
+if [ $# -eq 1 ]; then
+    python3 filtered_lidar_scanner.py "$ANGLES_FILE" 2.0
+else
+    python3 filtered_lidar_scanner.py "$@"
+fi
 
 echo ""
 echo -e "${GREEN}Filtered LiDAR scanner stopped.${NC}"

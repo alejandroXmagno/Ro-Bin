@@ -36,7 +36,7 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
-# Find angles file if not specified
+# Find angles file if not specified - ALWAYS try to find one
 if [ -z "$ANGLES_FILE" ]; then
     # Find the most recent unique angles file
     ANGLES_FILE=$(ls -t close_obstacles_*_unique_angles.txt 2>/dev/null | head -1)
@@ -47,24 +47,21 @@ if [ -z "$ANGLES_FILE" ]; then
     fi
     
     if [ -z "$ANGLES_FILE" ]; then
-        echo -e "${YELLOW}No angles file specified and none found automatically.${NC}"
-        echo -e "${YELLOW}The navigation will use unfiltered LiDAR.${NC}"
+        echo -e "${YELLOW}⚠ No angles file found - navigation will use unfiltered LiDAR${NC}"
+        echo -e "${YELLOW}Tip: Run './record_obstacles.sh' to create one${NC}"
         echo ""
-        read -p "Continue without filtered LiDAR? (y/N) " -n 1 -r
-        echo
-        if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-            exit 1
-        fi
+        echo -e "${CYAN}Continuing with unfiltered LiDAR in 3 seconds...${NC}"
+        sleep 3
     else
-        echo -e "${GREEN}Using angles file: $ANGLES_FILE${NC}"
+        echo -e "${GREEN}✓ Auto-detected angles file: $ANGLES_FILE${NC}"
     fi
 fi
 
 # Check prerequisites
 echo -e "${CYAN}Checking prerequisites...${NC}"
 
-# Check if robot driver is running
-if ! ros2 node list 2>/dev/null | grep -q "roverrobotics_driver"; then
+# Check if robot driver is running (check for node or topics)
+if ! ros2 node list 2>/dev/null | grep -q "roverrobotics_driver" && ! ros2 topic list 2>/dev/null | grep -qE "^/scan$|/scan_filtered"; then
     echo -e "${RED}ERROR: Robot driver not running!${NC}"
     echo ""
     echo "Please start the robot driver first:"
@@ -76,43 +73,40 @@ if ! ros2 node list 2>/dev/null | grep -q "roverrobotics_driver"; then
 fi
 echo -e "${GREEN}✓ Robot driver running${NC}"
 
-# Check if original /scan topic exists
-if ! ros2 topic list 2>/dev/null | grep -q "^/scan$"; then
-    echo -e "${RED}ERROR: /scan topic not found!${NC}"
-    echo "Make sure LiDAR is enabled in accessories.yaml"
+# Check if LiDAR is available (either /scan or /scan_filtered)
+# The auto standoff filter (integrated into mini.launch.py) subscribes to /scan and publishes /scan_filtered
+if ros2 topic list 2>/dev/null | grep -q "^/scan$"; then
+    echo -e "${GREEN}✓ LiDAR /scan topic available${NC}"
+elif ros2 topic list 2>/dev/null | grep -q "/scan_filtered"; then
+    echo -e "${GREEN}✓ LiDAR /scan_filtered topic available (auto filter running)${NC}"
+else
+    echo -e "${RED}ERROR: No LiDAR topics found!${NC}"
+    echo "Make sure LiDAR is enabled in accessories.yaml and robot driver is running"
     exit 1
 fi
-echo -e "${GREEN}✓ LiDAR /scan topic available${NC}"
 
-# Start filtered LiDAR if angles file exists
-if [ -n "$ANGLES_FILE" ] && [ -f "$ANGLES_FILE" ]; then
-    # Check if filtered scanner is already running
-    if ros2 node list 2>/dev/null | grep -q "filtered_lidar_scanner"; then
-        echo -e "${GREEN}✓ Filtered LiDAR scanner already running${NC}"
-    else
-        echo -e "${YELLOW}Starting filtered LiDAR scanner...${NC}"
-        python3 filtered_lidar_scanner.py "$ANGLES_FILE" &
-        FILTER_PID=$!
-        sleep 3
-        
-        if ps -p $FILTER_PID > /dev/null; then
-            echo -e "${GREEN}✓ Filtered LiDAR scanner started (PID: $FILTER_PID)${NC}"
-        else
-            echo -e "${RED}ERROR: Failed to start filtered LiDAR scanner${NC}"
-            exit 1
-        fi
-    fi
+# Check if auto standoff filter is running (integrated into mini.launch.py)
+sleep 2
+if ros2 node list 2>/dev/null | grep -q "auto_standoff_filter"; then
+    echo -e "${GREEN}✓ Auto standoff filter running${NC}"
     
     # Verify filtered topic
-    sleep 2
     if ros2 topic list 2>/dev/null | grep -q "/scan_filtered"; then
         echo -e "${GREEN}✓ /scan_filtered topic available${NC}"
     else
-        echo -e "${RED}ERROR: /scan_filtered topic not found${NC}"
-        exit 1
+        echo -e "${YELLOW}⚠ /scan_filtered not yet available, waiting...${NC}"
+        sleep 3
+        if ros2 topic list 2>/dev/null | grep -q "/scan_filtered"; then
+            echo -e "${GREEN}✓ /scan_filtered topic now available${NC}"
+        else
+            echo -e "${YELLOW}⚠ /scan_filtered still not available - continuing anyway${NC}"
+            echo -e "${YELLOW}  (Auto filter may still be recording standoffs)${NC}"
+        fi
     fi
 else
-    echo -e "${YELLOW}⚠ No filtered LiDAR - using original /scan${NC}"
+    echo -e "${YELLOW}⚠ Auto standoff filter not detected${NC}"
+    echo -e "${YELLOW}  Make sure mini.launch.py is running${NC}"
+    echo -e "${YELLOW}  Navigation will use /scan (unfiltered) if available${NC}"
 fi
 
 # Source workspace
@@ -123,7 +117,13 @@ echo -e "${CYAN}========================================${NC}"
 echo -e "${CYAN}Configuration:${NC}"
 echo -e "${CYAN}========================================${NC}"
 echo -e "  Robot Driver: ${GREEN}Running${NC}"
-echo -e "  LiDAR Topic: ${GREEN}/scan_filtered${NC}"
+if [ -n "$ANGLES_FILE" ] && [ -f "$ANGLES_FILE" ]; then
+    echo -e "  LiDAR Filtering: ${GREEN}Active (±2°)${NC}"
+    echo -e "  LiDAR Topic: ${GREEN}/scan_filtered${NC}"
+else
+    echo -e "  LiDAR Filtering: ${YELLOW}Disabled${NC}"
+    echo -e "  LiDAR Topic: ${YELLOW}/scan (unfiltered)${NC}"
+fi
 if [ "$ENABLE_EXPLORATION" = true ]; then
     echo -e "  Autonomous Exploration: ${GREEN}Enabled${NC}"
 else

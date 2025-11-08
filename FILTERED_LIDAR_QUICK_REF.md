@@ -74,12 +74,13 @@ ros2 topic list | grep scan
 
 ## ⚙️ Configuration
 
-**Default tolerance:** ±0.57° (0.01 radians)
+**Default tolerance:** ±2.0° (0.0349 radians) - **UPDATED for better robustness**
 
 **Adjust tolerance:**
 ```bash
-./run_filtered_lidar.sh angles.txt 0.5   # Strict (±0.5°)
-./run_filtered_lidar.sh angles.txt 2.0   # Loose (±2.0°)
+./run_filtered_lidar.sh angles.txt       # Uses 2.0° default
+./run_filtered_lidar.sh angles.txt 1.0   # Strict (±1.0°)
+./run_filtered_lidar.sh angles.txt 3.0   # Loose (±3.0°)
 ```
 
 ## 📖 Full Documentation

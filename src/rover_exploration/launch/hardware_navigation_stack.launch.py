@@ -49,8 +49,8 @@ def generate_launch_description():
     declare_slam_params_arg = DeclareLaunchArgument(
         'slam_params_file',
         default_value=os.path.join(rover_driver_dir, 'config/slam_configs', 
-                                   'mapper_params_online_async.yaml'),
-        description='Full path to SLAM parameters file'
+                                   'mapper_params_online_async_filtered.yaml'),
+        description='Full path to SLAM parameters file (uses /scan_filtered)'
     )
     
     declare_nav_params_arg = DeclareLaunchArgument(
@@ -83,6 +83,8 @@ def generate_launch_description():
     )
     
     # Launch Nav2 navigation stack
+    # Note: Nav2 controller_server publishes to /cmd_vel by default
+    # Delay Nav2 startup to allow SLAM to initialize and publish map frame first
     nav_backend_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             os.path.join(rover_driver_dir, 'launch', 'nav2_backend.py')
@@ -92,6 +94,51 @@ def generate_launch_description():
             'params_file': nav_params_file,
             'autostart': 'true'
         }.items()
+    )
+    
+    # Delay Nav2 launch by 5 seconds to allow SLAM to initialize map frame
+    delayed_nav_backend = TimerAction(
+        period=5.0,
+        actions=[nav_backend_launch]
+    )
+    
+    # Velocity smoother node - smooths navigation commands to prevent wheel jitter
+    # Subscribes to /cmd_vel_nav (from relay) and /cmd_vel_explorer (from autonomous explorer)
+    # Publishes smoothed commands to /cmd_vel
+    # Uses same acceleration limiting logic as joystick control
+    velocity_smoother_node = Node(
+        package='roverrobotics_input_manager',
+        executable='velocity_smoother.py',
+        name='velocity_smoother',
+        output='screen',
+        parameters=[{
+            'input_topic': '/cmd_vel_nav',  # From relay (original Nav2 output)
+            'exploration_input_topic': '/cmd_vel_explorer',  # From autonomous explorer (takes priority)
+            'output_topic': '/cmd_vel',     # To robot driver
+            'odom_topic': '/odom_raw',
+            'max_linear_acceleration': 5.0,  # m/s^2 (matching robot driver)
+            'max_angular_acceleration': 30.0,  # rad/s^2
+            'control_frequency': 30.0,  # Hz (matching robot driver)
+            'speed_scale_factor': 0.25  # Quarter speed
+        }],
+        respawn=True,
+        respawn_delay=1
+    )
+    
+    # Topic relay to forward Nav2's cmd_vel to a different topic for velocity smoother
+    # This prevents feedback loop where smoother subscribes to its own output
+    # Nav2 controller_server -> /cmd_vel -> relay -> /cmd_vel_nav -> smoother -> /cmd_vel
+    cmd_vel_relay_node = Node(
+        package='roverrobotics_input_manager',
+        executable='cmd_vel_relay.py',
+        name='cmd_vel_relay',
+        parameters=[{
+            'input_topic': '/cmd_vel',
+            'output_topic': '/cmd_vel_nav'
+        }],
+        output='screen',
+        respawn=True,
+        respawn_delay=1
     )
     
     # Launch autonomous exploration node (optional, delayed)
@@ -125,7 +172,9 @@ def generate_launch_description():
     
     # Add navigation components
     ld.add_action(slam_launch)
-    ld.add_action(nav_backend_launch)
+    ld.add_action(delayed_nav_backend)  # Delayed to allow SLAM to initialize
+    ld.add_action(cmd_vel_relay_node)
+    ld.add_action(velocity_smoother_node)
     ld.add_action(delayed_exploration)
     
     return ld

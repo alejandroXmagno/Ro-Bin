@@ -72,3 +72,4 @@ fi
 # Launch RViz
 rviz2 -d "$RVIZ_CONFIG"
 
+

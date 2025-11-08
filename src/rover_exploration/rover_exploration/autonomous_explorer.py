@@ -28,8 +28,8 @@ class AutonomousExplorer(Node):
         self.declare_parameter('frontier_threshold', 10)
         self.declare_parameter('min_frontier_size', 5)
         self.declare_parameter('goal_timeout', 120.0)  # Much longer timeout for distant frontiers
-        self.declare_parameter('obstacle_distance_threshold', 0.8)  # Cancel if obstacle within 0.8m
-        self.declare_parameter('critical_obstacle_threshold', 0.5)  # Emergency stop within 0.5m
+        self.declare_parameter('obstacle_distance_threshold', 0.4)  # Cancel if obstacle within 0.4m (using filtered LiDAR)
+        self.declare_parameter('critical_obstacle_threshold', 0.25)  # Emergency stop within 0.25m (using filtered LiDAR)
         self.declare_parameter('random_exploration_probability', 0.3)
         self.declare_parameter('min_goal_interval', 3.0)  # Minimum time between goal completions
         
@@ -60,8 +60,15 @@ class AutonomousExplorer(Node):
         self.blacklisted_goals = []  # Goals that led to stuck situations
         self.recovery_in_progress = False
         
-        # Publishers
-        self.cmd_vel_pub = self.create_publisher(Twist, '/cmd_vel', 10)
+        # Close obstacle handling
+        self.obstacle_wait_start_time = None  # When we started waiting after detecting close obstacle
+        self.waiting_for_obstacle_clear = False  # Whether we're in the 5-second wait state
+        self.close_obstacle_direction = None  # Direction of closest obstacle (for moving away)
+        self.moving_away_state = None  # State machine: None, 'backup', 'rotate', 'complete'
+        self.move_away_start_time = None  # When we started moving away
+        
+        # Publishers - publish to /cmd_vel_explorer so commands go through velocity smoother
+        self.cmd_vel_pub = self.create_publisher(Twist, '/cmd_vel_explorer', 10)
         
         # Subscribers
         self.map_sub = self.create_subscription(
@@ -73,14 +80,14 @@ class AutonomousExplorer(Node):
         
         self.odom_sub = self.create_subscription(
             Odometry,
-            '/odometry/filtered',
+            '/odometry/filtered',  # EKF filtered odometry (or use /odometry/wheels if EKF not running)
             self.odom_callback,
             10
         )
         
         self.scan_sub = self.create_subscription(
             LaserScan,
-            '/scan',
+            '/scan_filtered',  # Use filtered LiDAR to ignore standoffs
             self.scan_callback,
             10
         )
@@ -103,39 +110,98 @@ class AutonomousExplorer(Node):
     def odom_callback(self, msg):
         """Store current robot pose"""
         self.current_pose = msg.pose.pose
+        # DEBUG: Log position updates periodically
+        if hasattr(self, '_last_odom_log_time'):
+            elapsed = (self.get_clock().now() - self._last_odom_log_time).nanoseconds / 1e9
+            if elapsed > 5.0:  # Log every 5 seconds
+                self.get_logger().info(f'[DEBUG] Odometry update: pos=({msg.pose.pose.position.x:.2f}, {msg.pose.pose.position.y:.2f}), '
+                                     f'vel=({msg.twist.twist.linear.x:.2f}, {msg.twist.twist.angular.z:.2f})')
+                self._last_odom_log_time = self.get_clock().now()
+        else:
+            self._last_odom_log_time = self.get_clock().now()
+            self.get_logger().info(f'[DEBUG] First odometry received: pos=({msg.pose.pose.position.x:.2f}, {msg.pose.pose.position.y:.2f})')
         
     def scan_callback(self, msg):
         """Store laser scan data"""
         self.scan_data = msg
         
     def safety_check(self):
-        """Two-level obstacle detection: critical (immediate) and warning (sustained)"""
-        if self.scan_data is None or not self.goal_active:
-            self.obstacle_count = 0
+        """Two-level obstacle detection: critical (wait then move away) and warning (sustained)"""
+        # Handle moving away state machine if active (don't check obstacles while moving away)
+        if self.moving_away_state is not None:
+            self.update_moving_away_state()
             return
             
-        # Get minimum distance to obstacles
+        if self.scan_data is None or not self.goal_active:
+            self.obstacle_count = 0
+            self.waiting_for_obstacle_clear = False
+            self.obstacle_wait_start_time = None
+            return
+            
+        # Get minimum distance to obstacles and find direction
         valid_ranges = [r for r in self.scan_data.ranges if not math.isinf(r) and not math.isnan(r)]
         if not valid_ranges:
             return
+        
         min_distance = min(valid_ranges)
         
-        # CRITICAL: Immediate cancel if very close (< 0.5m)
+        # Find the index of minimum distance in the original ranges array
+        min_index = None
+        for i, r in enumerate(self.scan_data.ranges):
+            if not math.isinf(r) and not math.isnan(r) and abs(r - min_distance) < 0.001:
+                min_index = i
+                break
+        
+        # Calculate obstacle direction from scan index
+        if min_index is not None and self.scan_data.angle_min is not None and len(self.scan_data.ranges) > min_index:
+            obstacle_angle = self.scan_data.angle_min + (min_index * self.scan_data.angle_increment)
+            self.close_obstacle_direction = obstacle_angle
+        
+        # CRITICAL: Wait 5 seconds then move away if very close (< critical threshold)
         if min_distance < self.critical_obstacle_threshold:
-            self.get_logger().warn(f'⛔ CRITICAL: Obstacle at {min_distance:.2f}m! Emergency cancel!')
-            self.cancel_current_goal()
-            self.obstacle_count = 0
+            if not self.waiting_for_obstacle_clear:
+                # Start wait period
+                self.waiting_for_obstacle_clear = True
+                self.obstacle_wait_start_time = self.get_clock().now()
+                obstacle_angle_deg = math.degrees(self.close_obstacle_direction) if self.close_obstacle_direction is not None else 0.0
+                self.get_logger().warn(f'⛔ CRITICAL: Obstacle at {min_distance:.2f}m (angle: {obstacle_angle_deg:.1f}°)! Waiting 5 seconds, then moving away...')
+                self.get_logger().warn(f'[DEBUG] Using /scan_filtered - if this is a standoff, check filter configuration')
+            else:
+                # Check if 5 seconds have passed
+                wait_elapsed = (self.get_clock().now() - self.obstacle_wait_start_time).nanoseconds / 1e9
+                if wait_elapsed >= 5.0:
+                    self.get_logger().info(f'⏰ Wait complete ({wait_elapsed:.1f}s). Starting to move away from obstacle...')
+                    self.start_moving_away()
+                    self.waiting_for_obstacle_clear = False
+                    self.obstacle_wait_start_time = None
+                    self.cancel_current_goal()
+                    self.obstacle_count = 0
+                    return  # State machine will be handled in next safety_check call
+                else:
+                    # Still waiting, log progress every second
+                    if int(wait_elapsed) != int(wait_elapsed - 0.5):
+                        self.get_logger().info(f'⏳ Waiting... ({wait_elapsed:.1f}/5.0s)')
             return
         
-        # WARNING: Cancel if obstacle within 0.8m for 1 second (2 checks)
+        # Reset wait state if obstacle cleared
+        if self.waiting_for_obstacle_clear and min_distance >= self.critical_obstacle_threshold:
+            self.get_logger().info('✅ Obstacle cleared during wait period')
+            self.waiting_for_obstacle_clear = False
+            self.obstacle_wait_start_time = None
+        
+        # WARNING: Cancel if obstacle within threshold for 1 second (2 checks)
         if min_distance < self.obstacle_threshold:
             self.obstacle_count += 1
+            obstacle_angle_deg = math.degrees(self.close_obstacle_direction) if self.close_obstacle_direction is not None else 0.0
+            self.get_logger().warn(f'[DEBUG] Obstacle detected: {min_distance:.2f}m at {obstacle_angle_deg:.1f}°, count: {self.obstacle_count}/2')
             if self.obstacle_count >= 2:  # Reduced from 3 to 2 (1 second instead of 1.5)
                 self.get_logger().warn(f'⚠️  Obstacle at {min_distance:.2f}m - Cancelling to avoid collision!')
                 self.cancel_current_goal()
                 self.obstacle_count = 0
         else:
             # Reset counter if obstacle clears
+            if self.obstacle_count > 0:
+                self.get_logger().info(f'[DEBUG] Obstacle cleared, resetting counter')
             self.obstacle_count = 0
     
     def check_if_stuck(self):
@@ -158,26 +224,38 @@ class AutonomousExplorer(Node):
             dy = self.last_positions[i][1] - self.last_positions[i-1][1]
             total_movement += math.sqrt(dx*dx + dy*dy)
         
+        # DEBUG: Log movement periodically
+        if len(self.last_positions) % 10 == 0:  # Every 5 seconds
+            self.get_logger().info(f'[DEBUG] Movement check: {total_movement:.3f}m in last 4s, stuck_count: {self.stuck_count}')
+        
         # More aggressive: If moved less than 0.3m in 4 seconds, likely stuck
         # Increased from 0.2m to catch slower stuck situations
         if total_movement < 0.3:
             self.stuck_count += 1
+            self.get_logger().warn(f'[DEBUG] Low movement detected: {total_movement:.3f}m in 4s (threshold: 0.3m), stuck_count: {self.stuck_count}/3')
             if self.stuck_count >= 3:  # Stuck for 1.5 seconds (reduced from 5)
                 self.get_logger().warn(f'🚨 Robot appears stuck! Moved only {total_movement:.3f}m in 4s')
+                self.get_logger().warn(f'[DEBUG] Current position: ({current_pos[0]:.2f}, {current_pos[1]:.2f})')
+                self.get_logger().warn(f'[DEBUG] Goal active: {self.goal_active}, Recovery in progress: {self.recovery_in_progress}')
                 self.initiate_recovery()
                 self.stuck_count = 0
         else:
             # Reset if making progress
+            if self.stuck_count > 0:
+                self.get_logger().info(f'[DEBUG] Movement recovered: {total_movement:.3f}m, resetting stuck_count')
             self.stuck_count = 0
             
     def exploration_callback(self):
         """Main exploration logic - called periodically"""
-        if self.map_data is None or self.current_pose is None:
-            self.get_logger().info('Waiting for map and pose data...')
+        if self.map_data is None:
+            self.get_logger().info('[DEBUG] Waiting for map data...')
+            return
+        if self.current_pose is None:
+            self.get_logger().warn('[DEBUG] Waiting for odometry data... Check if /odometry/filtered is publishing')
             return
         
-        # Skip if recovery in progress
-        if self.recovery_in_progress:
+        # Skip if recovery in progress, waiting for obstacle to clear, or moving away
+        if self.recovery_in_progress or self.waiting_for_obstacle_clear or self.moving_away_state is not None:
             return
             
         # Check if we need a new goal
@@ -203,7 +281,12 @@ class AutonomousExplorer(Node):
                     
     def find_and_navigate_to_goal(self):
         """Find a new exploration goal and navigate to it - FRONTIER-BASED with random fallback"""
+        # DEBUG: Log current robot state
+        if self.current_pose is not None:
+            self.get_logger().info(f'[DEBUG] Robot position: ({self.current_pose.position.x:.2f}, {self.current_pose.position.y:.2f})')
+        
         # Try frontier-based exploration first (prioritizes unexplored areas)
+        self.get_logger().info('[DEBUG] Searching for frontier goals...')
         goal = self.get_frontier_goal()
         
         if goal is not None:
@@ -211,29 +294,44 @@ class AutonomousExplorer(Node):
                 (goal[0] - self.current_pose.position.x)**2 +
                 (goal[1] - self.current_pose.position.y)**2
             )
-            self.get_logger().info(f'🗺️  Frontier goal at ({goal[0]:.2f}, {goal[1]:.2f}) - {distance:.2f}m away')
+            # Calculate angle to goal
+            dx = goal[0] - self.current_pose.position.x
+            dy = goal[1] - self.current_pose.position.y
+            angle_to_goal = math.degrees(math.atan2(dy, dx))
+            self.get_logger().info(f'🗺️  Frontier goal at ({goal[0]:.2f}, {goal[1]:.2f}) - {distance:.2f}m away, {angle_to_goal:.1f}°')
             self.navigate_to_goal(goal)
         else:
             # Fallback to random exploration if no frontiers found
-            self.get_logger().info('No frontiers found, trying random exploration...')
+            self.get_logger().info('[DEBUG] No frontiers found, trying random exploration...')
             goal = self.get_random_exploration_goal()
             if goal is not None:
                 distance = math.sqrt(
                     (goal[0] - self.current_pose.position.x)**2 +
                     (goal[1] - self.current_pose.position.y)**2
                 )
-                self.get_logger().info(f'🎲 Random goal at ({goal[0]:.2f}, {goal[1]:.2f}) - {distance:.2f}m away')
+                dx = goal[0] - self.current_pose.position.x
+                dy = goal[1] - self.current_pose.position.y
+                angle_to_goal = math.degrees(math.atan2(dy, dx))
+                self.get_logger().info(f'🎲 Random goal at ({goal[0]:.2f}, {goal[1]:.2f}) - {distance:.2f}m away, {angle_to_goal:.1f}°')
                 self.navigate_to_goal(goal)
             else:
-                self.get_logger().warn('Could not find any exploration goal!')
+                self.get_logger().warn('[DEBUG] Could not find any exploration goal!')
+                self.get_logger().warn(f'[DEBUG] Map available: {self.map_data is not None}, Pose available: {self.current_pose is not None}')
                 
     def get_frontier_goal(self):
         """Find frontier cells (boundary between known and unknown space) and prioritize larger unexplored regions"""
         if self.map_data is None or self.map_info is None or self.current_pose is None:
+            self.get_logger().warn('[DEBUG] Cannot find frontiers: missing map or pose data')
             return None
             
         height, width = self.map_data.shape
         frontiers = []
+        
+        # DEBUG: Count map statistics
+        free_cells = np.sum(self.map_data == 0)
+        occupied_cells = np.sum(self.map_data == 100)
+        unknown_cells = np.sum(self.map_data == -1)
+        self.get_logger().info(f'[DEBUG] Map stats - Free: {free_cells}, Occupied: {occupied_cells}, Unknown: {unknown_cells}')
         
         # Find frontier cells with better scoring
         for y in range(1, height - 1):
@@ -262,22 +360,35 @@ class AutonomousExplorer(Node):
                             unknown_count = self.count_nearby_unknown(x, y, radius=3)
                             frontiers.append((world_x, world_y, dist, unknown_count))
         
+        self.get_logger().info(f'[DEBUG] Found {len(frontiers)} frontier candidates within {self.exploration_radius}m radius')
+        
         if not frontiers:
+            self.get_logger().warn('[DEBUG] No frontiers found in exploration radius')
             return None
             
         # Filter out recently explored frontiers AND blacklisted areas
         filtered_frontiers = []
+        recently_explored_count = 0
+        blacklisted_count = 0
         for frontier in frontiers:
-            if not self.is_recently_explored(frontier, threshold=1.5) and not self.is_near_blacklisted(frontier):
+            if self.is_recently_explored(frontier, threshold=1.5):
+                recently_explored_count += 1
+            elif self.is_near_blacklisted(frontier):
+                blacklisted_count += 1
+            else:
                 filtered_frontiers.append(frontier)
         
+        self.get_logger().info(f'[DEBUG] Filtered frontiers: {len(filtered_frontiers)} valid, {recently_explored_count} recently explored, {blacklisted_count} blacklisted')
+        
         if not filtered_frontiers:
-            self.get_logger().info('All frontiers recently explored or blacklisted, clearing history...')
+            self.get_logger().info('[DEBUG] All frontiers recently explored or blacklisted, clearing history...')
             self.explored_frontiers = self.explored_frontiers[-10:]  # Keep only last 10
             # Try again without blacklist if desperate
             filtered_frontiers = [f for f in frontiers if not self.is_recently_explored(f, threshold=1.5)]
+            self.get_logger().info(f'[DEBUG] After clearing history: {len(filtered_frontiers)} frontiers available')
             if not filtered_frontiers:
                 filtered_frontiers = frontiers  # Use all frontiers as last resort
+                self.get_logger().warn('[DEBUG] Using all frontiers as last resort')
         
         if len(filtered_frontiers) >= self.min_frontier_size:
             # Score frontiers: prioritize larger unexplored areas, with distance as secondary factor
@@ -291,6 +402,11 @@ class AutonomousExplorer(Node):
             # Sort by score (highest first)
             scored_frontiers.sort(key=lambda f: f[4], reverse=True)
             
+            # DEBUG: Log top 3 candidates
+            self.get_logger().info(f'[DEBUG] Top frontier candidates:')
+            for i, (wx, wy, d, uc, s) in enumerate(scored_frontiers[:3]):
+                self.get_logger().info(f'  {i+1}. ({wx:.2f}, {wy:.2f}) - dist: {d:.2f}m, unknown: {uc}, score: {s:.2f}')
+            
             # Take the best frontier
             best = scored_frontiers[0]
             goal = (best[0], best[1])
@@ -302,6 +418,8 @@ class AutonomousExplorer(Node):
                 self.explored_frontiers.pop(0)
                 
             return goal
+        else:
+            self.get_logger().warn(f'[DEBUG] Not enough frontiers: {len(filtered_frontiers)} < {self.min_frontier_size} (min required)')
         
         return None
         
@@ -418,28 +536,47 @@ class AutonomousExplorer(Node):
         """Handle goal acceptance/rejection"""
         goal_handle = future.result()
         if not goal_handle.accepted:
-            self.get_logger().warn('Goal rejected by navigation server')
+            self.get_logger().warn('[DEBUG] Goal rejected by navigation server')
+            self.get_logger().warn(f'[DEBUG] Goal was at distance {self.current_goal_distance:.2f}m')
             self.goal_active = False
             return
             
-        self.get_logger().info('Goal accepted by navigation server')
+        self.get_logger().info('[DEBUG] Goal accepted by navigation server')
+        self.get_logger().info(f'[DEBUG] Navigating to goal {self.current_goal_distance:.2f}m away')
         
         result_future = goal_handle.get_result_async()
         result_future.add_done_callback(self.navigation_result_callback)
         
     def navigation_feedback_callback(self, feedback_msg):
         """Handle navigation feedback"""
-        # Can add progress monitoring here if needed
-        pass
+        # DEBUG: Log navigation progress (reduced frequency)
+        if self.current_pose is not None and self.last_goal_time is not None:
+            current_x = self.current_pose.position.x
+            current_y = self.current_pose.position.y
+            elapsed = (self.get_clock().now() - self.last_goal_time).nanoseconds / 1e9
+            
+            # Only log every 5 seconds to reduce spam
+            if int(elapsed) % 5 == 0 and elapsed > 0 and elapsed < 100:  # Only log first 100 seconds
+                self.get_logger().info(f'[DEBUG] Navigation progress: elapsed {elapsed:.1f}s, pos: ({current_x:.2f}, {current_y:.2f})')
         
     def navigation_result_callback(self, future):
         """Handle navigation result"""
         result = future.result().result
         
+        # DEBUG: Check result status
+        status = future.result().status
+        self.get_logger().info(f'[DEBUG] Navigation result status: {status}')
+        
         # Calculate how long this goal took
         if self.last_goal_time is not None:
             elapsed = (self.get_clock().now() - self.last_goal_time).nanoseconds / 1e9
-            self.get_logger().info(f'✅ Navigation goal completed! ({elapsed:.1f}s, {self.current_goal_distance:.2f}m)')
+            # Check if goal was actually reached or cancelled
+            if status == 4:  # SUCCEEDED
+                self.get_logger().info(f'✅ Navigation goal SUCCEEDED! ({elapsed:.1f}s, {self.current_goal_distance:.2f}m)')
+            elif status == 2:  # CANCELED
+                self.get_logger().warn(f'⚠️ Navigation goal CANCELED! ({elapsed:.1f}s, {self.current_goal_distance:.2f}m)')
+            else:
+                self.get_logger().warn(f'❌ Navigation goal FAILED with status {status}! ({elapsed:.1f}s)')
         else:
             self.get_logger().info('✅ Navigation goal completed!')
         
@@ -469,6 +606,54 @@ class AutonomousExplorer(Node):
         # Execute recovery: back up and rotate
         self.execute_recovery_maneuver()
         
+    def start_moving_away(self):
+        """Initialize moving away from obstacle state machine"""
+        self.cancel_current_goal()
+        self.moving_away_state = 'backup'
+        self.move_away_start_time = self.get_clock().now()
+        self.get_logger().info('⬅️ Starting to back away from close obstacle...')
+    
+    def update_moving_away_state(self):
+        """Update moving away state machine (non-blocking, runs in timer)"""
+        if self.moving_away_state is None or self.move_away_start_time is None:
+            return
+        
+        elapsed = (self.get_clock().now() - self.move_away_start_time).nanoseconds / 1e9
+        
+        if self.moving_away_state == 'backup':
+            # Back up for 2 seconds
+            backup_cmd = Twist()
+            backup_cmd.linear.x = -0.2  # Back up at moderate speed
+            self.cmd_vel_pub.publish(backup_cmd)
+            
+            if elapsed >= 2.0:
+                # Transition to rotate state
+                self.moving_away_state = 'rotate'
+                self.move_away_start_time = self.get_clock().now()
+                self.get_logger().info('🔄 Backing complete. Rotating away from obstacle...')
+                
+        elif self.moving_away_state == 'rotate':
+            # Determine rotation direction: rotate away from obstacle
+            rotate_direction = 1.0  # Default: rotate right
+            if self.close_obstacle_direction is not None:
+                if self.close_obstacle_direction > 0:
+                    rotate_direction = -1.0  # Obstacle on right, rotate left
+                else:
+                    rotate_direction = 1.0   # Obstacle on left, rotate right
+            
+            rotate_cmd = Twist()
+            rotate_cmd.angular.z = 0.5 * rotate_direction  # Rotate away from obstacle
+            self.cmd_vel_pub.publish(rotate_cmd)
+            
+            if elapsed >= 1.5:  # ~90 degrees at 0.5 rad/s
+                # Complete moving away
+                stop_cmd = Twist()
+                self.cmd_vel_pub.publish(stop_cmd)
+                self.get_logger().info('✅ Moved away from obstacle')
+                self.moving_away_state = None
+                self.move_away_start_time = None
+                self.last_positions.clear()  # Clear position history
+    
     def execute_recovery_maneuver(self):
         """Execute aggressive recovery maneuver: back up and rotate significantly"""
         self.get_logger().info('⬅️ Backing up aggressively...')
@@ -478,10 +663,12 @@ class AutonomousExplorer(Node):
         backup_cmd.linear.x = -0.3  # Back up faster (was -0.2)
         for _ in range(30):  # 3 seconds at 10Hz (was 20)
             self.cmd_vel_pub.publish(backup_cmd)
+            rclpy.spin_once(self, timeout_sec=0.1)
             
         # Stop
         stop_cmd = Twist()
         self.cmd_vel_pub.publish(stop_cmd)
+        rclpy.spin_once(self, timeout_sec=0.1)
         
         # Rotate 135 degrees (more than 90)
         self.get_logger().info('🔄 Rotating significantly to find clear path...')
@@ -489,9 +676,11 @@ class AutonomousExplorer(Node):
         rotate_cmd.angular.z = 0.6  # Rotate faster (was 0.5)
         for _ in range(22):  # ~2.2 seconds for 135° (was 15)
             self.cmd_vel_pub.publish(rotate_cmd)
+            rclpy.spin_once(self, timeout_sec=0.1)
         
         # Stop
         self.cmd_vel_pub.publish(stop_cmd)
+        rclpy.spin_once(self, timeout_sec=0.1)
         
         self.get_logger().info('✅ Recovery maneuver complete')
         self.recovery_in_progress = False
@@ -504,6 +693,9 @@ class AutonomousExplorer(Node):
             stop_cmd = Twist()
             self.cmd_vel_pub.publish(stop_cmd)
             self.goal_active = False
+            if self.last_goal_time is not None:
+                elapsed = (self.get_clock().now() - self.last_goal_time).nanoseconds / 1e9
+                self.get_logger().warn(f'[DEBUG] Cancelling goal after {elapsed:.1f}s, distance was {self.current_goal_distance:.2f}m')
             self.last_goal_time = None
             self.get_logger().info('Current goal cancelled')
 

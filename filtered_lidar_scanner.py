@@ -8,7 +8,7 @@ import math
 import sys
 
 class FilteredLidarScanner(Node):
-    def __init__(self, angles_to_ignore=None, angle_tolerance=0.01):
+    def __init__(self, angles_to_ignore=None, angle_tolerance=0.0349):  # 2 degrees = 0.0349 radians
         super().__init__('filtered_lidar_scanner')
         
         # Angles to filter out (in radians)
@@ -149,7 +149,7 @@ def main(args=None):
     rclpy.init(args=args)
     
     angles_to_ignore = []
-    angle_tolerance = 0.01  # Default tolerance in radians (~0.57 degrees)
+    angle_tolerance = 0.0349  # Default tolerance in radians (2 degrees)
     
     # Parse command line arguments
     if len(sys.argv) > 1:
