@@ -34,6 +34,11 @@ class BlazePoseDetector(Node):
         self.min_detection_confidence = self.get_parameter('min_detection_confidence').value
         self.min_tracking_confidence = self.get_parameter('min_tracking_confidence').value
         self.enable_viz = self.get_parameter('enable_visualization').value
+
+        # Depth camera topic
+        self.depth_topic = '/camera/depth/image_rect_raw'
+        self.depth_image = None
+        self.depth_lock = Lock()
         
         # Initialize MediaPipe Pose
         self.mp_pose = mp.solutions.pose
@@ -58,6 +63,14 @@ class BlazePoseDetector(Node):
             Image,
             self.camera_topic,
             self.image_callback,
+            10
+        )
+        
+        # Depth image subscription
+        self.depth_sub = self.create_subscription(
+            Image,
+            self.depth_topic,
+            self.depth_callback,
             10
         )
         
@@ -95,6 +108,28 @@ class BlazePoseDetector(Node):
         self.get_logger().info(f'Subscribing to: {self.camera_topic}')
         self.get_logger().info(f'Min detection confidence: {self.min_detection_confidence}')
     
+    def depth_callback(self, msg):
+        """Store the latest depth image"""
+        try:
+            with self.depth_lock:
+                # Convert ROS depth image to cv2 format (16-bit or 32-bit float)
+                self.depth_image = self.bridge.imgmsg_to_cv2(msg, desired_encoding='passthrough')
+                # Log depth image stats occasionally
+                if hasattr(self, '_depth_log_count'):
+                    self._depth_log_count += 1
+                else:
+                    self._depth_log_count = 0
+                
+                if self._depth_log_count % 30 == 0:  # Every 30 frames (~10s at 3Hz)
+                    import numpy as np
+                    valid_depths = self.depth_image[self.depth_image > 0]
+                    if len(valid_depths) > 0:
+                        self.get_logger().info(f'📷 Depth image: shape={self.depth_image.shape}, '
+                                             f'min={np.min(valid_depths):.2f}, max={np.max(valid_depths):.2f}, '
+                                             f'mean={np.mean(valid_depths):.2f}')
+        except Exception as e:
+            self.get_logger().warn(f'Failed to convert depth image: {e}')
+    
     def image_callback(self, msg):
         """Store latest image for processing"""
         with self.image_lock:
@@ -131,6 +166,35 @@ class BlazePoseDetector(Node):
             return True, (hand_position.x, hand_position.y)
         
         return False, None
+    
+    def get_depth_at_pixel(self, pixel_x, pixel_y):
+        """Get depth value at a specific pixel location"""
+        with self.depth_lock:
+            if self.depth_image is None:
+                self.get_logger().warn('⚠️  Depth image is None!')
+                return None
+            
+            # Ensure pixel coordinates are within bounds
+            h, w = self.depth_image.shape[:2]
+            pixel_x = max(0, min(pixel_x, w-1))
+            pixel_y = max(0, min(pixel_y, h-1))
+            
+            # Sample a small region around the pixel for robustness
+            region_size = 5
+            x_start = max(0, pixel_x - region_size)
+            x_end = min(w, pixel_x + region_size)
+            y_start = max(0, pixel_y - region_size)
+            y_end = min(h, pixel_y + region_size)
+            
+            depth_region = self.depth_image[y_start:y_end, x_start:x_end]
+            
+            # Filter out zero/invalid depths and get median
+            valid_depths = depth_region[depth_region > 0]
+            if len(valid_depths) > 0:
+                depth_meters = np.median(valid_depths) / 1000.0  # Convert mm to meters
+                return float(depth_meters)
+            
+            return None
     
     def detect_person(self):
         """Run pose detection on the latest image"""
@@ -203,17 +267,26 @@ class BlazePoseDetector(Node):
                 
                 # Calculate approximate center position
                 nose = landmarks[self.mp_pose.PoseLandmark.NOSE]
+                pixel_x = int(nose.x * cv_image.shape[1])
+                pixel_y = int(nose.y * cv_image.shape[0])
+                
+                # Get depth at person's center
+                depth = self.get_depth_at_pixel(pixel_x, pixel_y)
+                if depth is None or depth <= 0:
+                    self.get_logger().warn(f'⚠️  Invalid depth at pixel ({pixel_x}, {pixel_y}): {depth}')
+                
                 detection_data['person_center'] = {
                     'x': nose.x,
                     'y': nose.y,
-                    'pixel_x': int(nose.x * cv_image.shape[1]),
-                    'pixel_y': int(nose.y * cv_image.shape[0])
+                    'pixel_x': pixel_x,
+                    'pixel_y': pixel_y,
+                    'depth': depth  # Depth in meters
                 }
                 
                 wave_status = "👋 WAVING!" if detection_data['is_waving'] else ""
+                depth_str = f"{depth:.2f}m" if depth else "unknown"
                 self.get_logger().info(
-                    f'Person detected! {wave_status} Position: ({detection_data["person_center"]["pixel_x"]}, '
-                    f'{detection_data["person_center"]["pixel_y"]})'
+                    f'Person detected! {wave_status} Position: ({pixel_x}, {pixel_y}), Depth: {depth_str}'
                 )
             
             # Publish detection results

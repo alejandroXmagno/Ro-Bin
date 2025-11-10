@@ -31,6 +31,7 @@ setup(
         'console_scripts': [
             'autonomous_explorer = rover_exploration.autonomous_explorer:main',
             'blazepose_detector = rover_exploration.blazepose_detector:main',
+            'visual_servoing_tracker = rover_exploration.visual_servoing_tracker:main',
         ],
     },
 )

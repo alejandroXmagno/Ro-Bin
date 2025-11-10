@@ -68,17 +68,10 @@ class AutonomousExplorer(Node):
         
         # Person tracking
         self.person_detected = False
-        self.person_position = None
-        self.person_depth = None  # Depth in meters from camera
+        self.person_position = None  # (x, y) in image coordinates
         self.last_person_detection_time = None
         self.tracking_person = False
         self.waiting_by_person = False
-        self.spinning_at_person = False
-        self.spin_count = 0
-        self.target_spin_count = 3
-        self.spin_start_yaw = None
-        self.turning_away = False
-        self.turn_away_start_yaw = None
         self.person_wait_start_time = None
         self.person_wait_duration = 10.0  # Wait 10 seconds by person
         
@@ -118,7 +111,7 @@ class AutonomousExplorer(Node):
         self.nav_client = ActionClient(self, NavigateToPose, 'navigate_to_pose')
         
         # Timers
-        self.exploration_timer = self.create_timer(0.1, self.exploration_callback)  # 10Hz for responsive person tracking
+        self.exploration_timer = self.create_timer(2.0, self.exploration_callback)
         self.safety_timer = self.create_timer(0.5, self.safety_check)
         self.stuck_check_timer = self.create_timer(0.5, self.check_if_stuck)
         
@@ -140,66 +133,43 @@ class AutonomousExplorer(Node):
     def person_detection_callback(self, msg):
         """Handle person detection results - only track waving people"""
         if not self.person_tracking_enabled:
-            self.get_logger().warn('⚠️ Person tracking is DISABLED!')
             return
         
         try:
             detection_data = json.loads(msg.data)
             
-            person_det = detection_data.get('person_detected', False)
-            is_waving = detection_data.get('is_waving', False)
-            
             # Only respond to people who are waving
-            if person_det and is_waving:
-                self.get_logger().info(f'🚨🚨🚨 WAVING PERSON DETECTED! 🚨🚨🚨')
+            if detection_data.get('person_detected', False) and detection_data.get('is_waving', False):
                 self.person_detected = True
                 self.last_person_detection_time = self.get_clock().now()
                 
-                # Extract person center position and depth
+                # Extract person center position
                 person_center = detection_data.get('person_center')
                 if person_center:
                     self.person_position = (
                         person_center.get('x', 0.5),  # Normalized x
                         person_center.get('y', 0.5)   # Normalized y
                     )
-                    self.person_depth = person_center.get('depth', None)  # Depth in meters
-                    
-                    depth_str = f"{self.person_depth:.2f}m" if self.person_depth else "unknown"
-                    self.get_logger().info(f'🎯 Person at camera coords: ({self.person_position[0]:.2f}, {self.person_position[1]:.2f}), depth: {depth_str}')
-                    self.get_logger().info(f'📍 person_detected={self.person_detected}, tracking={self.tracking_person}')
-                    self.get_logger().info(f'🔥 spinning={self.spinning_at_person}, turning={self.turning_away}')
                     
                     if not self.tracking_person:
+                        self.get_logger().info(f'👋 Waving person detected at ({self.person_position[0]:.2f}, {self.person_position[1]:.2f})!')
                         self.tracking_person = True
-                        self.get_logger().info('✅ Set tracking_person=True')
             else:
-                # Don't immediately clear person_detected if we're actively tracking
-                # This prevents the flag from flickering during navigation
-                current_time = self.get_clock().now()
+                # Clear detection flag immediately
+                self.person_detected = False
                 
-                if self.tracking_person and self.last_person_detection_time:
+                # But keep tracking for a bit to handle brief occlusions
+                current_time = self.get_clock().now()
+                if self.last_person_detection_time:
                     time_since_detection = (current_time - self.last_person_detection_time).nanoseconds / 1e9
-                    
-                    # Keep person_detected True for 3 seconds to maintain navigation
-                    if time_since_detection < 3.0:
-                        # Still recently detected, keep tracking
-                        self.person_detected = True  # Keep it True!
-                        if time_since_detection > 1.0:  # Log if losing track
-                            self.get_logger().info(f'⚠️ Person not in frame, holding tracking ({time_since_detection:.1f}s)')
-                    else:
-                        # Lost person for too long
-                        self.get_logger().info('❌ Person lost for >3s, resuming exploration')
-                        self.person_detected = False
+                    # Stop tracking if no person seen for 2 seconds
+                    if time_since_detection > 2.0:
+                        if self.tracking_person:
+                            self.get_logger().info('Person lost, resuming exploration')
                         self.tracking_person = False
-                        self.person_position = None
-                        self.person_depth = None
                 else:
-                    # Not tracking yet, clear immediately
-                    self.person_detected = False
-                    if self.last_person_detection_time:
-                        time_since_detection = (current_time - self.last_person_detection_time).nanoseconds / 1e9
-                        if time_since_detection > 3.0:
-                            self.tracking_person = False
+                    # No detection time recorded, clear tracking immediately
+                    self.tracking_person = False
                 
         except json.JSONDecodeError as e:
             self.get_logger().warn(f'Failed to parse person detection data: {e}')
@@ -276,45 +246,44 @@ class AutonomousExplorer(Node):
         if self.recovery_in_progress:
             return
         
-        # Handle spinning at person (3 fast spins)
-        if self.spinning_at_person:
-            if self.spin_in_place():  # Returns True when done
-                # Spins complete, now turn away
-                self.spinning_at_person = False
-                self.spin_count = 0
-                self.spin_start_yaw = None
-                self.turning_away = True
-                self.turn_away_start_yaw = None
-            return
-        
-        # Handle turning away from person (180° turn)
-        if self.turning_away:
-            if self.turn_away_from_person():  # Returns True when done
-                # Turn complete, clear states and resume exploration
-                self.turning_away = False
-                self.turn_away_start_yaw = None
+        # Check if we're waiting by a person
+        if self.waiting_by_person:
+            # Safety check: if wait time was never set, exit waiting state
+            if self.person_wait_start_time is None:
+                self.get_logger().warn('⚠️  Waiting by person but no start time set, clearing state')
+                self.waiting_by_person = False
+                self.tracking_person = False
+                return
+                
+            elapsed = (self.get_clock().now() - self.person_wait_start_time).nanoseconds / 1e9
+            if elapsed < self.person_wait_duration:
+                # Still waiting, log every 2 seconds
+                if int(elapsed) % 2 == 0 and elapsed % 2 < 0.5:
+                    remaining = self.person_wait_duration - elapsed
+                    self.get_logger().info(f'⏳ Waiting by person... {remaining:.0f}s remaining')
+                return
+            else:
+                # Done waiting, resume exploration to find another waving person
+                self.get_logger().info('✅ Wait complete! Leaving this person...')
+                
+                # Clear all person tracking states
+                self.waiting_by_person = False
+                self.person_wait_start_time = None
                 self.tracking_person = False
                 self.person_detected = False
                 self.person_position = None
-                self.person_depth = None
+                
+                # Force new exploration goal immediately
                 self.goal_active = False
-            return
+                self.get_logger().info('🔍 Resuming exploration to find more waving people...')
+                # Continue to explore/find next person
         
-        # PRIORITY: Track person if detected
-        if self.person_detected and self.person_tracking_enabled and not self.spinning_at_person and not self.turning_away:
-            self.get_logger().info('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━')
-            self.get_logger().info('🚨 PERSON DETECTED - TAKING PRIORITY ACTION')
-            self.get_logger().info(f'   goal_active={self.goal_active}, tracking={self.tracking_person}')
-            self.get_logger().info('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━')
-            
-            if self.goal_active:
-                self.get_logger().info('🛑 CANCELING CURRENT EXPLORATION GOAL!')
-                self.cancel_current_goal()
-            
+        # PRIORITY: Track person if detected (and not already waiting)
+        if self.person_detected and self.person_tracking_enabled and not self.waiting_by_person:
+            if self.goal_active and not self.tracking_person:
+                self.get_logger().info('👋 Waving person detected! Canceling exploration to approach person...')
             self.navigate_to_person()
             return
-        
-
             
         # Check if we need a new goal
         if not self.goal_active:
@@ -325,9 +294,7 @@ class AutonomousExplorer(Node):
                     # Too soon after last goal, wait longer
                     return
             
-            if not hasattr(self, '_searching_logged') or not self._searching_logged:
-                self.get_logger().info('Searching for new exploration goal...')
-                self._searching_logged = True
+            self.get_logger().info('Searching for new exploration goal...')
             self.find_and_navigate_to_goal()
         else:
             # Check if goal timed out (only after significant time)
@@ -340,7 +307,6 @@ class AutonomousExplorer(Node):
                     self.get_logger().info(f'Goal in progress... ({elapsed:.0f}s elapsed)')
                     
     def find_and_navigate_to_goal(self):
-        self._searching_logged = False  # Reset flag
         """Find a new exploration goal and navigate to it - FRONTIER-BASED with random fallback"""
         # Try frontier-based exploration first (prioritizes unexplored areas)
         goal = self.get_frontier_goal()
@@ -368,21 +334,16 @@ class AutonomousExplorer(Node):
     
     def navigate_to_person(self):
         """Navigate towards detected waving person"""
-        self.get_logger().info('🚶 navigate_to_person() CALLED')
-        
-        if not self.person_position:
-            self.get_logger().warn('⚠️ No person position available!')
+        if not self.person_position or self.current_pose is None:
             return
-        
-        if self.current_pose is None:
-            self.get_logger().warn('⚠️ No current pose available!')
-            return
-        
-        self.get_logger().info(f'✅ Have person_position and current_pose, calculating goal...')
         
         # Calculate direction to person based on camera view
-        # person_position[0] is normalized x (0 = left, 1 = right, 0.5 = center)
-        # Camera is FRONT-FACING (aligned with robot's forward direction)
+        # person_position[0] is normalized x (0 = left, 1 = right)
+        # Camera is side-facing (90° to robot's forward direction)
+        
+        # Since camera faces to the side (perpendicular to robot):
+        # - If person is on left side of image (x < 0.5), they're ahead of the camera
+        # - If person is on right side of image (x > 0.5), they're behind the camera
         
         person_x_norm = self.person_position[0]  # 0 to 1
         
@@ -393,150 +354,50 @@ class AutonomousExplorer(Node):
         cosy_cosp = 1 - 2 * (orientation.y * orientation.y + orientation.z * orientation.z)
         yaw = math.atan2(siny_cosp, cosy_cosp)
         
-        # Camera faces forward (same as robot's forward direction)
-        # person_x_norm < 0.5 means person is to the LEFT in camera view
-        # person_x_norm > 0.5 means person is to the RIGHT in camera view
-        # Map [0, 1] to approximately [-60°, +60°] FOV (120° total field of view)
-        angle_offset = (person_x_norm - 0.5) * (math.pi / 1.5)  # ±60° FOV
+        # Camera faces 90° to the right (perpendicular to forward)
+        # Estimate person direction relative to robot
+        # person_x_norm < 0.5 means person is in front half of camera view (ahead)
+        # person_x_norm > 0.5 means person is in back half of camera view (behind)
         
-        # Person angle in world frame
-        person_angle = yaw + angle_offset
+        # Offset angle based on person position in camera frame
+        # Map [0, 1] to approximately [-45°, +45°] relative to camera direction
+        angle_offset_in_camera = (person_x_norm - 0.5) * (math.pi / 2)  # -π/4 to +π/4
         
-        # Use actual depth from camera if available, otherwise estimate
-        if self.person_depth and self.person_depth > 0.5:  # Valid depth
-            estimated_distance = self.person_depth
-            self.get_logger().info(f'   Using camera depth: {estimated_distance:.2f}m')
-        else:
-            estimated_distance = 2.5  # Fallback estimate
-            self.get_logger().info('   Using fallback distance: 2.5m (no valid depth)')
+        # Camera is at 90° (π/2) to robot's forward direction
+        camera_angle = yaw + math.pi / 2
+        person_angle = camera_angle + angle_offset_in_camera
         
-        # Calculate goal position in world frame
-        # Use a longer distance to ensure we actually move toward the person
-        approach_distance = 3.0  # Start navigating from 3 meters away
-        goal_x = self.current_pose.position.x + approach_distance * math.cos(person_angle)
-        goal_y = self.current_pose.position.y + approach_distance * math.sin(person_angle)
+        # Estimate distance (simplified - assume 2 meters if we can see them)
+        estimated_distance = 2.0
         
-        self.get_logger().info(f'📐 Calculation:')
-        self.get_logger().info(f'   Robot at: ({self.current_pose.position.x:.2f}, {self.current_pose.position.y:.2f})')
-        self.get_logger().info(f'   Robot yaw: {yaw:.2f} rad ({math.degrees(yaw):.1f}°)')
-        self.get_logger().info(f'   Person angle offset: {angle_offset:.2f} rad ({math.degrees(angle_offset):.1f}°)')
-        self.get_logger().info(f'   Person angle (world): {person_angle:.2f} rad ({math.degrees(person_angle):.1f}°)')
-        self.get_logger().info(f'   Goal position: ({goal_x:.2f}, {goal_y:.2f})')
+        # Calculate goal position
+        goal_x = self.current_pose.position.x + (estimated_distance - self.person_approach_distance) * math.cos(person_angle)
+        goal_y = self.current_pose.position.y + (estimated_distance - self.person_approach_distance) * math.sin(person_angle)
         
-        # Calculate distance to goal
+        # Cancel current goal if tracking new person
+        if self.goal_active and not self.tracking_person:
+            self.cancel_current_goal()
+        
+        # Navigate to person location (if not already there)
         distance_to_goal = math.sqrt(
             (goal_x - self.current_pose.position.x)**2 +
             (goal_y - self.current_pose.position.y)**2
         )
-        self.get_logger().info(f'   Distance to goal: {distance_to_goal:.2f}m')
         
-        # Check if we're close enough to the person
-        if distance_to_goal < 0.5:  # Within 50cm
-            # Already near the person - start spinning!
-            if not self.spinning_at_person:
-                self.get_logger().info(f'🎉 REACHED PERSON! Starting {self.target_spin_count} celebration spins!')
-                self.spinning_at_person = True
-                self.spin_count = 0
-                self.spin_start_yaw = None
+        # Only send new goal if not already at person or if goal changed significantly
+        if distance_to_goal > 0.3:  # More than 30cm away
+            self.get_logger().info(f'🚶 Navigating towards person at ({goal_x:.2f}, {goal_y:.2f})')
+            self.navigate_to_goal((goal_x, goal_y))
+        else:
+            # Already near the person - start waiting
+            if not self.waiting_by_person:
+                self.get_logger().info(f'👋 Reached person! Waiting {self.person_wait_duration:.0f} seconds...')
+                self.waiting_by_person = True
+                self.person_wait_start_time = self.get_clock().now()
                 # Cancel any active navigation goal
                 if self.goal_active:
                     self.cancel_current_goal()
-        else:
-            # Send navigation goal EVERY TIME to ensure it persists
-            self.get_logger().info(f'🎯 SENDING NAVIGATION GOAL TO PERSON at ({goal_x:.2f}, {goal_y:.2f})')
-            self.navigate_to_goal((goal_x, goal_y))
-            self.tracking_person = True
                 
-    def spin_in_place(self):
-        """Execute fast 360-degree spins to indicate person found"""
-        if self.current_pose is None:
-            return False  # Not ready
-        
-        # Get current yaw
-        orientation = self.current_pose.orientation
-        siny_cosp = 2 * (orientation.w * orientation.z + orientation.x * orientation.y)
-        cosy_cosp = 1 - 2 * (orientation.y * orientation.y + orientation.z * orientation.z)
-        current_yaw = math.atan2(siny_cosp, cosy_cosp)
-        
-        # Initialize spin if starting new spin
-        if self.spin_start_yaw is None:
-            self.spin_start_yaw = current_yaw
-            self.get_logger().info(f'🔄 Spin {self.spin_count + 1}/{self.target_spin_count} starting...')
-        
-        # Calculate total rotation since spin started
-        yaw_diff = current_yaw - self.spin_start_yaw
-        # Normalize to account for wrap-around
-        while yaw_diff > math.pi:
-            yaw_diff -= 2 * math.pi
-        while yaw_diff < -math.pi:
-            yaw_diff += 2 * math.pi
-        
-        total_rotation = abs(yaw_diff)
-        
-        # Check if we've completed a full rotation (2π radians = 360°)
-        if total_rotation >= (2 * math.pi - 0.2):  # Allow small error margin
-            self.spin_count += 1
-            self.spin_start_yaw = None
-            
-            if self.spin_count >= self.target_spin_count:
-                # Completed all spins!
-                self.get_logger().info(f'✅ Completed {self.target_spin_count} spins!')
-                
-                # Stop spinning
-                twist = Twist()
-                self.cmd_vel_pub.publish(twist)
-                
-                return True  # Spinning complete
-            else:
-                self.get_logger().info(f'✅ Spin {self.spin_count}/{self.target_spin_count} done!')
-        else:
-            # Continue spinning FAST
-            twist = Twist()
-            twist.angular.z = 1.2  # Fast spin speed (rad/s)
-            self.cmd_vel_pub.publish(twist)
-        
-        return False  # Still spinning
-    
-    def turn_away_from_person(self):
-        """Turn 180° to face away from person"""
-        if self.current_pose is None:
-            return False
-        
-        # Get current yaw
-        orientation = self.current_pose.orientation
-        siny_cosp = 2 * (orientation.w * orientation.z + orientation.x * orientation.y)
-        cosy_cosp = 1 - 2 * (orientation.y * orientation.y + orientation.z * orientation.z)
-        current_yaw = math.atan2(siny_cosp, cosy_cosp)
-        
-        # Initialize turn if starting
-        if self.turn_away_start_yaw is None:
-            self.turn_away_start_yaw = current_yaw
-            self.get_logger().info('🔄 Turning away from person...')
-        
-        # Calculate how much we've turned
-        yaw_diff = current_yaw - self.turn_away_start_yaw
-        while yaw_diff > math.pi:
-            yaw_diff -= 2 * math.pi
-        while yaw_diff < -math.pi:
-            yaw_diff += 2 * math.pi
-        
-        # Check if we've turned 180° (π radians)
-        if abs(abs(yaw_diff) - math.pi) < 0.15:  # Within 0.15 rad of 180°
-            self.get_logger().info('✅ Turned away! Searching for next person...')
-            
-            # Stop turning
-            twist = Twist()
-            self.cmd_vel_pub.publish(twist)
-            
-            return True  # Turn complete
-        else:
-            # Continue turning
-            twist = Twist()
-            twist.angular.z = 0.8  # Moderate turn speed
-            self.cmd_vel_pub.publish(twist)
-        
-        return False  # Still turning
-    
     def get_frontier_goal(self):
         """Find frontier cells (boundary between known and unknown space) and prioritize larger unexplored regions"""
         if self.map_data is None or self.map_info is None or self.current_pose is None:
@@ -685,10 +546,8 @@ class AutonomousExplorer(Node):
         
     def navigate_to_goal(self, goal):
         """Send navigation goal to Nav2"""
-        self.get_logger().info(f'🚀 navigate_to_goal() called with: ({goal[0]:.2f}, {goal[1]:.2f})')
-        
         if not self.nav_client.wait_for_server(timeout_sec=5.0):
-            self.get_logger().error('❌ Navigation action server not available!')
+            self.get_logger().error('Navigation action server not available!')
             return
             
         goal_pose = PoseStamped()
@@ -719,10 +578,6 @@ class AutonomousExplorer(Node):
         self.goal_active = True
         self.last_goal_time = self.get_clock().now()
         self.obstacle_count = 0  # Reset obstacle counter for new goal
-        
-        self.get_logger().info(f'📤 Sending goal to Nav2: ({goal[0]:.2f}, {goal[1]:.2f})')
-        self.get_logger().info(f'   Frame: {goal_pose.header.frame_id}')
-        self.get_logger().info(f'   Distance: {self.current_goal_distance:.2f}m')
         
         send_goal_future = self.nav_client.send_goal_async(
             nav_goal,

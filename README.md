@@ -55,7 +55,7 @@ ros2 launch rover_exploration navigation_stack_only.launch.py use_sim_time:=true
 1. **Exploration**: Robot explores the environment autonomously
 2. **Detection**: When a waving person is detected via camera
 3. **Approach**: Robot cancels current goal and navigates towards the person
-4. **Wait**: Robot stops 1 foot away and waits 10 seconds
+4. **Wait**: Robot stops 1 foot away and does 3 full 360° spins
 5. **Resume**: Robot leaves and searches for more waving people
 6. **Repeat**: Process continues for all waving people in the environment
 

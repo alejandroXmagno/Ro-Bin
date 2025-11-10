@@ -1,18 +1,17 @@
 #!/usr/bin/env python3
 """
-Simple script to spawn person-like objects in Gazebo simulation
+Spawn waving people in Gazebo simulation with depth markers
 """
 import subprocess
-import sys
 import time
 
 def spawn_person(name, x, y, z=0, rotation=0, waving=True):
-    """Spawn a human actor (will be detected as waving by pose detection)"""
-    # Use talk_b animation - BlazePose will detect if hands are raised
+    """Spawn a human actor with physical depth marker"""
+    # Spawn visual actor
     animation_file = "https://fuel.gazebosim.org/1.0/Mingfei/models/actor/tip/files/meshes/talk_b.dae"
     animation_name = "standing"
     
-    sdf_content = f"""<?xml version="1.0"?>
+    actor_sdf = f"""<?xml version="1.0"?>
 <sdf version="1.6">
   <actor name="{name}">
     <pose>{x} {y} {z} 0 0 {rotation}</pose>
@@ -42,49 +41,125 @@ def spawn_person(name, x, y, z=0, rotation=0, waving=True):
   </actor>
 </sdf>"""
     
-    # Write to temp file
-    temp_file = f"/tmp/{name}.sdf"
-    with open(temp_file, 'w') as f:
-        f.write(sdf_content)
+    # Write actor SDF to temp file
+    with open(f'/tmp/{name}_actor.sdf', 'w') as f:
+        f.write(actor_sdf)
     
-    # Spawn using ign service command
-    try:
-        cmd = [
-            'ign', 'service', '-s', '/world/depot/create',
-            '--reqtype', 'ignition.msgs.EntityFactory',
-            '--reptype', 'ignition.msgs.Boolean',
-            '--timeout', '1000',
-            '--req', f'sdf_filename: "{temp_file}", name: "{name}", pose: {{position: {{x: {x}, y: {y}, z: {z}}}}}'
-        ]
-        result = subprocess.run(
-            cmd,
-            capture_output=True,
-            text=True,
-            timeout=5
-        )
-        if result.returncode == 0 and 'data: true' in result.stdout:
-            print(f"✅ Spawned {name} at ({x}, {y}, {z})")
-            return True
-        else:
-            print(f"❌ Failed to spawn {name}: {result.stderr}")
-            return False
-    except Exception as e:
-        print(f"❌ Error spawning {name}: {e}")
-        return False
+    # Spawn actor
+    result = subprocess.run([
+        'ign', 'service', '-s', '/world/depot/create',
+        '--reqtype', 'ignition.msgs.EntityFactory',
+        '--reptype', 'ignition.msgs.Boolean',
+        '--timeout', '2000',
+        '--req',
+        f'sdf_filename: "/tmp/{name}_actor.sdf"'
+    ], capture_output=True, text=True)
+    
+    if result.returncode == 0:
+        print(f"✅ Spawned actor: {name} at ({x}, {y})")
+    else:
+        print(f"❌ Failed to spawn actor {name}: {result.stderr}")
+    
+    time.sleep(0.5)
+    
+    # Now spawn physical depth marker (sphere at chest height)
+    marker_name = f"{name}_depth_marker"
+    chest_z = z + 1.4  # Chest height for detection
+    
+    marker_sdf = f"""<?xml version="1.0"?>
+<sdf version="1.6">
+  <model name="{marker_name}">
+    <pose>{x} {y} {chest_z} 0 0 0</pose>
+    <static>true</static>
+    <link name="link">
+      <collision name="collision">
+        <geometry>
+          <sphere>
+            <radius>0.25</radius>
+          </sphere>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <sphere>
+            <radius>0.25</radius>
+          </sphere>
+        </geometry>
+        <material>
+          <ambient>1 0 0 0.1</ambient>
+          <diffuse>1 0 0 0.1</diffuse>
+          <specular>1 0 0 0.1</specular>
+        </material>
+        <transparency>0.95</transparency>
+      </visual>
+      <sensor name="depth_sensor" type="depth_camera">
+        <update_rate>30</update_rate>
+        <always_on>1</always_on>
+      </sensor>
+    </link>
+  </model>
+</sdf>"""
+    
+    # Write marker SDF to temp file
+    with open(f'/tmp/{marker_name}.sdf', 'w') as f:
+        f.write(marker_sdf)
+    
+    # Spawn marker
+    result = subprocess.run([
+        'ign', 'service', '-s', '/world/depot/create',
+        '--reqtype', 'ignition.msgs.EntityFactory',
+        '--reptype', 'ignition.msgs.Boolean',
+        '--timeout', '2000',
+        '--req',
+        f'sdf_filename: "/tmp/{marker_name}.sdf"'
+    ], capture_output=True, text=True)
+    
+    if result.returncode == 0:
+        print(f"   ✅ Added depth marker for {name}")
+    else:
+        print(f"   ⚠️  Depth marker may have issues: {result.stderr}")
 
-if __name__ == "__main__":
-    print("👋 Spawning waving human actors in Gazebo...")
-    print("⚠️  Make sure Gazebo is running first!")
-    time.sleep(2)
+def remove_person(name):
+    """Remove both actor and depth marker"""
+    # Remove actor
+    subprocess.run([
+        'ign', 'service', '-s', '/world/depot/remove',
+        '--reqtype', 'ignition.msgs.Entity',
+        '--reptype', 'ignition.msgs.Boolean',
+        '--timeout', '1000',
+        '--req',
+        f'name: "{name}", type: 2'
+    ], capture_output=True)
     
-    # Spawn multiple waving people at different locations with different rotations
-    spawn_person("person1", 5.0, 0.0, 0.0, rotation=0, waving=True)
-    time.sleep(0.5)
-    spawn_person("person2", -3.0, 4.0, 0.0, rotation=1.57, waving=True)  # 90 degrees
-    time.sleep(0.5)
-    spawn_person("person3", 2.0, -3.0, 0.0, rotation=3.14, waving=True)  # 180 degrees
-    time.sleep(0.5)
-    spawn_person("person4", -2.0, -2.0, 0.0, rotation=4.71, waving=True)  # 270 degrees
-    
-    print("\n✅ Done! All 4 people are waving. Check Gazebo window for human actors.")
+    # Remove depth marker
+    marker_name = f"{name}_depth_marker"
+    subprocess.run([
+        'ign', 'service', '-s', '/world/depot/remove',
+        '--reqtype', 'ignition.msgs.Entity',
+        '--reptype', 'ignition.msgs.Boolean',
+        '--timeout', '1000',
+        '--req',
+        f'name: "{marker_name}", type: 2'
+    ], capture_output=True)
 
+def main():
+    print("🚶 Spawning waving people with depth markers...")
+    
+    # Remove any existing people first
+    for i in range(1, 5):
+        remove_person(f'person{i}')
+    
+    time.sleep(1)
+    
+    # Spawn 4 people at different locations with depth markers
+    spawn_person('person1', 3.0, 2.0, waving=True)
+    spawn_person('person2', -2.0, 4.0, waving=True)
+    spawn_person('person3', 5.0, -3.0, waving=True)
+    spawn_person('person4', -4.0, -2.0, waving=True)
+    
+    print("\n✅ Spawned 4 waving people with depth markers!")
+    print("   The semi-transparent red spheres provide depth data")
+    print("   while the animated actors provide visuals for BlazePose")
+
+if __name__ == '__main__':
+    main()
