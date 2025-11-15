@@ -7,6 +7,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/roverrobotics_driver.dir/library/librover/src/control.cpp.o.d"
   "CMakeFiles/roverrobotics_driver.dir/library/librover/src/differential_robot.cpp.o"
   "CMakeFiles/roverrobotics_driver.dir/library/librover/src/differential_robot.cpp.o.d"
+  "CMakeFiles/roverrobotics_driver.dir/library/librover/src/protocol_mini_2wd_serial.cpp.o"
+  "CMakeFiles/roverrobotics_driver.dir/library/librover/src/protocol_mini_2wd_serial.cpp.o.d"
   "CMakeFiles/roverrobotics_driver.dir/library/librover/src/protocol_pro.cpp.o"
   "CMakeFiles/roverrobotics_driver.dir/library/librover/src/protocol_pro.cpp.o.d"
   "CMakeFiles/roverrobotics_driver.dir/library/librover/src/protocol_zero_2.cpp.o"

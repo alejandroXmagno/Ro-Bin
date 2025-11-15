@@ -1,8 +1,8 @@
-# Install script for directory: /home/stickykeys/rover_workspace/src/roverrobotics_ros2/roverrobotics_input_manager
+# Install script for directory: /home/stickykeys/final_robin/src/roverrobotics_ros2/roverrobotics_input_manager
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/stickykeys/rover_workspace/install/roverrobotics_input_manager")
+  set(CMAKE_INSTALL_PREFIX "/home/stickykeys/final_robin/install/roverrobotics_input_manager")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -43,19 +43,19 @@ if(NOT DEFINED CMAKE_OBJDUMP)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/roverrobotics_input_manager" TYPE DIRECTORY FILES "/home/stickykeys/rover_workspace/src/roverrobotics_ros2/roverrobotics_input_manager/scripts/modules")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/roverrobotics_input_manager" TYPE DIRECTORY FILES "/home/stickykeys/final_robin/src/roverrobotics_ros2/roverrobotics_input_manager/scripts/modules")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/roverrobotics_input_manager" TYPE PROGRAM FILES "/home/stickykeys/rover_workspace/src/roverrobotics_ros2/roverrobotics_input_manager/scripts/joys_manager.py")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/roverrobotics_input_manager" TYPE PROGRAM FILES "/home/stickykeys/final_robin/src/roverrobotics_ros2/roverrobotics_input_manager/scripts/joys_manager.py")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ament_index/resource_index/package_run_dependencies" TYPE FILE FILES "/home/stickykeys/rover_workspace/build/roverrobotics_input_manager/ament_cmake_index/share/ament_index/resource_index/package_run_dependencies/roverrobotics_input_manager")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ament_index/resource_index/package_run_dependencies" TYPE FILE FILES "/home/stickykeys/final_robin/build/roverrobotics_input_manager/ament_cmake_index/share/ament_index/resource_index/package_run_dependencies/roverrobotics_input_manager")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ament_index/resource_index/parent_prefix_path" TYPE FILE FILES "/home/stickykeys/rover_workspace/build/roverrobotics_input_manager/ament_cmake_index/share/ament_index/resource_index/parent_prefix_path/roverrobotics_input_manager")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ament_index/resource_index/parent_prefix_path" TYPE FILE FILES "/home/stickykeys/final_robin/build/roverrobotics_input_manager/ament_cmake_index/share/ament_index/resource_index/parent_prefix_path/roverrobotics_input_manager")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
@@ -63,7 +63,7 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/roverrobotics_input_manager/environment" TYPE FILE FILES "/home/stickykeys/rover_workspace/build/roverrobotics_input_manager/ament_cmake_environment_hooks/ament_prefix_path.dsv")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/roverrobotics_input_manager/environment" TYPE FILE FILES "/home/stickykeys/final_robin/build/roverrobotics_input_manager/ament_cmake_environment_hooks/ament_prefix_path.dsv")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
@@ -71,42 +71,42 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/roverrobotics_input_manager/environment" TYPE FILE FILES "/home/stickykeys/rover_workspace/build/roverrobotics_input_manager/ament_cmake_environment_hooks/path.dsv")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/roverrobotics_input_manager/environment" TYPE FILE FILES "/home/stickykeys/final_robin/build/roverrobotics_input_manager/ament_cmake_environment_hooks/path.dsv")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/roverrobotics_input_manager" TYPE FILE FILES "/home/stickykeys/rover_workspace/build/roverrobotics_input_manager/ament_cmake_environment_hooks/local_setup.bash")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/roverrobotics_input_manager" TYPE FILE FILES "/home/stickykeys/final_robin/build/roverrobotics_input_manager/ament_cmake_environment_hooks/local_setup.bash")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/roverrobotics_input_manager" TYPE FILE FILES "/home/stickykeys/rover_workspace/build/roverrobotics_input_manager/ament_cmake_environment_hooks/local_setup.sh")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/roverrobotics_input_manager" TYPE FILE FILES "/home/stickykeys/final_robin/build/roverrobotics_input_manager/ament_cmake_environment_hooks/local_setup.sh")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/roverrobotics_input_manager" TYPE FILE FILES "/home/stickykeys/rover_workspace/build/roverrobotics_input_manager/ament_cmake_environment_hooks/local_setup.zsh")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/roverrobotics_input_manager" TYPE FILE FILES "/home/stickykeys/final_robin/build/roverrobotics_input_manager/ament_cmake_environment_hooks/local_setup.zsh")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/roverrobotics_input_manager" TYPE FILE FILES "/home/stickykeys/rover_workspace/build/roverrobotics_input_manager/ament_cmake_environment_hooks/local_setup.dsv")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/roverrobotics_input_manager" TYPE FILE FILES "/home/stickykeys/final_robin/build/roverrobotics_input_manager/ament_cmake_environment_hooks/local_setup.dsv")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/roverrobotics_input_manager" TYPE FILE FILES "/home/stickykeys/rover_workspace/build/roverrobotics_input_manager/ament_cmake_environment_hooks/package.dsv")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/roverrobotics_input_manager" TYPE FILE FILES "/home/stickykeys/final_robin/build/roverrobotics_input_manager/ament_cmake_environment_hooks/package.dsv")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ament_index/resource_index/packages" TYPE FILE FILES "/home/stickykeys/rover_workspace/build/roverrobotics_input_manager/ament_cmake_index/share/ament_index/resource_index/packages/roverrobotics_input_manager")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ament_index/resource_index/packages" TYPE FILE FILES "/home/stickykeys/final_robin/build/roverrobotics_input_manager/ament_cmake_index/share/ament_index/resource_index/packages/roverrobotics_input_manager")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/roverrobotics_input_manager/cmake" TYPE FILE FILES
-    "/home/stickykeys/rover_workspace/build/roverrobotics_input_manager/ament_cmake_core/roverrobotics_input_managerConfig.cmake"
-    "/home/stickykeys/rover_workspace/build/roverrobotics_input_manager/ament_cmake_core/roverrobotics_input_managerConfig-version.cmake"
+    "/home/stickykeys/final_robin/build/roverrobotics_input_manager/ament_cmake_core/roverrobotics_input_managerConfig.cmake"
+    "/home/stickykeys/final_robin/build/roverrobotics_input_manager/ament_cmake_core/roverrobotics_input_managerConfig-version.cmake"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/roverrobotics_input_manager" TYPE FILE FILES "/home/stickykeys/rover_workspace/src/roverrobotics_ros2/roverrobotics_input_manager/package.xml")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/roverrobotics_input_manager" TYPE FILE FILES "/home/stickykeys/final_robin/src/roverrobotics_ros2/roverrobotics_input_manager/package.xml")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT)
@@ -117,5 +117,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/stickykeys/rover_workspace/build/roverrobotics_input_manager/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/stickykeys/final_robin/build/roverrobotics_input_manager/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

@@ -57,10 +57,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/stickykeys/rover_workspace/src/roverrobotics_ros2/roverrobotics_driver
+CMAKE_SOURCE_DIR = /home/stickykeys/final_robin/src/roverrobotics_ros2/roverrobotics_driver
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/stickykeys/rover_workspace/build/roverrobotics_driver
+CMAKE_BINARY_DIR = /home/stickykeys/final_robin/build/roverrobotics_driver
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -142,9 +142,9 @@ install/strip/fast: preinstall/fast
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/stickykeys/rover_workspace/build/roverrobotics_driver/CMakeFiles /home/stickykeys/rover_workspace/build/roverrobotics_driver//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/stickykeys/final_robin/build/roverrobotics_driver/CMakeFiles /home/stickykeys/final_robin/build/roverrobotics_driver//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/stickykeys/rover_workspace/build/roverrobotics_driver/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/stickykeys/final_robin/build/roverrobotics_driver/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -305,6 +305,30 @@ library/librover/src/differential_robot.s: library/librover/src/differential_rob
 library/librover/src/differential_robot.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/roverrobotics_driver.dir/build.make CMakeFiles/roverrobotics_driver.dir/library/librover/src/differential_robot.cpp.s
 .PHONY : library/librover/src/differential_robot.cpp.s
+
+library/librover/src/protocol_mini_2wd_serial.o: library/librover/src/protocol_mini_2wd_serial.cpp.o
+.PHONY : library/librover/src/protocol_mini_2wd_serial.o
+
+# target to build an object file
+library/librover/src/protocol_mini_2wd_serial.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/roverrobotics_driver.dir/build.make CMakeFiles/roverrobotics_driver.dir/library/librover/src/protocol_mini_2wd_serial.cpp.o
+.PHONY : library/librover/src/protocol_mini_2wd_serial.cpp.o
+
+library/librover/src/protocol_mini_2wd_serial.i: library/librover/src/protocol_mini_2wd_serial.cpp.i
+.PHONY : library/librover/src/protocol_mini_2wd_serial.i
+
+# target to preprocess a source file
+library/librover/src/protocol_mini_2wd_serial.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/roverrobotics_driver.dir/build.make CMakeFiles/roverrobotics_driver.dir/library/librover/src/protocol_mini_2wd_serial.cpp.i
+.PHONY : library/librover/src/protocol_mini_2wd_serial.cpp.i
+
+library/librover/src/protocol_mini_2wd_serial.s: library/librover/src/protocol_mini_2wd_serial.cpp.s
+.PHONY : library/librover/src/protocol_mini_2wd_serial.s
+
+# target to generate assembly for a file
+library/librover/src/protocol_mini_2wd_serial.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/roverrobotics_driver.dir/build.make CMakeFiles/roverrobotics_driver.dir/library/librover/src/protocol_mini_2wd_serial.cpp.s
+.PHONY : library/librover/src/protocol_mini_2wd_serial.cpp.s
 
 library/librover/src/protocol_pro.o: library/librover/src/protocol_pro.cpp.o
 .PHONY : library/librover/src/protocol_pro.o
@@ -478,6 +502,9 @@ help:
 	@echo "... library/librover/src/differential_robot.o"
 	@echo "... library/librover/src/differential_robot.i"
 	@echo "... library/librover/src/differential_robot.s"
+	@echo "... library/librover/src/protocol_mini_2wd_serial.o"
+	@echo "... library/librover/src/protocol_mini_2wd_serial.i"
+	@echo "... library/librover/src/protocol_mini_2wd_serial.s"
 	@echo "... library/librover/src/protocol_pro.o"
 	@echo "... library/librover/src/protocol_pro.i"
 	@echo "... library/librover/src/protocol_pro.s"

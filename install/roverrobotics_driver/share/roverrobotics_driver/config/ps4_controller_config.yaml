@@ -12,25 +12,25 @@ LEFT_JOY_VERT:
   offset: 0
 RIGHT_JOY_HORIZ:
   type: axis
-  index: 2
+  index: 3
   exclusion: [-0.15, 0.15]
   scale: 2.5
   offset: 0
 RIGHT_JOY_VERT:
   type: axis
-  index: 5
+  index: 4
   exclusion: [-0.15, 0.15]
   scale: -50
   offset: 0
 RIGHT_TRIGGER:
   type: axis
-  index: 4
+  index: 2
   exclusion: [0.0, 1.0]
   scale: -1
   offset: 0
 LEFT_TRIGGER:
   type: axis
-  index: 3
+  index: 5
   exclusion: [0.0, 1.0]
   scale: 1
 DPAD_HORIZ:
@@ -47,13 +47,13 @@ DPAD_VERT:
   offset: 0
 A:
   type: button
-  index: 1
+  index: 0
 B:
   type: button
-  index: 2
+  index: 1
 X:
   type: button
-  index: 0
+  index: 2
 Y:
   type: button
   index: 3
@@ -65,16 +65,16 @@ RB:
   index: 5
 BACK:
   type: button
-  index: 8
+  index: 6
 START:
   type: button
-  index: 9
+  index: 7
 GUIDE:
   type: button
-  index: 13
+  index: 8
 LEFT_JOY:
   type: button
-  index: 10
+  index: 9
 RIGHT_JOY:
   type: button
-  index: 11
+  index: 10
