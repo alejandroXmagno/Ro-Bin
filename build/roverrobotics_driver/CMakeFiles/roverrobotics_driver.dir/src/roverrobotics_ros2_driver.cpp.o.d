@@ -320,6 +320,7 @@ CMakeFiles/roverrobotics_driver.dir/src/roverrobotics_ros2_driver.cpp.o: \
  /home/lechonk/rover_workspace/src/roverrobotics_ros2/roverrobotics_driver/library/librover/include/utilities.hpp \
  /usr/include/c++/11/optional \
  /home/lechonk/rover_workspace/src/roverrobotics_ros2/roverrobotics_driver/library/librover/include/protocol_zero_2.hpp \
+ /home/lechonk/rover_workspace/src/roverrobotics_ros2/roverrobotics_driver/library/librover/include/protocol_mini_2wd_serial.hpp \
  /home/lechonk/rover_workspace/src/roverrobotics_ros2/roverrobotics_driver/library/librover/include/differential_robot.hpp \
  /home/lechonk/rover_workspace/src/roverrobotics_ros2/roverrobotics_driver/library/librover/include/vesc.hpp \
  /home/lechonk/rover_workspace/src/roverrobotics_ros2/roverrobotics_driver/library/librover/include/global_error_constants.hpp \

@@ -306,6 +306,30 @@ library/librover/src/differential_robot.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/roverrobotics_driver.dir/build.make CMakeFiles/roverrobotics_driver.dir/library/librover/src/differential_robot.cpp.s
 .PHONY : library/librover/src/differential_robot.cpp.s
 
+library/librover/src/protocol_mini_2wd_serial.o: library/librover/src/protocol_mini_2wd_serial.cpp.o
+.PHONY : library/librover/src/protocol_mini_2wd_serial.o
+
+# target to build an object file
+library/librover/src/protocol_mini_2wd_serial.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/roverrobotics_driver.dir/build.make CMakeFiles/roverrobotics_driver.dir/library/librover/src/protocol_mini_2wd_serial.cpp.o
+.PHONY : library/librover/src/protocol_mini_2wd_serial.cpp.o
+
+library/librover/src/protocol_mini_2wd_serial.i: library/librover/src/protocol_mini_2wd_serial.cpp.i
+.PHONY : library/librover/src/protocol_mini_2wd_serial.i
+
+# target to preprocess a source file
+library/librover/src/protocol_mini_2wd_serial.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/roverrobotics_driver.dir/build.make CMakeFiles/roverrobotics_driver.dir/library/librover/src/protocol_mini_2wd_serial.cpp.i
+.PHONY : library/librover/src/protocol_mini_2wd_serial.cpp.i
+
+library/librover/src/protocol_mini_2wd_serial.s: library/librover/src/protocol_mini_2wd_serial.cpp.s
+.PHONY : library/librover/src/protocol_mini_2wd_serial.s
+
+# target to generate assembly for a file
+library/librover/src/protocol_mini_2wd_serial.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/roverrobotics_driver.dir/build.make CMakeFiles/roverrobotics_driver.dir/library/librover/src/protocol_mini_2wd_serial.cpp.s
+.PHONY : library/librover/src/protocol_mini_2wd_serial.cpp.s
+
 library/librover/src/protocol_pro.o: library/librover/src/protocol_pro.cpp.o
 .PHONY : library/librover/src/protocol_pro.o
 
@@ -478,6 +502,9 @@ help:
 	@echo "... library/librover/src/differential_robot.o"
 	@echo "... library/librover/src/differential_robot.i"
 	@echo "... library/librover/src/differential_robot.s"
+	@echo "... library/librover/src/protocol_mini_2wd_serial.o"
+	@echo "... library/librover/src/protocol_mini_2wd_serial.i"
+	@echo "... library/librover/src/protocol_mini_2wd_serial.s"
 	@echo "... library/librover/src/protocol_pro.o"
 	@echo "... library/librover/src/protocol_pro.i"
 	@echo "... library/librover/src/protocol_pro.s"

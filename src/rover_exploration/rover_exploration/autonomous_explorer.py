@@ -26,16 +26,17 @@ class AutonomousExplorer(Node):
         super().__init__('autonomous_explorer')
         
         # Parameters
-        self.declare_parameter('exploration_radius', 8.0)  # Increased to look further ahead
+        self.declare_parameter('exploration_radius', 8.0)
         self.declare_parameter('frontier_threshold', 10)
         self.declare_parameter('min_frontier_size', 5)
-        self.declare_parameter('goal_timeout', 120.0)  # Much longer timeout for distant frontiers
-        self.declare_parameter('obstacle_distance_threshold', 0.8)  # Cancel if obstacle within 0.8m
-        self.declare_parameter('critical_obstacle_threshold', 0.5)  # Emergency stop within 0.5m
+        self.declare_parameter('goal_timeout', 120.0)
+        self.declare_parameter('obstacle_distance_threshold', 0.35)  # Reduced from 0.8m to 0.35m
+        self.declare_parameter('critical_obstacle_threshold', 0.25)  # Reduced from 0.5m to 0.25m
         self.declare_parameter('random_exploration_probability', 0.3)
-        self.declare_parameter('min_goal_interval', 3.0)  # Minimum time between goal completions
-        self.declare_parameter('person_tracking_enabled', True)  # Enable person tracking
-        self.declare_parameter('person_approach_distance', 1.5)  # Stop 1.5m from person
+        self.declare_parameter('min_goal_interval', 3.0)
+        self.declare_parameter('person_tracking_enabled', True)
+        self.declare_parameter('person_approach_distance', 0.3)  # Stop 1 foot (~0.3m) from person
+        self.declare_parameter('safety_checks_enabled', True)  # Allow disabling safety checks for tight spaces
         
         self.exploration_radius = self.get_parameter('exploration_radius').value
         self.frontier_threshold = self.get_parameter('frontier_threshold').value
@@ -47,40 +48,40 @@ class AutonomousExplorer(Node):
         self.min_goal_interval = self.get_parameter('min_goal_interval').value
         self.person_tracking_enabled = self.get_parameter('person_tracking_enabled').value
         self.person_approach_distance = self.get_parameter('person_approach_distance').value
+        self.safety_checks_enabled = self.get_parameter('safety_checks_enabled').value
         
         # State variables
         self.current_pose = None
         self.map_data = None
         self.map_info = None
         self.goal_active = False
+        self.goal_handle = None  # Track the current goal handle for proper cancellation
         self.last_goal_time = None
         self.last_goal_completion_time = None
         self.explored_frontiers = []
         self.scan_data = None
-        self.obstacle_count = 0  # Counter for sustained obstacles
-        self.current_goal_distance = 0.0  # Track distance to current goal
+        self.obstacle_count = 0
+        self.current_goal_distance = 0.0
         
         # Stuck detection
-        self.last_positions = deque(maxlen=20)  # Track last 20 positions (10 seconds)
+        self.last_positions = deque(maxlen=30)  # Increased from 20 to track 15 seconds at 0.5Hz
         self.stuck_count = 0
-        self.blacklisted_goals = []  # Goals that led to stuck situations
+        self.blacklisted_goals = []
         self.recovery_in_progress = False
         
-        # Person tracking
+        # Person tracking - SIMPLIFIED
         self.person_detected = False
         self.person_position = None
-        self.person_depth = None  # Depth in meters from camera
+        self.person_depth = None
         self.last_person_detection_time = None
         self.tracking_person = False
         self.waiting_by_person = False
-        self.spinning_at_person = False
-        self.spin_count = 0
-        self.target_spin_count = 3
-        self.spin_start_yaw = None
         self.turning_away = False
         self.turn_away_start_yaw = None
         self.person_wait_start_time = None
-        self.person_wait_duration = 10.0  # Wait 10 seconds by person
+        self.person_wait_duration = 10.0
+        self.last_person_goal = None  # Track last goal sent to avoid redundant updates
+        self.last_person_goal_time = None
         
         # Publishers
         self.cmd_vel_pub = self.create_publisher(Twist, '/cmd_vel', 10)
@@ -118,7 +119,7 @@ class AutonomousExplorer(Node):
         self.nav_client = ActionClient(self, NavigateToPose, 'navigate_to_pose')
         
         # Timers
-        self.exploration_timer = self.create_timer(0.1, self.exploration_callback)  # 10Hz for responsive person tracking
+        self.exploration_timer = self.create_timer(0.1, self.exploration_callback)
         self.safety_timer = self.create_timer(0.5, self.safety_check)
         self.stuck_check_timer = self.create_timer(0.5, self.check_if_stuck)
         
@@ -140,7 +141,6 @@ class AutonomousExplorer(Node):
     def person_detection_callback(self, msg):
         """Handle person detection results - only track waving people"""
         if not self.person_tracking_enabled:
-            self.get_logger().warn('⚠️ Person tracking is DISABLED!')
             return
         
         try:
@@ -151,61 +151,62 @@ class AutonomousExplorer(Node):
             
             # Only respond to people who are waving
             if person_det and is_waving:
-                self.get_logger().info(f'🚨🚨🚨 WAVING PERSON DETECTED! 🚨🚨🚨')
+                # IMMEDIATELY cancel any exploration goal on first detection
+                if not self.tracking_person and self.goal_active:
+                    self.get_logger().info('🚨🚨🚨 WAVING PERSON DETECTED! CANCELING ALL EXPLORATION! 🚨🚨🚨')
+                    self.cancel_current_goal()
+                
                 self.person_detected = True
+                self.tracking_person = True
                 self.last_person_detection_time = self.get_clock().now()
                 
                 # Extract person center position and depth
                 person_center = detection_data.get('person_center')
                 if person_center:
                     self.person_position = (
-                        person_center.get('x', 0.5),  # Normalized x
-                        person_center.get('y', 0.5)   # Normalized y
+                        person_center.get('x', 0.5),
+                        person_center.get('y', 0.5)
                     )
-                    self.person_depth = person_center.get('depth', None)  # Depth in meters
+                    self.person_depth = person_center.get('depth', None)
                     
                     depth_str = f"{self.person_depth:.2f}m" if self.person_depth else "unknown"
-                    self.get_logger().info(f'🎯 Person at camera coords: ({self.person_position[0]:.2f}, {self.person_position[1]:.2f}), depth: {depth_str}')
-                    self.get_logger().info(f'📍 person_detected={self.person_detected}, tracking={self.tracking_person}')
-                    self.get_logger().info(f'🔥 spinning={self.spinning_at_person}, turning={self.turning_away}')
-                    
-                    if not self.tracking_person:
-                        self.tracking_person = True
-                        self.get_logger().info('✅ Set tracking_person=True')
+                    self.get_logger().info(f'👁️ Person position updated: x={self.person_position[0]:.2f}, depth={depth_str}')
             else:
-                # Don't immediately clear person_detected if we're actively tracking
-                # This prevents the flag from flickering during navigation
-                current_time = self.get_clock().now()
-                
-                if self.tracking_person and self.last_person_detection_time:
-                    time_since_detection = (current_time - self.last_person_detection_time).nanoseconds / 1e9
-                    
-                    # Keep person_detected True for 3 seconds to maintain navigation
-                    if time_since_detection < 3.0:
-                        # Still recently detected, keep tracking
-                        self.person_detected = True  # Keep it True!
-                        if time_since_detection > 1.0:  # Log if losing track
-                            self.get_logger().info(f'⚠️ Person not in frame, holding tracking ({time_since_detection:.1f}s)')
-                    else:
-                        # Lost person for too long
-                        self.get_logger().info('❌ Person lost for >3s, resuming exploration')
-                        self.person_detected = False
-                        self.tracking_person = False
-                        self.person_position = None
-                        self.person_depth = None
-                else:
-                    # Not tracking yet, clear immediately
-                    self.person_detected = False
-                    if self.last_person_detection_time:
-                        time_since_detection = (current_time - self.last_person_detection_time).nanoseconds / 1e9
-                        if time_since_detection > 3.0:
+                # Only clear if we've been without detection for a while
+                if self.person_detected and self.last_person_detection_time:
+                    time_since = (self.get_clock().now() - self.last_person_detection_time).nanoseconds / 1e9
+                    if time_since > 3.0:  # Increased tolerance to 3 seconds
+                        if not self.waiting_by_person and not self.turning_away:
+                            self.get_logger().info('❌ Lost person for 3+ seconds, resuming exploration')
+                            self.person_detected = False
                             self.tracking_person = False
+                            self.person_position = None
+                            self.person_depth = None
+                            self.last_person_goal = None  # Clear goal tracking
+                            self.last_person_goal_time = None
                 
         except json.JSONDecodeError as e:
             self.get_logger().warn(f'Failed to parse person detection data: {e}')
         
     def safety_check(self):
-        """Two-level obstacle detection: critical (immediate) and warning (sustained)"""
+        """Safety check - DISABLED when tracking person to avoid canceling approach"""
+        # Allow completely disabling safety checks via parameter
+        if not self.safety_checks_enabled:
+            return
+            
+        # Don't cancel goals when approaching a person!
+        if self.tracking_person or self.waiting_by_person:
+            # Log occasionally to confirm we're skipping safety
+            if hasattr(self, '_safety_skip_log_counter'):
+                self._safety_skip_log_counter += 1
+                if self._safety_skip_log_counter >= 10:  # Every 5 seconds
+                    self.get_logger().info('🛡️ Safety checks DISABLED during person tracking')
+                    self._safety_skip_log_counter = 0
+            else:
+                self._safety_skip_log_counter = 0
+                self.get_logger().info('🛡️ Safety checks DISABLED during person tracking')
+            return
+            
         if self.scan_data is None or not self.goal_active:
             self.obstacle_count = 0
             return
@@ -216,22 +217,21 @@ class AutonomousExplorer(Node):
             return
         min_distance = min(valid_ranges)
         
-        # CRITICAL: Immediate cancel if very close (< 0.5m)
+        # CRITICAL: Immediate cancel if very close (< 0.25m = 10 inches)
         if min_distance < self.critical_obstacle_threshold:
             self.get_logger().warn(f'⛔ CRITICAL: Obstacle at {min_distance:.2f}m! Emergency cancel!')
             self.cancel_current_goal()
             self.obstacle_count = 0
             return
         
-        # WARNING: Cancel if obstacle within 0.8m for 1 second (2 checks)
+        # WARNING: Cancel if obstacle within 0.35m for 2.5 seconds (5 checks at 0.5Hz)
         if min_distance < self.obstacle_threshold:
             self.obstacle_count += 1
-            if self.obstacle_count >= 2:  # Reduced from 3 to 2 (1 second instead of 1.5)
-                self.get_logger().warn(f'⚠️  Obstacle at {min_distance:.2f}m - Cancelling to avoid collision!')
+            if self.obstacle_count >= 5:  # Increased from 2 to 5 (2.5 seconds instead of 1 second)
+                self.get_logger().warn(f'⚠️  Sustained obstacle at {min_distance:.2f}m for 2.5s - Cancelling!')
                 self.cancel_current_goal()
                 self.obstacle_count = 0
         else:
-            # Reset counter if obstacle clears
             self.obstacle_count = 0
     
     def check_if_stuck(self):
@@ -239,110 +239,116 @@ class AutonomousExplorer(Node):
         if self.current_pose is None or not self.goal_active or self.recovery_in_progress:
             return
         
-        # Record current position
+        # Don't check for stuck when approaching person
+        if self.tracking_person or self.waiting_by_person:
+            return
+        
         current_pos = (self.current_pose.position.x, self.current_pose.position.y)
         self.last_positions.append(current_pos)
         
-        # Need at least 8 positions (4 seconds) to detect stuck - reduced from 10
-        if len(self.last_positions) < 8:
+        # Need at least 16 positions (8 seconds) to detect stuck - increased from 8
+        if len(self.last_positions) < 16:
             return
         
-        # Calculate total distance moved in last 4 seconds
         total_movement = 0.0
         for i in range(1, len(self.last_positions)):
             dx = self.last_positions[i][0] - self.last_positions[i-1][0]
             dy = self.last_positions[i][1] - self.last_positions[i-1][1]
             total_movement += math.sqrt(dx*dx + dy*dy)
         
-        # More aggressive: If moved less than 0.3m in 4 seconds, likely stuck
-        # Increased from 0.2m to catch slower stuck situations
-        if total_movement < 0.3:
+        # If moved less than 0.15m in 8 seconds, likely stuck (reduced from 0.3m in 4s)
+        if total_movement < 0.15:
             self.stuck_count += 1
-            if self.stuck_count >= 3:  # Stuck for 1.5 seconds (reduced from 5)
-                self.get_logger().warn(f'🚨 Robot appears stuck! Moved only {total_movement:.3f}m in 4s')
+            if self.stuck_count >= 4:  # Stuck for 2 seconds (increased from 3)
+                self.get_logger().warn(f'🚨 Robot appears stuck! Moved only {total_movement:.3f}m in 8s')
                 self.initiate_recovery()
                 self.stuck_count = 0
         else:
-            # Reset if making progress
             self.stuck_count = 0
             
     def exploration_callback(self):
-        """Main exploration logic - called periodically"""
+        """Main exploration logic - PERSON TRACKING IS ABSOLUTE PRIORITY"""
         if self.map_data is None or self.current_pose is None:
-            self.get_logger().info('Waiting for map and pose data...')
             return
         
-        # Skip if recovery in progress
         if self.recovery_in_progress:
             return
         
-        # Handle spinning at person (3 fast spins)
-        if self.spinning_at_person:
-            if self.spin_in_place():  # Returns True when done
-                # Spins complete, now turn away
-                self.spinning_at_person = False
-                self.spin_count = 0
-                self.spin_start_yaw = None
-                self.turning_away = True
-                self.turn_away_start_yaw = None
-            return
-        
-        # Handle turning away from person (180° turn)
-        if self.turning_away:
-            if self.turn_away_from_person():  # Returns True when done
-                # Turn complete, clear states and resume exploration
-                self.turning_away = False
-                self.turn_away_start_yaw = None
-                self.tracking_person = False
-                self.person_detected = False
-                self.person_position = None
-                self.person_depth = None
-                self.goal_active = False
-            return
-        
-        # PRIORITY: Track person if detected
-        if self.person_detected and self.person_tracking_enabled and not self.spinning_at_person and not self.turning_away:
-            self.get_logger().info('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━')
-            self.get_logger().info('🚨 PERSON DETECTED - TAKING PRIORITY ACTION')
-            self.get_logger().info(f'   goal_active={self.goal_active}, tracking={self.tracking_person}')
-            self.get_logger().info('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━')
+        # ==========================================
+        # ABSOLUTE PRIORITY 1: PERSON TRACKING
+        # This runs BEFORE anything else
+        # ==========================================
+        if self.person_detected and self.person_tracking_enabled:
+            # If we're in waiting or turning states, handle those
+            if self.waiting_by_person:
+                current_time = self.get_clock().now()
+                if self.person_wait_start_time is not None:
+                    elapsed = (current_time - self.person_wait_start_time).nanoseconds / 1e9
+                    
+                    if elapsed < self.person_wait_duration:
+                        if int(elapsed) % 2 == 0 and elapsed % 2 < 0.15:
+                            remaining = self.person_wait_duration - elapsed
+                            self.get_logger().info(f'⏳ Waiting by person... {remaining:.1f}s remaining')
+                        return
+                    else:
+                        self.get_logger().info('✅ Wait complete! Turning 180° away...')
+                        self.waiting_by_person = False
+                        self.person_wait_start_time = None
+                        self.turning_away = True
+                        self.turn_away_start_yaw = None
+                return
             
-            if self.goal_active:
-                self.get_logger().info('🛑 CANCELING CURRENT EXPLORATION GOAL!')
-                self.cancel_current_goal()
+            if self.turning_away:
+                if self.turn_away_from_person():
+                    self.turning_away = False
+                    self.turn_away_start_yaw = None
+                    self.tracking_person = False
+                    self.person_detected = False
+                    self.person_position = None
+                    self.person_depth = None
+                    self.last_person_goal = None
+                    self.last_person_goal_time = None
+                    self.goal_active = False
+                    self.get_logger().info('✅ Turned away! Resuming exploration...')
+                return
             
-            self.navigate_to_person()
-            return
+            # ACTIVE PERSON TRACKING - Update goal continuously every cycle
+            if not self.waiting_by_person and not self.turning_away:
+                # Log person tracking state occasionally
+                if not hasattr(self, '_person_track_log_counter'):
+                    self._person_track_log_counter = 0
+                    self.get_logger().info('━━━━━━━━━━━━━━━━━━━━━━━━━━━')
+                    self.get_logger().info('🎯 PERSON TRACKING MODE ACTIVE')
+                    self.get_logger().info('━━━━━━━━━━━━━━━━━━━━━━━━━━━')
+                
+                self._person_track_log_counter += 1
+                if self._person_track_log_counter >= 20:  # Every 2 seconds
+                    self.get_logger().info(f'📍 Tracking person... goal_active={self.goal_active}')
+                    self._person_track_log_counter = 0
+                
+                self.navigate_to_person()
+                return  # Don't do anything else!
         
-
-            
-        # Check if we need a new goal
+        # ==========================================
+        # PRIORITY 2: Normal exploration (only if no person detected)
+        # ==========================================
         if not self.goal_active:
-            # Check if enough time has passed since last goal completion
             if self.last_goal_completion_time is not None:
                 time_since_completion = (self.get_clock().now() - self.last_goal_completion_time).nanoseconds / 1e9
                 if time_since_completion < self.min_goal_interval:
-                    # Too soon after last goal, wait longer
                     return
             
-            if not hasattr(self, '_searching_logged') or not self._searching_logged:
-                self.get_logger().info('Searching for new exploration goal...')
-                self._searching_logged = True
             self.find_and_navigate_to_goal()
         else:
-            # Check if goal timed out (only after significant time)
+            # Check goal timeout
             if self.last_goal_time is not None:
                 elapsed = (self.get_clock().now() - self.last_goal_time).nanoseconds / 1e9
                 if elapsed > self.goal_timeout:
-                    self.get_logger().warn(f'Goal timeout ({elapsed:.1f}s) - Finding new goal')
+                    self.get_logger().warn(f'Goal timeout ({elapsed:.1f}s)')
                     self.cancel_current_goal()
-                elif elapsed > 10.0 and elapsed % 30.0 < 2.0:  # Log progress every 30 seconds
-                    self.get_logger().info(f'Goal in progress... ({elapsed:.0f}s elapsed)')
                     
     def find_and_navigate_to_goal(self):
-        self._searching_logged = False  # Reset flag
-        """Find a new exploration goal and navigate to it - FRONTIER-BASED with random fallback"""
-        # Try frontier-based exploration first (prioritizes unexplored areas)
+        """Find a new exploration goal and navigate to it"""
         goal = self.get_frontier_goal()
         
         if goal is not None:
@@ -353,7 +359,6 @@ class AutonomousExplorer(Node):
             self.get_logger().info(f'🗺️  Frontier goal at ({goal[0]:.2f}, {goal[1]:.2f}) - {distance:.2f}m away')
             self.navigate_to_goal(goal)
         else:
-            # Fallback to random exploration if no frontiers found
             self.get_logger().info('No frontiers found, trying random exploration...')
             goal = self.get_random_exploration_goal()
             if goal is not None:
@@ -367,247 +372,143 @@ class AutonomousExplorer(Node):
                 self.get_logger().warn('Could not find any exploration goal!')
     
     def navigate_to_person(self):
-        """Navigate towards detected waving person"""
-        self.get_logger().info('🚶 navigate_to_person() CALLED')
-        
-        if not self.person_position:
-            self.get_logger().warn('⚠️ No person position available!')
+        """Navigate towards detected waving person - send goal once and let Nav2 handle it"""
+        if not self.person_position or self.current_pose is None:
             return
         
-        if self.current_pose is None:
-            self.get_logger().warn('⚠️ No current pose available!')
-            return
+        # If we already have an active goal for this person, let it continue
+        if self.goal_active and self.last_person_goal is not None:
+            # Just monitor distance
+            if self.person_depth and self.person_depth <= (self.person_approach_distance + 0.15):
+                if not self.waiting_by_person:
+                    self.get_logger().info(f'🎉🎉🎉 REACHED PERSON! Distance: {self.person_depth:.2f}m')
+                    self.get_logger().info('Starting 10-second wait...')
+                    self.waiting_by_person = True
+                    self.person_wait_start_time = self.get_clock().now()
+                    
+                    # Cancel navigation and stop
+                    self.cancel_current_goal()
+                    
+                    twist = Twist()
+                    self.cmd_vel_pub.publish(twist)
+            return  # Goal already active, let Nav2 execute
         
-        self.get_logger().info(f'✅ Have person_position and current_pose, calculating goal...')
-        
-        # Calculate direction to person based on camera view
-        # person_position[0] is normalized x (0 = left, 1 = right, 0.5 = center)
-        # Camera is FRONT-FACING (aligned with robot's forward direction)
-        
-        person_x_norm = self.person_position[0]  # 0 to 1
-        
-        # Calculate robot's current orientation (yaw from quaternion)
+        # Calculate person position in world frame
         orientation = self.current_pose.orientation
-        # Convert quaternion to yaw using simplified formula
         siny_cosp = 2 * (orientation.w * orientation.z + orientation.x * orientation.y)
         cosy_cosp = 1 - 2 * (orientation.y * orientation.y + orientation.z * orientation.z)
         yaw = math.atan2(siny_cosp, cosy_cosp)
         
-        # Camera faces forward (same as robot's forward direction)
-        # person_x_norm < 0.5 means person is to the LEFT in camera view
-        # person_x_norm > 0.5 means person is to the RIGHT in camera view
-        # Map [0, 1] to approximately [-60°, +60°] FOV (120° total field of view)
+        # Camera is front-facing
+        person_x_norm = self.person_position[0]
         angle_offset = (person_x_norm - 0.5) * (math.pi / 1.5)  # ±60° FOV
-        
-        # Person angle in world frame
         person_angle = yaw + angle_offset
         
-        # Use actual depth from camera if available, otherwise estimate
-        if self.person_depth and self.person_depth > 0.5:  # Valid depth
+        # Use actual depth if available, otherwise use fallback
+        if self.person_depth and self.person_depth > 0.3:
             estimated_distance = self.person_depth
-            self.get_logger().info(f'   Using camera depth: {estimated_distance:.2f}m')
         else:
-            estimated_distance = 2.5  # Fallback estimate
-            self.get_logger().info('   Using fallback distance: 2.5m (no valid depth)')
+            estimated_distance = 3.0  # Larger fallback to be safe
         
-        # Calculate goal position in world frame
-        # Use a longer distance to ensure we actually move toward the person
-        approach_distance = 3.0  # Start navigating from 3 meters away
-        goal_x = self.current_pose.position.x + approach_distance * math.cos(person_angle)
-        goal_y = self.current_pose.position.y + approach_distance * math.sin(person_angle)
+        # Calculate goal position - put goal directly at person's location
+        # Nav2 will stop naturally when it gets close
+        goal_x = self.current_pose.position.x + estimated_distance * math.cos(person_angle)
+        goal_y = self.current_pose.position.y + estimated_distance * math.sin(person_angle)
         
-        self.get_logger().info(f'📐 Calculation:')
-        self.get_logger().info(f'   Robot at: ({self.current_pose.position.x:.2f}, {self.current_pose.position.y:.2f})')
-        self.get_logger().info(f'   Robot yaw: {yaw:.2f} rad ({math.degrees(yaw):.1f}°)')
-        self.get_logger().info(f'   Person angle offset: {angle_offset:.2f} rad ({math.degrees(angle_offset):.1f}°)')
-        self.get_logger().info(f'   Person angle (world): {person_angle:.2f} rad ({math.degrees(person_angle):.1f}°)')
-        self.get_logger().info(f'   Goal position: ({goal_x:.2f}, {goal_y:.2f})')
+        self.get_logger().info(f'🎯 SENDING PERSON GOAL: depth={estimated_distance:.2f}m, angle={math.degrees(angle_offset):.1f}°')
+        self.get_logger().info(f'   Goal: ({goal_x:.2f}, {goal_y:.2f})')
+        self.get_logger().info(f'   🚨 NAV2 WILL NOW HANDLE APPROACH - NO MORE UPDATES 🚨')
         
-        # Calculate distance to goal
-        distance_to_goal = math.sqrt(
-            (goal_x - self.current_pose.position.x)**2 +
-            (goal_y - self.current_pose.position.y)**2
-        )
-        self.get_logger().info(f'   Distance to goal: {distance_to_goal:.2f}m')
-        
-        # Check if we're close enough to the person
-        if distance_to_goal < 0.5:  # Within 50cm
-            # Already near the person - start spinning!
-            if not self.spinning_at_person:
-                self.get_logger().info(f'🎉 REACHED PERSON! Starting {self.target_spin_count} celebration spins!')
-                self.spinning_at_person = True
-                self.spin_count = 0
-                self.spin_start_yaw = None
-                # Cancel any active navigation goal
-                if self.goal_active:
-                    self.cancel_current_goal()
-        else:
-            # Send navigation goal EVERY TIME to ensure it persists
-            self.get_logger().info(f'🎯 SENDING NAVIGATION GOAL TO PERSON at ({goal_x:.2f}, {goal_y:.2f})')
-            self.navigate_to_goal((goal_x, goal_y))
-            self.tracking_person = True
-                
-    def spin_in_place(self):
-        """Execute fast 360-degree spins to indicate person found"""
-        if self.current_pose is None:
-            return False  # Not ready
-        
-        # Get current yaw
-        orientation = self.current_pose.orientation
-        siny_cosp = 2 * (orientation.w * orientation.z + orientation.x * orientation.y)
-        cosy_cosp = 1 - 2 * (orientation.y * orientation.y + orientation.z * orientation.z)
-        current_yaw = math.atan2(siny_cosp, cosy_cosp)
-        
-        # Initialize spin if starting new spin
-        if self.spin_start_yaw is None:
-            self.spin_start_yaw = current_yaw
-            self.get_logger().info(f'🔄 Spin {self.spin_count + 1}/{self.target_spin_count} starting...')
-        
-        # Calculate total rotation since spin started
-        yaw_diff = current_yaw - self.spin_start_yaw
-        # Normalize to account for wrap-around
-        while yaw_diff > math.pi:
-            yaw_diff -= 2 * math.pi
-        while yaw_diff < -math.pi:
-            yaw_diff += 2 * math.pi
-        
-        total_rotation = abs(yaw_diff)
-        
-        # Check if we've completed a full rotation (2π radians = 360°)
-        if total_rotation >= (2 * math.pi - 0.2):  # Allow small error margin
-            self.spin_count += 1
-            self.spin_start_yaw = None
-            
-            if self.spin_count >= self.target_spin_count:
-                # Completed all spins!
-                self.get_logger().info(f'✅ Completed {self.target_spin_count} spins!')
-                
-                # Stop spinning
-                twist = Twist()
-                self.cmd_vel_pub.publish(twist)
-                
-                return True  # Spinning complete
-            else:
-                self.get_logger().info(f'✅ Spin {self.spin_count}/{self.target_spin_count} done!')
-        else:
-            # Continue spinning FAST
-            twist = Twist()
-            twist.angular.z = 1.2  # Fast spin speed (rad/s)
-            self.cmd_vel_pub.publish(twist)
-        
-        return False  # Still spinning
+        self.last_person_goal = (goal_x, goal_y)
+        self.last_person_goal_time = self.get_clock().now()
+        self.navigate_to_goal((goal_x, goal_y), is_person_goal=True)
     
     def turn_away_from_person(self):
         """Turn 180° to face away from person"""
         if self.current_pose is None:
             return False
         
-        # Get current yaw
         orientation = self.current_pose.orientation
         siny_cosp = 2 * (orientation.w * orientation.z + orientation.x * orientation.y)
         cosy_cosp = 1 - 2 * (orientation.y * orientation.y + orientation.z * orientation.z)
         current_yaw = math.atan2(siny_cosp, cosy_cosp)
         
-        # Initialize turn if starting
         if self.turn_away_start_yaw is None:
             self.turn_away_start_yaw = current_yaw
-            self.get_logger().info('🔄 Turning away from person...')
+            self.get_logger().info('🔄 Turning 180° away from person...')
         
-        # Calculate how much we've turned
         yaw_diff = current_yaw - self.turn_away_start_yaw
         while yaw_diff > math.pi:
             yaw_diff -= 2 * math.pi
         while yaw_diff < -math.pi:
             yaw_diff += 2 * math.pi
         
-        # Check if we've turned 180° (π radians)
-        if abs(abs(yaw_diff) - math.pi) < 0.15:  # Within 0.15 rad of 180°
-            self.get_logger().info('✅ Turned away! Searching for next person...')
-            
-            # Stop turning
+        if abs(abs(yaw_diff) - math.pi) < 0.15:
+            self.get_logger().info('✅ 180° turn complete!')
             twist = Twist()
             self.cmd_vel_pub.publish(twist)
-            
-            return True  # Turn complete
+            return True
         else:
-            # Continue turning
             twist = Twist()
-            twist.angular.z = 0.8  # Moderate turn speed
+            twist.angular.z = 0.8
             self.cmd_vel_pub.publish(twist)
         
-        return False  # Still turning
+        return False
     
     def get_frontier_goal(self):
-        """Find frontier cells (boundary between known and unknown space) and prioritize larger unexplored regions"""
+        """Find frontier cells (boundary between known and unknown space)"""
         if self.map_data is None or self.map_info is None or self.current_pose is None:
             return None
             
         height, width = self.map_data.shape
         frontiers = []
         
-        # Find frontier cells with better scoring
         for y in range(1, height - 1):
             for x in range(1, width - 1):
-                # Check if cell is free (value 0)
                 if self.map_data[y, x] == 0:
-                    # Check if any neighbor is unknown (value -1)
                     neighbors = [
                         self.map_data[y-1, x], self.map_data[y+1, x],
                         self.map_data[y, x-1], self.map_data[y, x+1]
                     ]
                     if -1 in neighbors:
-                        # Convert grid coordinates to world coordinates
                         world_x = x * self.map_info.resolution + self.map_info.origin.position.x
                         world_y = y * self.map_info.resolution + self.map_info.origin.position.y
                         
-                        # Calculate distance from robot
                         dist = math.sqrt(
                             (world_x - self.current_pose.position.x)**2 +
                             (world_y - self.current_pose.position.y)**2
                         )
                         
-                        # Include frontiers within exploration radius
                         if dist < self.exploration_radius:
-                            # Count nearby unknown cells (measure of unexplored area size)
                             unknown_count = self.count_nearby_unknown(x, y, radius=3)
                             frontiers.append((world_x, world_y, dist, unknown_count))
         
         if not frontiers:
             return None
             
-        # Filter out recently explored frontiers AND blacklisted areas
         filtered_frontiers = []
         for frontier in frontiers:
             if not self.is_recently_explored(frontier, threshold=1.5) and not self.is_near_blacklisted(frontier):
                 filtered_frontiers.append(frontier)
         
         if not filtered_frontiers:
-            self.get_logger().info('All frontiers recently explored or blacklisted, clearing history...')
-            self.explored_frontiers = self.explored_frontiers[-10:]  # Keep only last 10
-            # Try again without blacklist if desperate
+            self.explored_frontiers = self.explored_frontiers[-10:]
             filtered_frontiers = [f for f in frontiers if not self.is_recently_explored(f, threshold=1.5)]
             if not filtered_frontiers:
-                filtered_frontiers = frontiers  # Use all frontiers as last resort
+                filtered_frontiers = frontiers
         
         if len(filtered_frontiers) >= self.min_frontier_size:
-            # Score frontiers: prioritize larger unexplored areas, with distance as secondary factor
-            # Score = unknown_count * 2.0 - distance * 0.5 (higher score = better)
             scored_frontiers = []
             for f in filtered_frontiers:
                 world_x, world_y, dist, unknown_count = f
                 score = unknown_count * 2.0 - dist * 0.5
                 scored_frontiers.append((world_x, world_y, dist, unknown_count, score))
             
-            # Sort by score (highest first)
             scored_frontiers.sort(key=lambda f: f[4], reverse=True)
-            
-            # Take the best frontier
             best = scored_frontiers[0]
             goal = (best[0], best[1])
             
-            # Add to explored frontiers history
             self.explored_frontiers.append(goal + (best[2],))
-            # Keep last 100 explored frontiers for better memory
             if len(self.explored_frontiers) > 100:
                 self.explored_frontiers.pop(0)
                 
@@ -620,31 +521,25 @@ class AutonomousExplorer(Node):
         if self.map_data is None or self.map_info is None or self.current_pose is None:
             return None
             
-        # Try multiple random points
         for _ in range(50):
-            # Generate random angle and distance
             angle = random.uniform(0, 2 * math.pi)
             distance = random.uniform(1.0, self.exploration_radius)
             
-            # Calculate world coordinates
             world_x = self.current_pose.position.x + distance * math.cos(angle)
             world_y = self.current_pose.position.y + distance * math.sin(angle)
             
-            # Convert to grid coordinates
             grid_x = int((world_x - self.map_info.origin.position.x) / self.map_info.resolution)
             grid_y = int((world_y - self.map_info.origin.position.y) / self.map_info.resolution)
             
-            # Check if valid
             if (0 <= grid_x < self.map_data.shape[1] and 
                 0 <= grid_y < self.map_data.shape[0]):
-                # Check if free space (value 0)
                 if self.map_data[grid_y, grid_x] == 0:
                     return (world_x, world_y)
                     
         return None
         
     def count_nearby_unknown(self, grid_x, grid_y, radius=3):
-        """Count unknown cells near a frontier point to estimate unexplored area size"""
+        """Count unknown cells near a frontier point"""
         if self.map_data is None:
             return 0
         
@@ -655,14 +550,14 @@ class AutonomousExplorer(Node):
             for dx in range(-radius, radius + 1):
                 ny, nx = grid_y + dy, grid_x + dx
                 if 0 <= ny < height and 0 <= nx < width:
-                    if self.map_data[ny, nx] == -1:  # Unknown cell
+                    if self.map_data[ny, nx] == -1:
                         unknown_count += 1
         
         return unknown_count
     
     def is_recently_explored(self, frontier, threshold=1.5):
-        """Check if a frontier was recently explored (with larger threshold to avoid revisiting)"""
-        for explored in self.explored_frontiers[-30:]:  # Check last 30 instead of 10
+        """Check if a frontier was recently explored"""
+        for explored in self.explored_frontiers[-30:]:
             dist = math.sqrt(
                 (frontier[0] - explored[0])**2 +
                 (frontier[1] - explored[1])**2
@@ -672,8 +567,7 @@ class AutonomousExplorer(Node):
         return False
     
     def is_near_blacklisted(self, frontier, threshold=3.0):
-        """Check if a frontier is near a blacklisted (stuck) location"""
-        # Increased threshold from 2.0m to 3.0m for wider avoidance
+        """Check if a frontier is near a blacklisted location"""
         for blacklisted in self.blacklisted_goals:
             dist = math.sqrt(
                 (frontier[0] - blacklisted[0])**2 +
@@ -683,12 +577,10 @@ class AutonomousExplorer(Node):
                 return True
         return False
         
-    def navigate_to_goal(self, goal):
-        """Send navigation goal to Nav2"""
-        self.get_logger().info(f'🚀 navigate_to_goal() called with: ({goal[0]:.2f}, {goal[1]:.2f})')
-        
-        if not self.nav_client.wait_for_server(timeout_sec=5.0):
-            self.get_logger().error('❌ Navigation action server not available!')
+    def navigate_to_goal(self, goal, is_person_goal=False):
+        """Send navigation goal to Nav2 - handles continuous updates for person tracking"""
+        if not self.nav_client.wait_for_server(timeout_sec=1.0):
+            self.get_logger().error('Navigation action server not available!')
             return
             
         goal_pose = PoseStamped()
@@ -698,7 +590,6 @@ class AutonomousExplorer(Node):
         goal_pose.pose.position.y = goal[1]
         goal_pose.pose.position.z = 0.0
         
-        # Calculate and store goal distance
         if self.current_pose is not None:
             dx = goal[0] - self.current_pose.position.x
             dy = goal[1] - self.current_pose.position.y
@@ -711,18 +602,21 @@ class AutonomousExplorer(Node):
             self.current_goal_distance = 0.0
             goal_pose.pose.orientation.w = 1.0
             
-        # Create action goal
         nav_goal = NavigateToPose.Goal()
         nav_goal.pose = goal_pose
         
-        # Send goal
+        # For person tracking, we send goals continuously - don't log every time
+        if is_person_goal:
+            # Only log if this is a new tracking session or significant change
+            if not self.goal_active:
+                self.get_logger().info(f'📤 Starting PERSON tracking navigation')
+        else:
+            # Normal exploration goal - always log
+            self.get_logger().info(f'📤 Sending exploration goal: ({goal[0]:.2f}, {goal[1]:.2f}), dist={self.current_goal_distance:.2f}m')
+        
         self.goal_active = True
         self.last_goal_time = self.get_clock().now()
-        self.obstacle_count = 0  # Reset obstacle counter for new goal
-        
-        self.get_logger().info(f'📤 Sending goal to Nav2: ({goal[0]:.2f}, {goal[1]:.2f})')
-        self.get_logger().info(f'   Frame: {goal_pose.header.frame_id}')
-        self.get_logger().info(f'   Distance: {self.current_goal_distance:.2f}m')
+        self.obstacle_count = 0
         
         send_goal_future = self.nav_client.send_goal_async(
             nav_goal,
@@ -736,31 +630,28 @@ class AutonomousExplorer(Node):
         if not goal_handle.accepted:
             self.get_logger().warn('Goal rejected by navigation server')
             self.goal_active = False
+            self.goal_handle = None
             return
             
-        self.get_logger().info('Goal accepted by navigation server')
+        self.goal_handle = goal_handle  # Store for cancellation
         
         result_future = goal_handle.get_result_async()
         result_future.add_done_callback(self.navigation_result_callback)
         
     def navigation_feedback_callback(self, feedback_msg):
         """Handle navigation feedback"""
-        # Can add progress monitoring here if needed
         pass
         
     def navigation_result_callback(self, future):
         """Handle navigation result"""
         result = future.result().result
         
-        # Calculate how long this goal took
         if self.last_goal_time is not None:
             elapsed = (self.get_clock().now() - self.last_goal_time).nanoseconds / 1e9
             self.get_logger().info(f'✅ Navigation goal completed! ({elapsed:.1f}s, {self.current_goal_distance:.2f}m)')
-        else:
-            self.get_logger().info('✅ Navigation goal completed!')
         
-        # Mark goal as inactive and record completion time
         self.goal_active = False
+        self.goal_handle = None
         self.last_goal_time = None
         self.last_goal_completion_time = self.get_clock().now()
         self.obstacle_count = 0
@@ -770,55 +661,55 @@ class AutonomousExplorer(Node):
         self.recovery_in_progress = True
         self.get_logger().info('🔄 Initiating recovery behavior...')
         
-        # Blacklist current goal location
         if self.current_pose is not None:
             stuck_location = (self.current_pose.position.x, self.current_pose.position.y)
             self.blacklisted_goals.append(stuck_location)
-            # Keep only last 20 blacklisted locations
             if len(self.blacklisted_goals) > 20:
                 self.blacklisted_goals.pop(0)
-            self.get_logger().info(f'Blacklisted location: ({stuck_location[0]:.2f}, {stuck_location[1]:.2f})')
         
-        # Cancel current goal
         self.cancel_current_goal()
-        
-        # Execute recovery: back up and rotate
         self.execute_recovery_maneuver()
         
     def execute_recovery_maneuver(self):
-        """Execute aggressive recovery maneuver: back up and rotate significantly"""
-        self.get_logger().info('⬅️ Backing up aggressively...')
+        """Execute recovery maneuver: back up and rotate - REDUCED DURATION"""
+        self.get_logger().info('⬅️ Backing up...')
         
-        # Back up for 3 seconds at higher speed
+        # Back up for 1.5 seconds at moderate speed (reduced from 3 seconds)
         backup_cmd = Twist()
-        backup_cmd.linear.x = -0.3  # Back up faster (was -0.2)
-        for _ in range(30):  # 3 seconds at 10Hz (was 20)
+        backup_cmd.linear.x = -0.2  # Reduced from -0.3
+        for _ in range(15):  # 1.5 seconds (reduced from 30 = 3 seconds)
             self.cmd_vel_pub.publish(backup_cmd)
             
-        # Stop
         stop_cmd = Twist()
         self.cmd_vel_pub.publish(stop_cmd)
         
-        # Rotate 135 degrees (more than 90)
-        self.get_logger().info('🔄 Rotating significantly to find clear path...')
+        # Rotate 90 degrees instead of 135 (faster recovery)
+        self.get_logger().info('🔄 Rotating to find clear path...')
         rotate_cmd = Twist()
-        rotate_cmd.angular.z = 0.6  # Rotate faster (was 0.5)
-        for _ in range(22):  # ~2.2 seconds for 135° (was 15)
+        rotate_cmd.angular.z = 0.5  # Reduced from 0.6
+        for _ in range(15):  # ~1.5 seconds for 90° (reduced from 22)
             self.cmd_vel_pub.publish(rotate_cmd)
         
-        # Stop
         self.cmd_vel_pub.publish(stop_cmd)
         
-        self.get_logger().info('✅ Recovery maneuver complete')
+        self.get_logger().info('✅ Recovery complete')
         self.recovery_in_progress = False
-        self.last_positions.clear()  # Clear position history
+        self.last_positions.clear()
     
     def cancel_current_goal(self):
-        """Cancel the current navigation goal"""
+        """Cancel the current navigation goal - properly cancel Nav2 action"""
         if self.goal_active:
-            # Stop the robot
+            # Properly cancel the Nav2 action if we have a goal_handle
+            if self.goal_handle is not None:
+                self.get_logger().info('🛑 Canceling Nav2 goal...')
+                cancel_future = self.goal_handle.cancel_goal_async()
+                # Don't wait for cancellation to complete
+                self.goal_handle = None
+            
+            # Stop the robot immediately
             stop_cmd = Twist()
             self.cmd_vel_pub.publish(stop_cmd)
+            
             self.goal_active = False
             self.last_goal_time = None
             self.get_logger().info('Current goal cancelled')
@@ -839,6 +730,3 @@ def main(args=None):
 
 if __name__ == '__main__':
     main()
-
-
-

@@ -16,8 +16,6 @@ class RobotState(Enum):
     EXPLORING = 1           # Autonomous navigation active
     TRACKING_PERSON = 2     # Person detected, turning to center them
     APPROACHING_PERSON = 3  # Moving toward person
-    AT_PERSON = 4          # Reached person, celebrating
-    TURNING_AWAY = 5       # Turning 180° to leave
 
 class VisualServoingTracker(Node):
     def __init__(self):
@@ -48,12 +46,6 @@ class VisualServoingTracker(Node):
         self.turn_speed = 0.4  # rad/s - gentler turns
         self.approach_time = 0.0  # Track how long we've been approaching
         
-        # Celebration tracking
-        self.spin_count = 0
-        self.target_spins = 3
-        self.spin_start_time = None
-        self.turn_away_start_time = None
-        
         # Control loop
         self.control_timer = self.create_timer(0.1, self.control_loop)  # 10Hz
         
@@ -79,7 +71,8 @@ class VisualServoingTracker(Node):
                     self.get_logger().info('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━')
                     self.get_logger().info('👋 WAVING PERSON DETECTED!')
                     self.get_logger().info(f'   Position: x={self.person_x:.2f}')
-                    self.get_logger().info(f'   Depth: {self.person_depth:.2f}m' if self.person_depth else '   Depth: unknown')
+                    depth_str = f'{self.person_depth:.2f}m' if self.person_depth and self.person_depth > 0.1 else 'invalid'
+                    self.get_logger().info(f'   Depth: {depth_str}')
                     self.get_logger().info('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━')
             else:
                 # Check if we lost the person
@@ -99,22 +92,14 @@ class VisualServoingTracker(Node):
         """Main control loop - state machine"""
         
         if self.state == RobotState.EXPLORING:
-            # Slowly rotate to scan for people
-            twist = Twist()
-            twist.angular.z = 0.3  # Slow rotation to scan environment
-            self.cmd_vel_pub.publish(twist)
+            # Do nothing, let autonomous navigator control
+            pass
             
         elif self.state == RobotState.TRACKING_PERSON:
             self.track_person()
             
         elif self.state == RobotState.APPROACHING_PERSON:
             self.approach_person()
-            
-        elif self.state == RobotState.AT_PERSON:
-            self.celebrate_at_person()
-            
-        elif self.state == RobotState.TURNING_AWAY:
-            self.turn_away()
     
     def track_person(self):
         """Quickly center person and start approaching"""
@@ -152,21 +137,21 @@ class VisualServoingTracker(Node):
         # Use depth if valid (> 0.1m), otherwise use time-based approach
         if self.person_depth and self.person_depth > 0.1:
             if self.person_depth <= self.target_distance:
-                # Reached person by depth!
-                self.get_logger().info(f'🎉 REACHED PERSON at {self.person_depth:.2f}m!')
-                self.state = RobotState.AT_PERSON
-                self.spin_count = 0
-                self.spin_start_time = self.get_clock().now()
+                # Reached person! Resume exploration immediately
+                self.get_logger().info(f'🎉 REACHED PERSON at {self.person_depth:.2f}m! Looking for next person...')
                 self.stop_robot()
+                self.state = RobotState.EXPLORING
+                self.person_detected = False
+                self.approach_time = 0.0
                 return
         else:
             # Invalid depth, use time-based approach (8 seconds of forward motion)
             if self.approach_time > 8.0:
-                self.get_logger().info(f'🎉 REACHED PERSON (time-based: {self.approach_time:.1f}s)!')
-                self.state = RobotState.AT_PERSON
-                self.spin_count = 0
-                self.spin_start_time = self.get_clock().now()
+                self.get_logger().info(f'🎉 REACHED PERSON (time-based: {self.approach_time:.1f}s)! Looking for next person...')
                 self.stop_robot()
+                self.state = RobotState.EXPLORING
+                self.person_detected = False
+                self.approach_time = 0.0
                 return
         
         # Move forward with gentle steering correction
@@ -182,46 +167,6 @@ class VisualServoingTracker(Node):
         if int(self.approach_time) % 2 == 0 and self.approach_time % 2 < 0.15:
             depth_str = f'{self.person_depth:.2f}m' if (self.person_depth and self.person_depth > 0.1) else 'invalid'
             self.get_logger().info(f'🚶 Approaching: time={self.approach_time:.1f}s, depth={depth_str}, error={error:.2f}')
-    
-    def celebrate_at_person(self):
-        """Do 3 fast 360° spins"""
-        elapsed = (self.get_clock().now() - self.spin_start_time).nanoseconds / 1e9
-        
-        # Each spin takes ~5 seconds at 1.2 rad/s
-        spin_duration = 5.5
-        
-        if elapsed < spin_duration * self.target_spins:
-            # Still spinning
-            current_spin = int(elapsed / spin_duration) + 1
-            if current_spin != self.spin_count:
-                self.spin_count = current_spin
-                self.get_logger().info(f'🔄 Spin {self.spin_count}/{self.target_spins}')
-            
-            twist = Twist()
-            twist.angular.z = 1.2  # Fast spin
-            self.cmd_vel_pub.publish(twist)
-        else:
-            # Spins complete!
-            self.get_logger().info(f'✅ Completed {self.target_spins} spins!')
-            self.stop_robot()
-            self.state = RobotState.TURNING_AWAY
-            self.turn_away_start_time = self.get_clock().now()
-    
-    def turn_away(self):
-        """Turn 180° to face away from person"""
-        elapsed = (self.get_clock().now() - self.turn_away_start_time).nanoseconds / 1e9
-        
-        # 180° turn takes ~4 seconds at 0.8 rad/s
-        if elapsed < 4.0:
-            twist = Twist()
-            twist.angular.z = 0.8
-            self.cmd_vel_pub.publish(twist)
-        else:
-            # Turn complete, resume exploration
-            self.get_logger().info('✅ Turned away! Resuming exploration for next person...')
-            self.stop_robot()
-            self.state = RobotState.EXPLORING
-            self.person_detected = False
     
     def stop_robot(self):
         """Stop all motion"""
